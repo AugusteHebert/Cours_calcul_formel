@@ -1,4 +1,5 @@
-\documentclass[10pt,a4paper]{report}
+\documentclass[12pt]{report}
+\usepackage{a4wide}
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 \usepackage[T1]{fontenc}
@@ -29,6 +30,8 @@
 \newtheorem*{exs}{Exemples}
 \newtheorem*{rem}{Remarque}
 \newtheorem*{rems}{Remarques}
+\newtheorem{remarque}[thm]{Remarque}
+\newtheorem{remarques}[thm]{Remarques}
 \newtheorem*{but}{But}
 \newtheorem{Def}[thm]{Définition}
 \newtheorem{Def/prop}[thm]{Définition/Proposition}
@@ -39,6 +42,10 @@
 \newtheorem*{nota}{Notation}
 \newtheorem*{notas}{Notations}
 \newtheorem{Cor}[thm]{Corollaire}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{lemme}[thm]{Lemme}
+
+
 \title{\Huge{Calcul formel}}
 
 
@@ -110,18 +117,12 @@ Le théorème précédent implique que: $\forall (a,b) \in \mathbb{Z}\times \mat
 Le nombre $q$ est appelé le quotient de la division euclidienne de $a$ par $b$, et $r$ le reste, noté $a$ mod $b$.
 \end{rem}
 
-\begin{proof}(voir \cite{demazure2008cours})
+\begin{proof}
 Le fait que $\mathbb{Z}$ est intègre est déjà connu. Quitte à remplacer $b$ par $-b$ et  $q$ par $-q$, on peut supposer que $b>0$. 
 
 \begin{itemize}
 
-\item[$\bullet$] \textbf{existence de $(q,r)$}: on présente ici un algorithme permettant de déterminer un tel couple $(q,r)$.  On va construire une suite $\big((q_i,r_i)\big)_{i\in \llbracket 0,k\rrbracket}\in (\Z\times \Z)^{k+1}$ (où $k$ sera un nombre dépendant de $a$ et $b$) telle que $a=b q_i+r_i$ pour tous $i\in \llbracket 0,k\rrbracket$ et $r_k\in \llbracket 0,b-1\rrbracket$.  On pose $(q_0,r_0)=(0,a)$. Soit $i\in \N$ tel que l'on ait construit $(q_i,r_i)$. Alors si $0< r_i<|b|$, on pose $k=i$ et on s'arrête là. Sinon on pose : \[ r_{i+1}=\left\{\begin{aligned} &r_i-b &\text{ si }r_i\geq b\\
-&r_i+b &\text{ si }r_i< 0\end{aligned}\right. \text{ et }q_{i+1}=\frac{a-r_{i+1}}{b}=\left\{\begin{aligned} &q_i+1&\text{ si }r_i\geq b\\
-&q_i-1  &\text{ si }r_i< 0\end{aligned}\right..\]
-
-Montrons que cet algorithme se termine. Soit $i$ tel qu'on a défini $(q_i,r_i)$ et tel que $r_i\notin \llbracket 0, |b|-1\rrbracket$. Si $r_i\geq 0$, alors $0\leq r_{i+1}<r_i$. Si $r_i<0$, alors $r_{i+1}=r_i+b>r_i$. Par récurrence on en déduit que si $a=r_0> 0$, on a $r_0>r_1>\ldots> r_i \geq 0$ et si $a=r_0<0$, on a $r_0<r_1<\ldots < r_i < b$. Il y a donc un nombre fini d'étapes et l'algorithme se termine.
-
-Par hypothèse, $r_k\in \llbracket 0, b-1\rrbracket$. De plus,  $bq_k+r_k=a$, d'où l'existence de $(q,r)$.
+\item[$\bullet$] \textbf{existence de $(q,r)$} Soit $X=\{a-bq|q\in \Z\}\cap \N$. Alors $X$ est non-vide (car ar exemple si $q=-ba^2$, $a-bq=a^2b^2-a\in X$). Soit $r$ le minimum de $X$. Alors $r\geq 0$ et $r<|b|$ (car sinon, $r-|b|\in X$ et $r-|b|<r$).  Par définition, il existe $q\in \Z$ tel que $a=bq+r$.
 
 \item[$\bullet$] \textbf{unicité de $(q,r)$}: Supposons qu'on a $a=bq+r=bq'+r'$ tel que $0 \leq r < |b|$, $0 \leq r' < |b|$. \par 
 On a alors $b(q-q')=r'-r$; or $-|b|<r'-r<|b|$, d'où $-|b|<b(q-q')<|b|$. \par 
@@ -136,7 +137,7 @@ On obtient donc $q=q'$, et donc $r=r'$.
 
 \begin{rems}\
 \begin{itemize}
-\item[•] Dans la preuve  précédente, l'introduction de la suite $(q_i)$ n'est pas indispensable, puisqu'on pourrait calculer $(r_i)$ puis poser $q=\frac{a-r}{b}$. Mais il faudrait alors faire une division ... L'intérêt d'introduire $(q_i)$ est que cela permet de calculer $q_{i+1}$ en fonction de $q_i$ à chaque étape, et donc de calculer effectivement $q=q_k$.
+
 
 \item[•] si $b>0$, alors $q=\lfloor {a}/{b} \rfloor$ et $r=a-bq$.
 \item[•] si $b<0$, alors $q=\lfloor {a}/{b} \rfloor +1 $ et $r=a-bq$.
@@ -228,7 +229,7 @@ C'est une conséquence de la définition/proposition~\ref{def_prop_PGCD}.
 
 
 
-\begin{Prop}
+\begin{Prop}\label{propReduction_cas_premiers_entre_eux}
 Soient $a,b,d \in \mathbb{Z}^*$. Alors 
 $$  a\wedge b=d \Longleftrightarrow \exists a',b' \in \mathbb{Z}: \ a=da', \ b=db', a'\wedge b'=1 . $$
 \end{Prop}
@@ -257,10 +258,6 @@ Dans la proposition précédente, on a $a'=\frac{a}{d}$ et $b'=\frac{b}{d}$.
 \begin{proof}
 Exercice.
 \end{proof}
-
-
-
-\subsection{Entiers premiers entre eux}
 
 
 
@@ -303,7 +300,7 @@ L'algorithme suivant permet de calculer le PGCD de 2 entiers $a>0$ et $b \geqsla
 \begin{proof}
 Montrons que l'algorithme termine. On pose $a_0=a$ et $b_0=b$. Soit $i\in \N$ tel qu'on a défini $a_i$ et $b_i$. Si $b_i=0$, on pose $k=i$ et on s'arrête là. Sinon, on pose $a_{i+1}=b_i$ et $b_{i+1}=a_i\mathrm{\ mod\ }b_i$. On a alors, $b_{i+1}< b_i$. On en déduit que tant que $b_i$ est défini, on a $0\leq b_i<b_{i-1}<\ldots < b_0=b$. On a donc $i\leq b$ et donc l'algorithme termine (et le nombre $k+1$ d'étapes est inférieur ou égal à $b+1$). 
 
-De plus, si $i\in \llbracket 1,k\rrbracket$, on a $a_i\wedge b_i=a_{i+1}\wedge b_{i+1}$ par le Lemma~\ref{lemEuclide}. On en déduit que $a\wedge b= a_0\wedge b_0=a_k\wedge b_k =a_k\wedge 0=a_k$.
+De plus, si $i\in \llbracket 1,k\rrbracket$, on a $a_i\wedge b_i=a_{i+1}\wedge b_{i+1}$ par le lemme~\ref{lemEuclide}. On en déduit que $a\wedge b= a_0\wedge b_0=a_k\wedge b_k =a_k\wedge 0=a_k$.
 \end{proof}
 
 \vrt{Exemple du fonctionnement de l'algorithme avec Euclide(27,15).}
@@ -364,8 +361,8 @@ $ 24=3 \times 8 +0$   &  &
 
 \end{ex}
 
-\vrt{Les lignes 2 et 3 de l'algorithme déterminent l'arrêt du processus: si $b=0$, alors $a=PGCD(a,b)=a \times 1 + b \times 0 $, et $(a,1,0)$ est alors renvoyé.\par 
-Si $b \neq 0$, Euclide-étendu calcule d'abord $(d',u',v')$ tel que $d'=PGCD(b,a \text{ mod }b)$ et ainsi, $d'=bu'+ (a \text{ mod }b) v'$. On a alors $d=PGCD(a,b)=PGCD(b,a \text{ mod }b)=d'$, et $d=d'=bu'+(a \text{ mod }b)v'=bu'+(a-\lfloor \tfrac{a}{b} \rfloor b )v' =av'+b (u'-\lfloor \tfrac{a}{b}\rfloor  v' ) $. Donc le choix $u=v'$ et $v=u'-\lfloor \tfrac{a}{b}\rfloor v' $ donne une solution à l'équation $d=au+bv$. L'algorithme est donc valable.
+\vrt{Les lignes 2 et 3 de l'algorithme déterminent l'arrêt du processus: si $b=0$, alors $a=a\wedge b=a \times 1 + b \times 0 $, et $(a,1,0)$ est alors renvoyé.\par 
+Si $b \neq 0$, Euclide-étendu calcule d'abord $(d',u',v')$ tel que $d'=b\wedge (a \text{ mod }b)$ et ainsi, $d'=bu'+ (a \text{ mod }b) v'$. On a alors $d=a\wedge b =b \wedge (a \text{ mod }b)=d'$, et $d=d'=bu'+(a \text{ mod }b)v'=bu'+(a-\lfloor \tfrac{a}{b} \rfloor b )v' =av'+b (u'-\lfloor \tfrac{a}{b}\rfloor  v' ) $. Donc le choix $u=v'$ et $v=u'-\lfloor \tfrac{a}{b}\rfloor v' $ donne une solution à l'équation $d=au+bv$. L'algorithme est donc valable.
 }
 
 
@@ -434,7 +431,7 @@ Soient $a\in \Z$ et $p\in \mathbb{P}$. \begin{enumerate}
 \begin{proof}
 (1) Tout diviseur commun à $a$ et à $p$ divise $p$ donc appartient à $\{1,-1,p,-p\}$.  
 
-(2) est une conséquence de (1) et du théorème de Gauss (théorème~\ref{thm_Gauss}).
+(2) est une conséquence de (1) et du lemme de Gauss (lemme~\ref{lem_Gauss}).
 \end{proof}
 
 \begin{Lem}\label{lemExistence_diviseur_premier}
@@ -445,7 +442,7 @@ Soit $n\in \Z$ tel que $|n|\geq 2$. Soit $p$ son plus petit diviseur supérieur 
 Soit $q$ un diviseur de $q$ différent de $1$ ou $-1$. Alors $|q|$ divise $p$ donc $|q|$ divise $n$ donc $|q|\geq p$ donc $|q|=p$, ce qui prouve le lemme.
 \end{proof}
 
-\begin{Prop}
+\begin{Prop}(Euclide)
 Il existe une infinité de nombre premiers.
 \end{Prop}
 
@@ -468,7 +465,7 @@ Pour l'unicité, on procède également par récurrence en utilisant le lemme d'
 Soit $n\in \N_{\geq 2}$ et $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ sa décomposition en produit de facteurs premiers (avec les même notations qu'au théorème~\ref{thmDécomposition_produit_facteurs_premiers}). Alors l'ensemble des diviseurs de $n$ est \[\{\epsilon p_1^{\alpha_1'}\ldots p_k^{\alpha_k'}|\epsilon\in \{-1,1\}, \alpha_i'\in \llbracket 0,\alpha_k\rrbracket\forall i\in \llbracket 1,k\rrbracket\}.\]
 \end{Cor}
 
-\begin{Cor}
+\begin{Cor}\label{corExpression_PGCD}
 Soient $a,b\in \N_{\geq 2}$. On écrit $a=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ et $b=p_1^{\beta_1}\ldots p_{k}^{\beta_k}$, avec $p_1,\ldots,p_k\in \mathbb{P}$ et $\alpha_1,\ldots,\alpha_k,\beta_1,\ldots,\beta_k\in \N$. Alors $a\wedge b=p_1^{\gamma_1}\ldots p_k^{\gamma_k}$, avec $\gamma_i=\min \{\alpha_i,\beta_i\}$, pour tout $i\in \llbracket 1,k\rrbracket$.
 \end{Cor}
 
@@ -483,56 +480,71 @@ Le théorème~\ref{thmDécomposition_produit_facteurs_premiers} reste vrai dans 
 
 \section{Généralités}
 
-Soit $n \in \mathbb{N}^*$. On note $\mathbb{Z}/n \mathbb{Z}$ l'ensemble des restes possibles dans la division euclidienne par $n$, soit
-$$  \mathbb{Z}/n\mathbb{Z}= \{  \overline{0}, \overline{1}, \ldots, \overline{n-1} \}.   $$ 
-C'est donc un ensemble à $n$ éléments.
+Soit $n \in \mathbb{N}^*$. On munit $\Z$ de la relation d'équivalence $x\sim y$ si et seulement si $y-x\in n\Z$, pour $x,y\in \Z$.  On note $\mathbb{Z}/n \mathbb{Z}$ l'ensemble quotient de $\Z$ par cette relation d'équivalence. Si $x\in \Z$, on note $\overline{x}$ sa classe (d'équivalence). On a alors $\overline{x}=x+n\Z$. De plus $Z/n\Z=\{\overline{x}|x\in \Z\}=\{\overline{x}| x\in \llbracket 0,n-1\rrbracket\}$ et cet ensemble a $n$ éléments.
 
-\begin{Prop}
-On peut munir $\mathbb{Z}/n\mathbb{Z}$ d'une structure d'anneau commutatif, grâce aux lois induites par l'addition et la multiplication sur $\mathbb{Z}$.
-\end{Prop}
+
+\begin{Def/prop}(exercice)
+Soient  $\overline{x},\overline{y}\in \Z/n\Z$. On pose $\overline{x}+\overline{y}=\overline{x+y}$ et $\overline{x}.\overline{y}=\overline{xy}$. Ces opérations sont bien définies : si $x',y'\in \Z$ sont tels que $\overline{x}=\overline{x'}$ et $\overline{y}=\overline{y'}$, alors $\overline{x+y}=\overline{x'+y'}$ et $\overline{x}.\overline{y}=\overline{x'}.\overline{y'}$. 
+
+Alors $(\Z/n\Z,+,.)$ est un anneau commutatif unitaire.
+\end{Def/prop}
 
 
 
 \subsection{Équations linéaires modulaires}
 
-On pose dans ce paragraphe $n,a,b \in \mathbb{N}^*$. Le but ici est de résoudre l'équation 
+Dans cette partie, on fixe $n\in \N^*$. Soient $a,b \in \mathbb{N}^*$. Le but ici est de résoudre l'équation :
 \begin{equation}\label{E1}
-ax \equiv b [n]
-\end{equation}
+ax \equiv b [n],
+\end{equation} d'inconnue $x\in \Z$. Soit $x\in \Z$. Alors $x$ est solution de \eqref{E1} si et seulement si $\overline{x}$ est solution de l'équation : \begin{equation}\label{E1_Z_nZ}
+\overline{a}\overline{x}=\overline{b}.
+\end{equation} On va donc surtout étudier l'équation~\eqref{E1_Z_nZ}.
+
+
 
 \begin{rem}
-\eqref{E1} admet des solutions si et seulement si $b \in \langle a \rangle$ où $\langle a \rangle $ désigne le sous-groupe de $\mathbb{Z}/n\mathbb{Z}$ engendré par $a$.
+\eqref{E1_Z_nZ} admet des solutions si et seulement si $\overline{b}  \in \langle \overline{a} \rangle$ où $\langle \overline{a} \rangle $ désigne le sous-groupe de $\mathbb{Z}/n\mathbb{Z}$ engendré par $\overline{a}$.
 \end{rem}
 
 \vrt{Il serait alors intéressant de décrire le sous-groupe $\langle a \rangle$.}
 
-\begin{Prop}
-Soient $a,n \in \mathbb{N}^*$. On pose $d=PGCD(a,n)$. Alors $\langle a \rangle= \langle d \rangle$, et ainsi $| \langle a \rangle | = \tfrac{n}{d}$.
-\end{Prop}
+\begin{proposition}\label{propMultiplication_par_abar}
+Soit $a \in \mathbb{N}^*$. On pose $d=a \wedge n$. \begin{enumerate}
+\item  On a $\langle \overline{a} \rangle= \langle \overline{d} \rangle$  et $| \langle \overline{a} \rangle | = \tfrac{n}{d}$,
+
+\item On a $\{\overline{x}\in \Z/n\Z|\overline{a}\overline{x}=\overline{0}\}=\{\overline{k\frac{n}{d}}|k\in \llbracket 0,d-1\rrbracket\}$ et cet ensemble est de cardinal $d$.
+\end{enumerate}
+\end{proposition}
 
 \begin{proof}
-$d=PGCD(a,n)$ donc il existe $x,y \in \mathbb{Z}$ tels que $d=ax+ny \equiv ax [n]$, donc $d \in \langle a \rangle$, et ainsi $\langle d \rangle \subset \langle a \rangle $.\par 
-Réciproquement, $d \mid a $ et $d \mid n$, donc si $m \in \langle a \rangle $, i.e. s'il existe $x \in \mathbb{N}$ tel que $m \equiv ax [n]$, alors, pour $y$ défini par $m=ax+ny$, on a $d \mid ax+ny=m$. D'où $m \in \langle d \rangle $, ce qui prouve que $\langle a \rangle \subset \langle d \rangle $.\par 
-Enfin si nous avons $0 \leqslant x,y \leqslant \tfrac{n}{d}-1$ tel que $dx \equiv dy [n]$, alors $n \mid d(x-y)$, d'où $\tfrac{n}{d}\mid (x-y)$, et $-\tfrac{n}{d}< x-y < \tfrac{n}{d}$, donc $x=y$. On a donc bien $| \langle a \rangle | = \tfrac{n}{d}$.
+(1) D'après l'identité de Bézout,  il existe $x,y \in \mathbb{Z}$ tels que $d=ax+ny \equiv ax [n]$, donc $d \in \langle a \rangle$, et ainsi $\langle \overline{d} \rangle \subset \langle \overline{a} \rangle $.\par 
+Réciproquement, écrivons $a=kd$, où $k\in \Z$. Alors \[\langle \overline{a}\rangle =\Z \overline{a}=\Z k \overline{d}\subset \Z \overline{d}=\langle \overline{d}\rangle,\] donc $\langle \overline{a}\rangle=\langle\overline{d}\rangle$.
+
+
+ Soit $k\in \Z$. Écrivons $k=\frac{n}{d} q+r$, où $r\in \llbracket 0,\frac{n}{d}-1\rrbracket$ et $q\in \Z$.  On a $k\overline{d}=\overline{kd}=\overline{qn+r}=\overline{r}$, donc $\langle \overline{d}\rangle= \{\overline{rd}|r\in \llbracket 0,\frac{n}{d}-1\rrbracket\}$. De plus $\{rd|r\in \llbracket 0,\frac{n}{d}-1\rrbracket \}\subset \llbracket 0,n-1\rrbracket$, donc $|\langle \overline{d}\rangle|= |\llbracket 0,\frac{n}{d}-1\rrbracket|=\frac{n}{d}$.
+ 
+ (2) Soit $x\in \Z$. Alors $\overline{a}\overline{x}=\overline{0}$ si et seulement si $n$ divise $ax$ si et seulement si $\frac{n}{d}$ divise $\frac{a}{d}x$. De plus $\frac{n}{d}$ et $\frac{a}{d}$ sont premiers entre eux (par la proposition~\ref{propReduction_cas_premiers_entre_eux} ou par le corollaire~\ref{corExpression_PGCD}). Par le lemme de Gauss (lemme~\ref{lem_Gauss}) on en déduit que $\frac{n}{d}$ divise $\frac{a}{d}x$ si et seulement si $\frac{n}{d}$ divise $x$. On en déduit que $\{\overline{x}\in \Z/n\Z| \overline{a}\overline{x}=0\}=\{\overline{\frac{n}{k}x}|x\in \llbracket 0,d\rrbracket\}$ est de cardinal $d$.
 \end{proof}
 
 
 \begin{Cor}
-$a$ engendre $\mathbb{Z}/n\mathbb{Z}$ si et seulement si $PGCD(a,n)=1$.
+Soit $a\in \Z$. Alors $\overline{a}$ engendre $\Z/n\Z$ (i.e $\langle \overline{a}\rangle =\Z/n\Z$) si et seulement si $a\wedge n=1$. En particulier, $\overline{a}$ est inversible dans $\Z/n\Z$ si et seulement si $a\wedge n=1$. Dans ce cas, pour trouver l'inverse de $\overline{a}$, on peut trouver une relation de Bézout $au+vn=1$, où $u,v\in \Z$ et alors $\overline{a}^{-1}=\overline{u}$.
 \end{Cor}
 
-\begin{proof}
-Il s'agit du cas $d=1$.
-\end{proof}
+
 
 \begin{exs}
-Dans $\mathbb{Z}/30\mathbb{Z}$, $\langle 12 \rangle = \{ 0,12,24,6,18 \}$ et $\langle 7 \rangle = \mathbb{Z}/30 \mathbb{Z}$.
+Dans $\mathbb{Z}/30\mathbb{Z}$, $\langle \overline{12} \rangle = \{ \overline{0},\overline{12},\overline{24},\overline{6},\overline{18} \}$ et $\langle \overline{7} \rangle = \mathbb{Z}/30 \mathbb{Z}$.
 \end{exs}
 
+\begin{rem}(pour aller plus loin) On peut déduire le cardinal de $\{\overline{x}\in \Z/n\Z|\overline{a}\overline{x}=\overline{0\}}$ de la proposition~\ref{propMultiplication_par_abar}  (1) de la façon suivante. Soit $\phi:\Z/n\Z\rightarrow \Z/n\Z$ définie par  $\phi(\overline{x})=\overline{a}\overline{x}$. Alors par distributivité de $+$ par rapport à $.$, $\phi$ est un morphisme de $(\Z/n\Z,+)$ dans lui-même. On a $\mathrm{im}(\phi)=\langle \overline{a}\rangle$ et $\ker(\phi)=\{\overline{x}\in Z/n\Z|\overline{a}\overline{x}=\overline{0}\}$. De plus $\mathrm{im}(\phi)=|\Z/n\Z|/\ker(\phi)=n/\ker(\phi)$ (exercice : le démontrer.  Pour ce faire on pourra déterminer le cardinal de $\phi^{-1}(\{\overline{y}\})$, pour $\overline{y}\in \Z/n\Z$) et donc $|\ker(\phi)|=d$.
+
+\end{rem}
+
 \begin{Prop}
-Soient $a,b,n \in \mathbb{N}^*$. On pose $d=PGCD(a,n)$. \par 
-L'équation \eqref{E1} a des solutions si et seulement si $d \mid b$. Dans ce cas, si on choisit $x'$ et $y'$ tels que $d=ax'+ny'$, alors \eqref{E1} admet exactement $d$ solutions distinctes modulo $n$ qui sont données par 
-$$ x_i=x_0 +i\frac{n}{d}, \quad (0 \leqslant i \leqslant d-1) \quad \text{où  } x_0=x'\frac{b}{d}(\text{mod }n).      $$
+Soient $a,b,n \in \mathbb{N}^*$. On pose $d=a\wedge n$. \par 
+L'équation \eqref{E1_Z_nZ} a des solutions si et seulement si $d \mid b$. Dans ce cas, si on choisit $x'$ et $y'$ tels que $d=ax'+ny'$, alors \eqref{E1_Z_nZ} admet exactement $d$ solutions distinctes qui sont données par 
+$$ \overline{x_i}=\overline{x_0} +k\overline{n/d}, \quad (0 \leq k \leq d-1) \quad \text{où  } x_0=x'\frac{b}{d}.      $$
 \end{Prop}
 
 \begin{proof}\
@@ -542,51 +554,20 @@ $$ x_i=x_0 +i\frac{n}{d}, \quad (0 \leqslant i \leqslant d-1) \quad \text{où  }
 \exists x \in \mathbb{Z}:\ ax \equiv b [n] & \Longleftrightarrow & \exists x,y \in \mathbb{Z}: \ ax+ny=b \\
   & \Longleftrightarrow & b \in a \mathbb{Z}+n \mathbb{Z}=d \mathbb{Z} \Longleftrightarrow d \mid b.
 \end{eqnarray*}
-\item[•] \vrt{$x_0$ solution de \eqref{E1}.}\par 
-Si $d=ax'+ny'$, alors \begin{eqnarray*}
-ax_0 & \equiv & ax' \tfrac{b}{d} [n] \\
-        & \equiv & d \times \tfrac{b}{d} [n] \quad  \text{car } ax'\equiv d [n]\\
-        & \equiv & b [n]. 
-\end{eqnarray*}
-Donc $x_0$ est solution de \eqref{E1}.
-\item[•] \vrt{$x$ est solution de \eqref{E1} $\Leftrightarrow$ $\exists k \in \mathbb{Z}: \ x=x_0+k \tfrac{n}{d}  $.}
-\begin{eqnarray*}
-x \text{ solution de }\eqref{E1} &\Longleftrightarrow & n \mid (ax-b) \Longleftrightarrow n \mid (ax-b-(ax_0-b))\\
-                             & \Longleftrightarrow & n \mid a(x-x_0) \Longleftrightarrow \tfrac{n}{d} \mid \tfrac{a}{d}(x-x_0) \\
-                             & \Longleftrightarrow & \tfrac{n}{d} \mid (x-x_0) \quad  (\text{car }  PGCD(\tfrac{n}{d},\tfrac{a}{d})=1  )\\
-                             & \Longleftrightarrow & \exists k \in \mathbb{Z}: \ x=x_0+k \tfrac{n}{d}.
-\end{eqnarray*}
-\item[•] \vrt{modulo $n$, on a au maximum $d$ solutions.}\par 
-Pour tous $k,i \in \mathbb{N}$, on a 
-\begin{eqnarray*}
-x_{i+kd}&=& x_0+(i+kd) \tfrac{n}{d}= x_0+i \tfrac{n}{d}+kn =x_i +kn\\
-             & \equiv & x_i [n].
-\end{eqnarray*}
-Il suffit donc de prendre les $x_i$, où $0 \leqslant i \leqslant d-1$ pour avoir toutes les solutions modulo $n$.
-\item[•] \vrt{Les $d$ solutions sont distinctes modulo $n$.} \par 
-Si $0 \leqslant i,j  \leqslant d-1$ tel que $i \neq j$, alors $x_i-x_j=(i-j)\tfrac{n}{d}$, or $-d<i-j<d$, donc $-n< x_i-x_j < n$. Or $i \neq j$ donc $x_i-x_j \neq 0$. On en déduit que les $x_i$ sont distincts modulo $n$.
+\item[•] \vrt{$\overline{x_0}$ solution de \eqref{E1}.}\par 
+Si $d=ax'+ny'$, alors  :  \[a x_0=a\frac{b}{d} x'=\frac{b}{d}(ax')=\frac{b}{d}(d-ny')=b-n\frac{b}{d}y'\equiv b[n],\] donc $\overline{x_0}$ est solution de \eqref{E1_Z_nZ}.
+
+\item[•]\vrt{conclusion} Soit $\overline{x}\in \Z/n\Z$. Alors $\overline{x}$ est solution de \eqref{E1_Z_nZ} si et seulement si $\overline{a}.\overline{x}=\overline{b}=\overline{a}.\overline{x_0}$ si et seulement si il existe $k\in \llbracket 0,d-1\rrbracket$ tel que $\overline{x}-\overline{x_0}=k\overline{n/d}$,  d'après  la proposition~\ref{propMultiplication_par_abar}.
 \end{itemize}
 \end{proof}
 
 \begin{ex}
-L'équation $15 x \equiv 6 [21]$ admet des solutions car $PGCD(15,21)=3 \mid 6$. \par 
+L'équation $15 x \equiv 6 [21]$ admet des solutions car $15\wedge 21=3 \mid 6$. \par 
 Après calcul, on a $3= 15 \times 3 - 21 \times 2$, donc les solutions de cette équation dans $\mathbb{Z}/21 \mathbb{Z}$ sont $x_0=3 \times \tfrac63=6$, $x_1=13$ et $x_2=20$. 
 \end{ex}
 
-\begin{Cor}\label{co28}
-Pour tout $n >1$, $a$ est inversible modulo $n$ si et seulement si $PGCD(a,n)=1$. Dans ce cas, l'inverse de $a$ dans $\mathbb{Z}/n\mathbb{Z}$ est unique modulo $n$, et il correspond au $x$ lorsque Euclide-étendu$(a,n)=(1,x,y)$ 
-\end{Cor}
 
-\begin{proof}
-\begin{eqnarray*}
-a \text{ est inversible modulo }n & \Longleftrightarrow & ax \equiv 1 [n] \text{ admet une solution} \\
-      & \Longleftrightarrow & PGCD(a,n)\mid 1 \Longleftrightarrow PGCD(a,n)=1.
-\end{eqnarray*}
-Comme $PGCD(a,n)=1$, l'équation $ax \equiv 1 [n]$ admet une unique solution modulo $n$, notée $x$, qui correspond forcément au $x$ tel que Euclide-étendu$(a,n)=(1,x,y)$.
-\end{proof}
-
-
-\vrt{L'algorithme suivant, qui prend en entrée 3 entiers $a,b,n>0$, donnent les solutions modulo $n$ de \eqref{E1} }.
+\vrt{L'algorithme suivant, qui prend en entrée 3 entiers $a,b,n>0$, donne les solutions de \eqref{E1_Z_nZ} }.
 
 \begin{tabular}{ll}
 \textbf{Algorithme 6.} & Modulaire($a,b,n$)\\
@@ -609,34 +590,51 @@ Comme $PGCD(a,n)=1$, l'équation $ax \equiv 1 [n]$ admet une unique solution mod
 
 \section{Le théorème des restes chinois}
 
-\begin{thm}[Restes chinois]\label{T29}
-Soit $n=n_1 \ldots n_k$ où les $n_i$ sont deux à deux premiers entre eux. Alors l'application
+\begin{thm}[Restes chinois]\label{thmChinois}
+Soit $n\in \N$. On suppose que $n$ s'écrit $n=n_1 \ldots n_k$ où les $n_i$ sont deux à deux premiers entre eux. Soit \begin{equation*}
+\begin{array}{cccc}
+\psi : &  \mathbb{Z}&   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
+            & a &  \longmapsto  & (a \mathrm{ \ mod\ } n_1,  \ldots , a \mathrm{\ mod\ } n_k) 
+\end{array}
+\end{equation*}$ :\Z\rightarrow \Z/n_1\Z\times \ldots \times \Z/n_k \Z$. Alors $\psi$ induit un isomorphisme d'anneaux :
+
 \begin{equation*}
 \begin{array}{cccc}
-\varphi : &  \mathbb{Z}/n \mathbb{Z}  &   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
-            & a &  \longmapsto  & (a_1,  \ldots , a_k) 
+\phi : &  \mathbb{Z}/n \mathbb{Z}  &   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
+            & a\mathrm{\ mod\ }n &  \longmapsto  &  \psi(a)=(a \mathrm{\ mod\ } n_1,  \ldots , a \mathrm{\ mod\ } n_k) 
 \end{array}
 \end{equation*}
-où, pour tout $1 \leqslant i \leqslant k$, $a_i=a$ mod $n_i$ est un isomorphisme d'anneaux entre $\mathbb{Z}/n \mathbb{Z}$ et $\mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z} $.\par 
-En particulier, $\varphi$ est une bijection et les additions et les multiplications sur les éléments de $\mathbb{Z}/n\mathbb{Z}$ correspondent aux additions et aux multiplications sur ces éléments modulo $n_i$ pour tout $i$.
+
 
 \end{thm}
 
 \begin{proof}\
 \begin{itemize}
-\item[•] \underline{sens de $\varphi$.}\par 
-Soit $\alpha$ tel que $\alpha \equiv a [n] $ et $\alpha \equiv a_i [n_i]$ pour tout $1 \leqslant i \leqslant k$. Alors $n_i \mid (\alpha -a_i) $ et $n \mid (\alpha -a)$. Or $n_i \mid n$, donc $n_i \mid (\alpha-a)$, d'où $n_i \mid (\alpha -a_i-(\alpha -a))=a-a_i$, et ainsi, $a \equiv a_i [n_i]$.
-\item[•] \underline{$\varphi$ morphisme d'anneaux.}\par 
-$\varphi(a+b)=(a_1+b_1, \ldots , a_k+b_k)=(a_1, \ldots , a_k)+(b_1, \ldots , b_k)=\varphi(a)+\varphi(b)$ et $  \varphi(ab)=(a_1 b_1, \ldots, a_k b_k)=(a_1, \ldots, a_k). (b_1, \ldots, b_k)=\varphi(a)\varphi(b) .  $
-\item[•] \underline{$\varphi$ injectif.} \par 
-Il suffit de montrer que si $\varphi(a)=0$, alors $a=0$.\par 
-Soit $a \in \mathbb{Z}/n\mathbb{Z} $ tel que $\varphi(a)=0$, i.e., pour tout $1 \leqslant i \leqslant k$, $a_i=0$ mod $n_i$, donc $n_i \mid a_i$. Or $a_i \equiv a [n_i]$, donc $a=0$ mod $n_i$ pour tout $i$, et ainsi, $n_i \mid a$. Comme les $n_i$ sont deux à deux premiers entre eux, alors $\prod_{1 \leqslant i \leqslant k} n_i \mid a$, et on a bien $a=0$ mod $n$.
-\item[•] \underline{$\varphi$ surjectif.} \par 
-Commençons par trouver un antécédent de $\varepsilon_i$ par $\varphi$, où $\varepsilon_i$ est le vecteur nul, sauf la coordonnée $i$-ème qui vaut 1, ce qui revient à trouver $c_i$ tel que $ c_i \equiv 0 [n_j]$ si $j \neq i$ et $c_i \equiv 1 [n_i]$.\par 
-Posons $ \widehat{n_i}= \prod_{j \neq i}n_j $. Alors $(c_i \equiv 0 [n_j]$ $\forall j \neq i) \Leftrightarrow \widehat{n_i} \mid c_i$. Il existe $x_i \in \mathbb{Z}$ tel que $c_i=\widehat{n_i} x_i$. Ainsi, $c_i \equiv 1 [n_i] \Leftrightarrow \widehat{n_i} x_i \equiv 1 [n_i]$. \par 
-Or $PGCD(\widehat{n_i},n_i)=1$ donc par le Corollaire \ref{co28}, il existe un unique $x_i \in \mathbb{Z}/n_i\mathbb{Z} $ tel que $\widehat{n_i}x_i\equiv 1 [n_i]$. On peut alors choisir $c_i=\widehat{n_i}x_i $ ($x_i$ inverse de $\widehat{n_i}$ modulo $n_i$). D'où $a= \sum_{1 \leqslant i \leqslant k}a_i c_i$ est un antécédent de $(a_1, \ldots , a_k)$ par $\varphi$.
+\item[•] \underline{$\phi$ est bien défini :}\par 
+Soit $a'$ tel que $\alpha \equiv a [n]$. Écrivons $a'=a+\ell n$, pour un certain $\ell\in  \Z$. Soit $i\in \llbracket 1,k\rrbracket$. Alors $a'=a+(\ell\frac{n}{n_i})n_i$, donc $a'\equiv a [n_i]$, ce qui prouve que $\phi$ est bien défini. Comme $\psi$ est un morphisme d'anneaux, $\phi$ est un morphisme d'anneaux (exercice : le détailler).
+
+
+
+
+\item[•] \underline{$\phi$ injectif.} \par 
+Soit $a\in \Z$ tel que $\phi(a\mathrm{\ mod\ } n)=0$. Alors $n_i$ divise $a$ pour tous $i\in \llbracket 1,k\rrbracket$, donc par le lemme de Gauss (lemme~\ref{lem_Gauss}), $n=n_1\ldots n_k$ divise $a$. D'où $a\mathrm{\ mod\ }n=0$, ce qui prouve que $\phi$ est injectif.
+
+
+
+
+
+\item[•] \underline{$\phi$ surjectif.} \par 
+
+On a $|\Z/n\Z|=n=|\Z/n_1\Z\times \ldots \times \Z/n_k\Z|$ et $\phi$ est injectif donc $\phi$ est nécessairement surjectif, ce qui prouve que c'est un isomorphisme. On donne ici une méthode plus constructive pour déterminer $\phi^{-1}$.
+
+Pour $i\in \llbracket 1,k\rrbracket$, on pose $\hat{n}_i=n/n_i=\prod_{j\neq i} n_j$. Alors $n_i\wedge \hat{n}_i=1$, donc il existe $u_i,v_i\in \Z$ tels que $u_i\hat{n}_i+v_in_i=1$. Posons $c_i=u_i\mathrm{\ mod \ }n$. Alors $\phi(c_i)$ est le vecteur dont les coordonnées sont nulles sauf la $i$-ème qui vaut $1\mathrm{\ mod\ }n_i$.  Soit $x=(x_1 \mathrm{\ mod\ }n_1,\ldots,x_k \mathrm{\ mod\ }n_k)\in \Z/n_1\Z\times \ldots\times \Z/n_k \Z$. Alors $\phi(\sum_{i=1}^k x_i c_i)=x$, ce qui prouve que $\phi$ est surjectif. 
  \end{itemize}
 \end{proof}
+
+\begin{remarque}
+Dans le théorème précédent il est fondamental que les $n_i$ soient deux à deux premiers entre eux. Par exemple $\Z/4\Z$ n'est pas isomorphe à $\Z/2\Z\times \Z/2\Z$. En effet, $1\mathrm{\ mod\ }4$ est d'ordre $4$ dans $\Z/4\Z$ alors que tous les éléments de $\Z/2\Z$ sont d'ordres $1$ ou $2$. 
+\end{remarque}
+
 
 \begin{Cor}
 Soit $n=n_1 \ldots n_k$ où les $n_i$ sont deux à deux premiers entre eux. Alors pour tout $a_1, \ldots, a_k \in \mathbb{Z}$, le système d'équations 
@@ -651,80 +649,26 @@ possède une unique solution modulo $n$.
 \end{Cor}
 
 \begin{proof}
-Soit $x$ tel que $x$ soit solution de \eqref{S}. Alors en reprenant les notations du Théorème \ref{T29}, $\varphi(x)=(a_1, \ldots, a_k)$. Comme $\varphi$ est bijective, alors $x$ existe bien et il est unique modulo $n$ en tant qu'antécédent de $(a_1, \ldots, a_k)$ par $\varphi$. 
+Soit $x\in \Z$. Alors $x$ est solution de  \eqref{S} si et seulement si $\phi(x\mathrm{\ mod\ }n)=(a_1,\ldots, a_k)$ . Alors en reprenant les notations du Théorème \ref{T29}, $\phi(x)=(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$. Comme $\phi$ est bijective, alors $x$ existe bien et il est unique modulo $n$ en tant qu'antécédent de $(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$ par $\phi$. 
 \end{proof}
 
 \begin{Cor}
-Soient $n, n_1, \ldots, n_k$ comme dans le théorème précédent. Alors pour deux entiers $a$ et $x$ quelconques, on a 
-$$ \big( x \equiv a [n_i] \ \ (1 \leqslant  i \leqslant k)    \big) \Longleftrightarrow x \equiv a [n]  .     $$
+Soient $n, n_1, \ldots, n_k$ comme dans le théorème précédent. Alors pour $x,a\in \Z$, on a 
+$$ \big( x \equiv a [n_i] \ \ (1 \leq  i \leq k)    \big) \Longleftrightarrow x \equiv a [n]  .     $$
 \end{Cor}
 
-\begin{proof}
-$\varphi(a)=(a$ mod $n_1, \ldots, a$ mod $n_k)$, donc par injectivité, $\big( \varphi(x)=\varphi(a) \big)  \Leftrightarrow  \big(  x= a $ mod $n \big)$.
-\end{proof}
 
 
 \subsection*{Système d'équations modulaires}
 
 \begin{ex}
 Trouver les entiers $x$ tels que $x\equiv 2 [5]$ et $x \equiv 3 [13]  $.\par 
-\begin{equation*}
-\left \{  \begin{array}{rcll}
-x & \equiv & 2&  [5]\\
-x & \equiv & 3&  [13]
-\end{array}  \right. 
-\Longleftrightarrow   
-\left \{  \begin{array}{rcll}
-13x & \equiv & 26&  [65]\\
-5x & \equiv & 15&  [65]
-\end{array}  \right. 
-\Longleftrightarrow  
-\left \{  \begin{array}{rcll}
-x & \equiv & 2 \times 26  - 5 \times 15&  [65]\\
-  & \equiv & 42&  [65]
-\end{array}  \right. , 
-\end{equation*}
-donc les solutions sont de la forme $42+65 k$, $k \in \mathbb{Z}$.
+
+On a $2.13-5.5=1$ donc avec les notations de la preuve du théorème~\ref{thmChinois}, on a $c_1=26\mathrm{\ mod \ }65$ et $c_2=-25\mathrm{\ mod\ }65$. On a donc \[\phi^{-1}(2\mathrm{\ mod\ }5,3\mathrm{\ mod\ }13)=2.c_1+3.c_2=-23\mathrm{\ mod\ }65=42\mathrm{\ mod\ }65.\] On en déduit que $\{x\in \Z| x\equiv 2[5]\mathrm{\ et\ }x\equiv 3[13]\}=42+65\Z$.
 \end{ex}
 
-
-\vrt{L'algorithme suivant, qui prend en entrée deux couples d'entiers $(a_1,a_2)$ et $(n_1,n_2)$, où $n_1$ et $n_2$ sont premiers entre eux, calcule l'unique solution modulo $n_1 n_2$ du système d'équations $x \equiv a_1 [n_1]$ et $x \equiv a_2 [n_2]$. \\ }
-
-\vrt{\textbf{Autre méthode.} On a ici \\
-\begin{equation*}
-\begin{array}{cccl}
-\varphi:  &  \mathbb{Z}/65 \mathbb{Z}  & \longrightarrow  &  \mathbb{Z}/5\mathbb{Z}  \times  \mathbb{Z}/13 \mathbb{Z}  \\
-         &  a& \longmapsto &(2,3) 
-\end{array}
-\end{equation*}
-Alors $\varphi^{-1}(2,3)=2 \times 13 \times  x_1 + 5\times 3 \times x_2$
-où $x_1,x_2$ vérifient 
-\begin{equation*}
-\left \{ \begin{array}{ccc}
-13x_1 & \equiv & 1 [5]\\
-5 x_2 & \equiv  & 1 [13]
-\end{array}   \right.  \Longleftrightarrow  \left \{ \begin{array}{ccc}
-3x_1 & \equiv & 1 [5]\\
-5 x_2 & \equiv  & 1 [13]
-\end{array}   \right.
-\Longleftrightarrow
-\left \{ \begin{array}{ccc}
-x_1 & \equiv & 2 [5]\\
-x_2 & \equiv  & 8 [13]
-\end{array}   \right.
-\end{equation*}
-D'où $a \equiv 26 \times 2 +15 \times 8 \equiv 172\equiv 42 [65] $. \\
-}
-
-\begin{tabular}{ll}
-\textbf{Algorithme 7.} & Restes($a_1,a_2,n_1,n_2$)\\
-           & $(1,u,v)\leftarrow  $ Euclide-étendu$(n_1,n_2)$  \\
-           & renvoyer  $a_1 v n_2+a_2 v n_1$ mod $n_1 n_2$         
-\end{tabular}
-\\
-
 \begin{exo}
-En prenant en entrée $(a,n)\in \mathbb{Z}\times \mathbb{N}^*$ vérifiant $(a,n)=1$, écrire une fonction Inverse$(a,n)$ qui calcule l'inverse de $a$ dans $\mathbb{Z}/n \mathbb{Z}$.
+En prenant en entrée $(a,n)\in \mathbb{Z}\times \mathbb{N}^*$ vérifiant $a \wedge n=1$, écrire une fonction Inverse$(a,n)$ qui calcule l'inverse de $a$ dans $\mathbb{Z}/n \mathbb{Z}$.
 \end{exo}
 
 
@@ -756,7 +700,7 @@ Après calcul, on obtient Euclide-étendu$(1891,2499)=(1,-1007,762)$, et on obti
 
 \subsection{Base mixte}
 
-\vrt{Nous allons voir ici un autre système de représentants d'entiers, qui se révèleront plus adaptés à la résolution des systèmes d'équations modulaires.
+\vrt{Nous allons voir ici un autre système de représentants d'entiers, qui se révèlera plus adapté à la résolution des systèmes d'équations modulaires.
 }
 
 \begin{thm}
@@ -767,19 +711,19 @@ Soient $n_1,\ldots, n_k$ des entiers strictement positifs (non nécessairement d
          & (a_1, \ldots , a_k) & \longmapsto & \displaystyle \sum_{ i =1}^{ k }a_i \prod_{j=0}^{ i-1}n_j =a_1+a_2n_1+a_3 n_1 n_2+\ldots
 \end{array}
 \end{equation*}
-a un sens et est bijective.
+est bien définie  et est bijective.
 \end{thm}
 
 \begin{proof}\
 \begin{itemize}
-\item[•] \underline{$\psi$ est bien défini.}\par 
+\item[•] \underline{$\psi$ est bien définie.}\par 
 On raisonne par récurrence sur $k$.
 \begin{itemize}
-\item[$\star$] $a_1 \in [0,n_1 [$
-\item[$\star$]supposons qu'il existe $k$ tel que $\sum_{1 \leqslant i \leqslant k }a_i \prod_{0 \leqslant j \leqslant i-1}n_j \in [0, \prod_{1 \leqslant i \leqslant k}n_j [ $ si $a_i \in [0,n_i[$ si $1 \leqslant i \leqslant k $. Alors
+\item[$\star$] $a_1 \in \llbracket 0,n_1 \llbracket $
+\item[$\star$]soit  $k'\in \llbracket 1,k-1\rrbracket$ tel que  pour tous $(a_1,\ldots,a_{k'})\in \prod_{i=1}^{k'} \llbracket 0,n_i\llbracket $, on ait   $\sum_{1 \leq i \leq k }a_i \prod_{0 \leq j \leq i-1}n_j \in \llbracket 0, \prod_{1 \leq i \leq  k'}n_j \llbracket  $. Soit $a_{k'+1}\in \llbracket 0,n_{k'+1}\rrbracket$. Alors 
 \begin{eqnarray*}   
- \sum_{ i=1}^{ k+1 }a_i \prod_{j=0}^{ i-1}n_j  &<& \prod_{ i=1}^{ k}n_j + a_{k+1}    \prod_{ i=1}^{k}n_j =(a_{k+1}+1)  \prod_{ i=1}^{ k}n_j \\
-           & < & \prod_{ i=1}^{ k+1} n_i .
+ \sum_{ i=1}^{ k'+1 }a_i \prod_{j=0}^{ i-1}n_j=  \sum_{ i=1}^{ k' }a_i \prod_{j=0}^{ i-1}n_j +a_{k'+1}\prod_{j=0}^{k'} n_j < \prod_{ j=1}^{ k'}n_j + a_{k'+1}    \prod_{ j=1}^{k'}n_j &=& (a_{k'+1}+1)  \prod_{ j=1}^{ k'}n_j \\
+           & \leq  & \prod_{ j=1}^{ k'+1} n_j .
 \end{eqnarray*} 
 \end{itemize}
 \item[•]\underline{$\psi$ est surjectif.} \par 
