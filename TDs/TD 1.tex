@@ -1,0 +1,211 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2019/2020 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{   Université de Lorraine \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod #2 }
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$3
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+\
+
+\begin{ex}\
+\begin{itemize}
+\item[$1.$] Écrire un algorithme, que l'on notera DivEuc$($a,b$)$, qui à partir de deux entiers $(a,b) \in \mathbb{N}\times \mathbb{N}^* $, donne le quotient et le reste de la division euclidienne de $a$ par $b$.
+%\item[$2.$] Généraliser à $(a,b)\in \mathbb{Z}\times \mathbb{Z}^*$
+\item[$2.$]
+Pour $(a,b) \in \mathbb{N}\times \mathbb{N}^*$, on a l'algorithme suivant:
+
+\begin{center}
+\begin{tabular}{l}
+DE$($a,b$)$\\
+$ u \leftarrow 0$ \\
+$v \leftarrow a$ \\
+tant que $v \geqslant b$ \\
+\ \ \ {\rm |} $n \leftarrow 0$ \\
+\ \ \ {\rm |}   $c \leftarrow 1$ \\
+\ \ \ {\rm |}   tant que $10^n b \leqslant v$ \\ 
+\ \ \ {\rm |} \ \ \ {\rm |} $n \leftarrow n+1$\\
+\ \ \ {\rm |}     $n \leftarrow n-1$ \\
+\ \ \ {\rm |}    tant que $10^{n}bc \leqslant v$ \\ 
+ \ \ \ {\rm |} \ \ \ {\rm |}    $c \leftarrow c+1$\\
+ \ \ \ {\rm |}  $c \leftarrow c-1$ \\
+\ \ \ {\rm |}     $u \leftarrow u+10^{n}c$\\
+\ \ \ {\rm |}   $v \leftarrow v-10^{n}bc$\\
+renvoyer $(u,v)$      \\
+
+\end{tabular}
+\end{center}
+\ \\
+Quel résultat renvoie cet algorithme? Justifier. \\
+\textit{Indication: Montrer qu'à chaque étape de la boucle indicée par $v$ dans l'algorithme, la relation $a=bu+v$ est vraie (ce qu'on appelle un invariant de boucle).}
+
+\end{itemize}  
+  
+  
+\end{ex}
+
+\begin{rem2}\
+\begin{itemize}
+\item[•] L'algorithme précédent est celui utilisé par les élèves du primaire pour effectuer des divisions. Son coût est moins important que celui du premier algorithme.
+\item[•] Il existe encore un autre algorithme permettant la division euclidienne de $a$ par $b$, appelé méthode binaire (le premier étant appelé méthode naïve et le second la méthode décimale).
+\end{itemize}
+\end{rem2}
+
+
+\
+
+\begin{ex}$($Nombres de Fermat$)$
+\begin{itemize}
+\item[$1.$] Soit $m$ un entier impair. Montrer que $\forall x \in \mathbb{R}$, 
+$$ x^m+1=(x+1)(x^{m-1}-x^{m-2}+ \ldots +1)  .$$
+\item[$2.$] Soit $n \in \mathbb{N}^*$. Montrer que si $2^n+1$ est premier, alors $n$ est une puissance de $2$.%\\
+%\textit{Indication: On se servira du $1.$}
+\item[$3.$] Pour $n \in \mathbb{N}$, on pose $F_n=2^{2^{n}}+1$. Montrer que les nombres $\{ F_n \}_n$ sont premiers entre eux deux à deux. En déduire une autre  démonstration de l'infinitude des nombres premiers. 
+\end{itemize}
+\end{ex}
+
+\begin{rem2}\
+\begin{itemize}
+\item[•]Les $F_n$ sont appelés les nombres de Fermat. Pour $n \in \lb 0;3 \rb $, Fermat a montré que $F_n$ est premier et a conjecturé qu'il en était de même pour $n \geqslant 5$. Cependant, Euler a montré que $F_5=641 \times 6700417$, et on ne connait aujourd'hui aucun autre $F_n$ premier pour $n \geqslant 5$.
+\item[•]Ces nombres ont une application en arithmétique modulaire. Ainsi, Gauss a prouvé le résultat suivant, appelé théorème de Gauss-Wantzel: un polygone régulier à $n$ côtés peut être construit à la règle et au compas si et seulement si $n=2^m$ ou le produit d'une puissance de $2$ et de nombres premiers de Fermat distincts. 
+\end{itemize} 
+\end{rem2}
+
+
+\begin{ex}$($Bases de numération$)$
+
+On admet que, si on fixe $b\geqslant 2$ un entier naturel, alors tout entier naturel $n$ peut s'écrire de façon unique sous la forme
+$$ n=a_k b^k +a_{k-1}b^{k-1}+ \ldots + a_1 b +a_0= \overline{a_k a_{k-1}\ldots a_1 a_0}^b  $$
+où, $ \forall i \in \lb 0; k \rb $, $a_i \in \lb 0; b-1 \rb$. Les entiers $a_i$ sont appelés les chiffres de la base $b$.
+\begin{itemize}
+\item[\textbf{Algorithmes}] 
+\item[$1.$] Donner une méthode pour calculer $a_0$, puis $a_1, \ldots, a_k$.  En déduire un algorithme, que l'on notera $Pdb(b,n)$, qui à partir de l'écriture en base décimale de $n$ donne son écriture en base $b$. 
+\item[$2.$] Soit $n \in \mathbb{N}$ défini par son écriture en base $b$:
+$$ n=\overline{a_k a_{k-1}\ldots a_1 a_0}^b  $$
+Donner une méthode pour calculer l'écriture de cet entier en base décimale. En déduire un algorithme, que l'on notera $Pbd(b,n)$ où, à partir de l'écriture en base $b$ de $n$ donne son écriture en base décimale.
+\item[\textbf{Applications}](Calculatrices autorisées)
+\item[$3.$] Donner l'écriture de $n=146556$ en base $12$.
+\item[$4.$] Donner l'écriture décimale de $n=\overline{16356}^7$.
+\end{itemize}
+
+\end{ex}
+
+\
+
+
+\begin{ex}\
+Soit $(u_n)_{n \in \mathbb{N}}$ la suite d'entiers définie par $u_0=14$ et $u_{n+1}=5 u_n -6$. Montrer que le PGCD de deux termes consécutifs de la suite est constante. Précisez sa valeur.
+\end{ex}
+
+
+\
+\begin{ex}\
+Existe-t-il des entiers premiers à $0$ ? Si oui, lesquels ?
+\end{ex}
+
+
+\
+
+
+
+\begin{ex}\
+On suppose qu'on dispose d'un algorithme de test de primalité TestPrim$($n$)$ qui renvoie vrai si $n$ est premier et faux sinon. A partir de cet algorithme, écrire un algorithme PreSui$($n$)$ qui, à partir d'un entier naturel $n$, renvoie le plus petit nombre premier strictement supérieur à $n$.
+\end{ex}
+
+\
+
+
+\begin{ex}\
+Calculer, pour $n \in \mathbb{N}^*$:
+\begin{itemize}
+\item[•]
+$ PGCD(n^2+n,2n+1)$
+\item[•] $PGCD(15n^2+8n+6,30 n^2+21n+13)$ .
+\end{itemize} 
+\end{ex}
+%\
+
+
+\
+
+
+\begin{ex}$($Nombres de Mersenne$)$
+\begin{itemize}
+\item[$1.$] Soient $a \geqslant 2$ et $n \geqslant 2$ deux entiers. Montrer que si $a^n-1$ est premier, alors $a=2$ et $n$ est premier. 
+\item[$2.$] Montrer que la réciproque est fausse.\\
+\textit{Indication: Étudier le cas $n=11$.}
+\item[$3.$] Soit $p$ un nombre premier de la forme $4k+3$ où $k \in \mathbb{N}^*$. Montrer que $2^{(p-1)/2}\equiv (-1)^{k+1}[p]$.\\
+\textit{Indication: On pourra poser $N=2^{(p-1)/2}\big( (p-1)/2 \big)!$ et donner deux écritures différentes de $\moa{N}{p}$. }
+\item[$4.$] Soit $M_p=2^p-1$ où $p$ est un nombre premier. Montrer que si $p$ est de la forme $4k+3$ et si $2p+1$ est premier, alors $M_p$ n'est pas premier.  
+\end{itemize}
+
+\end{ex}
+
+
+\begin{rem}
+Il existe des tests pour déterminer si un nombre de Mersenne donné est premier. Le test de Lucas-Lehmer utilise la suite $(L_n)$ définie par récurrence par $L_0=4$ et $L_{n+1}=L_n^2-2$.\\
+Pour $n \geqslant 3$, le nombre $M_n= 2^n -1$ est premier si et seulement si $M_n \mid L_{n-2}$. 
+\end{rem}
+
+
+
+
+\end{document}

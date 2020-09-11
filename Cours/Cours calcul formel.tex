@@ -22,6 +22,7 @@
 \newtheorem*{rep}{Réponse}
 \newtheorem*{reps}{Réponses}
 \newtheorem{thm}{Théorème}[chapter]
+\newtheorem{theoreme}[thm]{Théorème}
 \newtheorem{algo}{Algorithme}
 \newtheorem*{rap}{Rappels}
 \newtheorem{sch}[thm]{Schéma}
@@ -36,14 +37,19 @@
 \newtheorem{Def}[thm]{Définition}
 \newtheorem{Def/prop}[thm]{Définition/Proposition}
 \newtheorem{Lem}[thm]{Lemme}
+\newtheorem{lemme}[thm]{Lemme}
 \newtheorem{Prop}[thm]{Proposition}
+\newtheorem{proposition}[thm]{Proposition}
 \newtheorem*{prop}{Proposition}
 \newtheorem*{prin}{Principe}
 \newtheorem*{nota}{Notation}
 \newtheorem*{notas}{Notations}
 \newtheorem{Cor}[thm]{Corollaire}
-\newtheorem{proposition}[thm]{Proposition}
-\newtheorem{lemme}[thm]{Lemme}
+\newtheorem{corollaire}[thm]{Corollaire}
+
+
+
+
 
 
 \title{\Huge{Calcul formel}}
@@ -61,12 +67,28 @@
 
 \tableofcontents
 
-\paragraph{Quelques références :}
+
 
 
 
 
 \chapter{Arithmétique dans $\mathbb{Z}$}
+
+\section{Quelques références}
+
+\begin{itemize}
+\item Combes, \textit{Algèbre et géométrie}, \cite{combes1998algebre},
+
+\item Cormen, Leiserson, Rivest Stein, \textit{Introduction à l'algorithmique}, \cite{cormen2009introduction}
+
+\item Demazure, \textit{Cours d'algèbre}, \cite{demazure2008cours},
+
+\item  Menezes, Katz, Van Oorschot, Vanstone, \textit{Handbook of applied cryptographiy}, \cite{menezes1996handbook},
+
+\item Saux Picart, \textit{Cours de calcul formel : Algorithmes fondamentaux}, \cite{picart1999cours}.
+\end{itemize}
+
+
 
 \section{Introduction}
 
@@ -74,15 +96,14 @@ D'après Wikipedia, « le calcul formel, ou parfois calcul symbolique, est le do
 
  Étant données les représentations de deux nombres entiers, le calcul formel se pose par exemple la question de calculer celle de leur produit.  Le calcul formel est en général considéré comme un domaine distinct du calcul scientifique, cette dernière appellation faisant référence au calcul numérique approché à l'aide de nombres en virgule flottante, là où le calcul formel met l'accent sur les calculs exacts sur des expressions pouvant contenir des variables ou des nombres en précision arbitraire. »
  
- Dans ce cours, nous étudierons principalement les anneaux $\Z$ et  $\Z/n\Z$, pour $n\in \N^*$. Nous nous intéresserons à différentes notions arithmétiques, comme le PGCD, les nombres premiers, le théorème des restes chinois ... et nous verrons quelques applications en cryptographie. Nous étudierons ces notions d'un point de vue algorithmique, c'est à dire que pour la plupart des quantités que nous introduirons,  nous verrons des algorithmes «~efficaces~ » qui permettent de les determiner en pratique (nous ne parlerons pas de complexité, qui permettrait de quantifier la notion d'efficacité en revanche).  
+ Dans ce cours, nous étudierons principalement les anneaux $\Z$ et  $\Z/n\Z$, pour $n\in \N^*$. Nous nous intéresserons à différentes notions arithmétiques, comme le PGCD, les nombres premiers, le théorème des restes chinois ... et nous verrons quelques applications en cryptographie. Nous étudierons ces notions d'un point de vue algorithmique, c'est à dire que pour la plupart des quantités que nous introduirons,  nous verrons des algorithmes «~efficaces~» qui permettent de les determiner en pratique (nous ne parlerons pas de complexité, qui permettrait de quantifier la notion d'efficacité en revanche).  
  
  \begin{Def}
  Un algorithme est une suite finie et non ambiguë d’opérations ou d'instructions permettant de résoudre une classe de problèmes. 
  \end{Def}
  
  Pour montrer la validité d'un algorithme, il faut montrer qu'il se termine en un nombre fini d'étapes et qu'il donne le bon résultat.
- 
-\textbf{ Donner une définition d'algorithme ?}
+
 
 \section{Rappels sur l'anneau $\mathbb{Z}$}
 
@@ -113,7 +134,7 @@ L'anneau $\mathbb{Z}$ est euclidien, avec $v=| \, . \, |$. De plus, il y a exist
 \end{thm}
 
 \begin{rem}
-Le théorème précédent implique que: $\forall (a,b) \in \mathbb{Z}\times \mathbb{Z}^*$, $\exists ! (q,r):$ $a=bq+r$ et $0 \leqslant r < |b|$.\par 
+Le théorème précédent implique que: $\forall (a,b) \in \mathbb{Z}\times \mathbb{Z}^*$, $\exists ! (q,r):$ $a=bq+r$ et $0 \leq r < |b|$.\par 
 Le nombre $q$ est appelé le quotient de la division euclidienne de $a$ par $b$, et $r$ le reste, noté $a$ mod $b$.
 \end{rem}
 
@@ -122,7 +143,7 @@ Le fait que $\mathbb{Z}$ est intègre est déjà connu. Quitte à remplacer $b$ 
 
 \begin{itemize}
 
-\item[$\bullet$] \textbf{existence de $(q,r)$} Soit $X=\{a-bq|q\in \Z\}\cap \N$. Alors $X$ est non-vide (car ar exemple si $q=-ba^2$, $a-bq=a^2b^2-a\in X$). Soit $r$ le minimum de $X$. Alors $r\geq 0$ et $r<|b|$ (car sinon, $r-|b|\in X$ et $r-|b|<r$).  Par définition, il existe $q\in \Z$ tel que $a=bq+r$.
+\item[$\bullet$] \textbf{existence de $(q,r)$} Soit $X=\{a-bq|q\in \Z\}\cap \N$. Alors $X$ est non-vide (car par exemple si $q=-ba^2$, $a-bq=a^2b^2-a\in X$). Soit $r$ le minimum de $X$. Alors $r\geq 0$ et $r<|b|$ (car sinon, $r-|b|\in X$ et $r-|b|<r$).  Par définition, il existe $q\in \Z$ tel que $a=bq+r$.
 
 \item[$\bullet$] \textbf{unicité de $(q,r)$}: Supposons qu'on a $a=bq+r=bq'+r'$ tel que $0 \leq r < |b|$, $0 \leq r' < |b|$. \par 
 On a alors $b(q-q')=r'-r$; or $-|b|<r'-r<|b|$, d'où $-|b|<b(q-q')<|b|$. \par 
@@ -166,7 +187,7 @@ La plupart des résultats qui suivent restent vrai dans n'importe quel anneau eu
  \item[•] \underline{les idéaux de $\mathbb{Z}$ sont les $n \mathbb{Z}$}.\par 
  Soit $I \neq \emptyset$ un idéal non nul de $\mathbb{Z}$ et $x\in I\setminus\{0\}$. Si $x<0$, alors $-x\in I\cap \N^*$ donc $I\cap \N^*$ est non vide. Soit $n=\min (I\cap \N^*)$. \par 
  Par définition, comme $n \in I$, alors $n \mathbb{Z}\subset I$.\par 
- Soient $a \in I$ et $r=a \mod n$. Alors $a=nq+r$ et $0 \leqslant r <n$. Donc $r=\underset{\in I}{\underbrace{a}}-\underset{\in n\mathbb{Z}\subset I}{\underbrace{nq}}\in I$, d'où $r \in I\cap \N$. \par 
+ Soient $a \in I$ et $r=a \mod n$. Alors $a=nq+r$ et $0 \leq r <n$. Donc $r=\underset{\in I}{\underbrace{a}}-\underset{\in n\mathbb{Z}\subset I}{\underbrace{nq}}\in I$, d'où $r \in I\cap \N$. \par 
 Comme $r<n$, on en déduit que $r=0$ et donc que $a=nq$. D'où $I = n \mathbb{Z}$.
 \end{itemize}
 \item[$2)$]$ "\Rightarrow"$ $n \mathbb{Z}\subset m \mathbb{Z}$, donc $n \in m \mathbb{Z}$, i.e. $\exists k \in \mathbb{Z}$: $n=mk$, d'où $m \mid n$.\par 
@@ -270,7 +291,7 @@ Exercice.
 
 
 
-\begin{Lem}\label{lemEuclide}
+\begin{Lem}\label{lemAlgo_Euclide}
 Soient $a,b \in \mathbb{Z}^* $. Alors
 \begin{enumerate}
 
@@ -286,7 +307,7 @@ Les équations proviennent respectivement des égalités $a\Z+0\Z=|a|\Z$,  $a \m
 \end{proof}
 
 \begin{thm}\label{thmAlgorithme_d_euclide}
-L'algorithme suivant permet de calculer le PGCD de 2 entiers $a>0$ et $b \geqslant 0$.\\
+L'algorithme suivant permet de calculer le PGCD de 2 entiers $a>0$ et $b \geq 0$.\\
 
 \begin{tabular}{ll}
 \textbf{Algorithme 3.} & Euclide($a,b$)\\
@@ -366,7 +387,6 @@ Si $b \neq 0$, Euclide-étendu calcule d'abord $(d',u',v')$ tel que $d'=b\wedge 
 }
 
 
-? : parler d'algorithme récursif ?
 
 \subsection{Équations diophantiennes linéaires}
 
@@ -414,8 +434,10 @@ L'algorithme suivant donne, en prenant en entrée 3 entiers $(a,b,c)\in (\mathbb
 \section{Nombres premiers et décomposition en produit de facteurs premiers}
 
 \begin{Def}
-Soit $p\in \Z\setminus \{1,-1\}$. On dit que $p$ est premier s'il a exactement quatre diviseurs : $1,-1,p,-p$.
+Soit $p\in \Z\setminus \{1,-1\}$. On dit que $p$ est premier s'il a exactement quatre diviseurs. 
 \end{Def}
+
+Comme tout nombre entier $x$ admet $x,-x, 1$ et $-1$ comme diviseurs, un nombre $p$ est premier si et seulement si $p\notin \{1,-1\}$ et si ses seuls diviseurs sont $1,-1,p,-p$.
 
 Un nombre $p$ est premier si et seulement si $-p$ est premier. On s'intéressera donc principalement aux nombres premiers positifs. On note $\mathbb{P}$ l'ensemble des nombres premiers.
  
@@ -442,14 +464,19 @@ Soit $n\in \Z$ tel que $|n|\geq 2$. Soit $p$ son plus petit diviseur supérieur 
 Soit $q$ un diviseur de $q$ différent de $1$ ou $-1$. Alors $|q|$ divise $p$ donc $|q|$ divise $n$ donc $|q|\geq p$ donc $|q|=p$, ce qui prouve le lemme.
 \end{proof}
 
-\begin{Prop}(Euclide)
+\begin{theoreme}(Euclide)
 Il existe une infinité de nombre premiers.
-\end{Prop}
+\end{theoreme}
 
 \begin{proof}
-Soit $E$ un ensemble fini non vide de nombre premiers positifs et $a=(\prod_{p\in E} p)+1$. Soient $q$ un diviseur premier de $a$ (on sait qu'il en existe par le lemme~\ref{lemExistence_diviseur_premier}) et $p\in E$. Alors $q-p\prod_{p'\in E\setminus \{p\}} p'=1$, donc $p$ et $q$ sont premiers entre eux. Ainsi, $q\notin E$ et donc $E\neq \mathbb{P}$.
+Soit $E$ un ensemble fini non vide de nombre premiers positifs et $a=(\prod_{p\in E} p)+1$. Soient $q$ un diviseur premier de $a$ (on sait qu'il en existe par le lemme~\ref{lemExistence_diviseur_premier}) et $p\in E$. On écrit $a=qa'$.  Alors $qa'-p\prod_{p'\in E\setminus \{p\}} p'=1$, donc $p$ et $q$ sont premiers entre eux. Ainsi, $q\notin E$ et donc $E\neq \mathbb{P}$.
 \end{proof}
 
+
+\begin{theoreme}\label{thmHadamard_lavallee_poussin}(Hadamard, La Vallée Poussin, 1896, admis)
+Pour $n\in \N$, on note $\pi(n)$ le nombre de nombres premiers compris entre $1$ et $n$. Alors $\pi(n)\underset{n\rightarrow +\infty}{\sim} \mathrm{ln}(n)$. 
+
+\end{theoreme}
 
 \begin{thm}\label{thmDécomposition_produit_facteurs_premiers}
 Soit $n\in \Z$ tel que $|n|\geq 2$. Alors il existe $\epsilon\in \{-1,1\}$, $k\in \N$, $p_1<\ldots <p_k\in \mathbb{P}$ des nombres premiers distincts et $\alpha_1,\ldots,\alpha_k\in\N_{\geq 1}$ tels que $n=\epsilon p_1^{\alpha_1}\ldots p_k^{\alpha_k}$. De plus, cette décomposition est unique et $\{p_1,\ldots,p_k\}$ est l'ensemble des diviseurs premiers de $n$.
@@ -497,7 +524,7 @@ Dans cette partie, on fixe $n\in \N^*$. Soient $a,b \in \mathbb{N}^*$. Le but ic
 \begin{equation}\label{E1}
 ax \equiv b [n],
 \end{equation} d'inconnue $x\in \Z$. Soit $x\in \Z$. Alors $x$ est solution de \eqref{E1} si et seulement si $\overline{x}$ est solution de l'équation : \begin{equation}\label{E1_Z_nZ}
-\overline{a}\overline{x}=\overline{b}.
+\overline{a}.\overline{x}=\overline{b}.
 \end{equation} On va donc surtout étudier l'équation~\eqref{E1_Z_nZ}.
 
 
@@ -527,7 +554,7 @@ Réciproquement, écrivons $a=kd$, où $k\in \Z$. Alors \[\langle \overline{a}\r
 \end{proof}
 
 
-\begin{Cor}
+\begin{Cor}\label{corInversibles_de_ZnZ}
 Soit $a\in \Z$. Alors $\overline{a}$ engendre $\Z/n\Z$ (i.e $\langle \overline{a}\rangle =\Z/n\Z$) si et seulement si $a\wedge n=1$. En particulier, $\overline{a}$ est inversible dans $\Z/n\Z$ si et seulement si $a\wedge n=1$. Dans ce cas, pour trouver l'inverse de $\overline{a}$, on peut trouver une relation de Bézout $au+vn=1$, où $u,v\in \Z$ et alors $\overline{a}^{-1}=\overline{u}$.
 \end{Cor}
 
@@ -593,15 +620,15 @@ Après calcul, on a $3= 15 \times 3 - 21 \times 2$, donc les solutions de cette 
 \begin{thm}[Restes chinois]\label{thmChinois}
 Soit $n\in \N$. On suppose que $n$ s'écrit $n=n_1 \ldots n_k$ où les $n_i$ sont deux à deux premiers entre eux. Soit \begin{equation*}
 \begin{array}{cccc}
-\psi : &  \mathbb{Z}&   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
+\tilde{\phi} : &  \mathbb{Z}&   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
             & a &  \longmapsto  & (a \mathrm{ \ mod\ } n_1,  \ldots , a \mathrm{\ mod\ } n_k) 
 \end{array}
-\end{equation*}$ :\Z\rightarrow \Z/n_1\Z\times \ldots \times \Z/n_k \Z$. Alors $\psi$ induit un isomorphisme d'anneaux :
+\end{equation*}$ :\Z\rightarrow \Z/n_1\Z\times \ldots \times \Z/n_k \Z$. Alors $\tilde{\phi}$ induit un isomorphisme d'anneaux :
 
 \begin{equation*}
 \begin{array}{cccc}
 \phi : &  \mathbb{Z}/n \mathbb{Z}  &   \longrightarrow & \mathbb{Z}/n_1 \mathbb{Z} \times \cdots   \times \mathbb{Z}/n_k \mathbb{Z}  \\
-            & a\mathrm{\ mod\ }n &  \longmapsto  &  \psi(a)=(a \mathrm{\ mod\ } n_1,  \ldots , a \mathrm{\ mod\ } n_k) 
+            & a\mathrm{\ mod\ }n &  \longmapsto  &  \tilde{\phi}(a)=(a \mathrm{\ mod\ } n_1,  \ldots , a \mathrm{\ mod\ } n_k) 
 \end{array}
 \end{equation*}
 
@@ -611,7 +638,7 @@ Soit $n\in \N$. On suppose que $n$ s'écrit $n=n_1 \ldots n_k$ où les $n_i$ son
 \begin{proof}\
 \begin{itemize}
 \item[•] \underline{$\phi$ est bien défini :}\par 
-Soit $a'$ tel que $\alpha \equiv a [n]$. Écrivons $a'=a+\ell n$, pour un certain $\ell\in  \Z$. Soit $i\in \llbracket 1,k\rrbracket$. Alors $a'=a+(\ell\frac{n}{n_i})n_i$, donc $a'\equiv a [n_i]$, ce qui prouve que $\phi$ est bien défini. Comme $\psi$ est un morphisme d'anneaux, $\phi$ est un morphisme d'anneaux (exercice : le détailler).
+Soit $a'$ tel que $\alpha \equiv a [n]$. Écrivons $a'=a+\ell n$, pour un certain $\ell\in  \Z$. Soit $i\in \llbracket 1,k\rrbracket$. Alors $a'=a+(\ell\frac{n}{n_i})n_i$, donc $a'\equiv a [n_i]$, ce qui prouve que $\phi$ est bien défini. Comme $\tilde{\phi}$ est un morphisme d'anneaux, $\phi$ est un morphisme d'anneaux (exercice : le détailler).
 
 
 
@@ -707,7 +734,7 @@ Après calcul, on obtient Euclide-étendu$(1891,2499)=(1,-1007,762)$, et on obti
 Soient $n_1,\ldots, n_k$ des entiers strictement positifs (non nécessairement distincts). On pose $n_0=1$. Alors la fonction 
 \begin{equation*}
 \begin{array}{cccl}
-  \psi:  &  [ 0,n_1 [ \times \ldots \times [0,n_k [ & \longrightarrow  &  \displaystyle  \Big [ 0, \prod_{i=1}^k n_i \Big   [\\
+  \psi:  &  \llbracket 0,n_1 \llbracket \times \ldots \times \llbracket 0,n_k \llbracket & \longrightarrow  &  \displaystyle  \Big \llbracket 0, \prod_{i=1}^k n_i \Big   \llbracket\\
          & (a_1, \ldots , a_k) & \longmapsto & \displaystyle \sum_{ i =1}^{ k }a_i \prod_{j=0}^{ i-1}n_j =a_1+a_2n_1+a_3 n_1 n_2+\ldots
 \end{array}
 \end{equation*}
@@ -720,58 +747,64 @@ est bien définie  et est bijective.
 On raisonne par récurrence sur $k$.
 \begin{itemize}
 \item[$\star$] $a_1 \in \llbracket 0,n_1 \llbracket $
-\item[$\star$]soit  $k'\in \llbracket 1,k-1\rrbracket$ tel que  pour tous $(a_1,\ldots,a_{k'})\in \prod_{i=1}^{k'} \llbracket 0,n_i\llbracket $, on ait   $\sum_{1 \leq i \leq k }a_i \prod_{0 \leq j \leq i-1}n_j \in \llbracket 0, \prod_{1 \leq i \leq  k'}n_j \llbracket  $. Soit $a_{k'+1}\in \llbracket 0,n_{k'+1}\rrbracket$. Alors 
+\item[$\star$]soit  $k'\in \llbracket 1,k-1\rrbracket$ tel que  pour tous $(a_1,\ldots,a_{k'})\in \prod_{i=1}^{k'} \llbracket 0,n_i\llbracket $, on ait   $\sum_{1 \leq i \leq k }a_i \prod_{0 \leq j \leq i-1}n_j \in \llbracket 0, \prod_{1 \leq i \leq  k'}n_j \llbracket  $. Soit $a_{k'+1}\in \llbracket 0,n_{k'+1}\llbracket$. Alors 
 \begin{eqnarray*}   
  \sum_{ i=1}^{ k'+1 }a_i \prod_{j=0}^{ i-1}n_j=  \sum_{ i=1}^{ k' }a_i \prod_{j=0}^{ i-1}n_j +a_{k'+1}\prod_{j=0}^{k'} n_j < \prod_{ j=1}^{ k'}n_j + a_{k'+1}    \prod_{ j=1}^{k'}n_j &=& (a_{k'+1}+1)  \prod_{ j=1}^{ k'}n_j \\
            & \leq  & \prod_{ j=1}^{ k'+1} n_j .
 \end{eqnarray*} 
+
+On a donc bien $ \sum_{ i=1}^{ k'+1 }a_i \prod_{j=0}^{ i-1}n_j\in \llbracket 0,\prod_{j=0}^{k'+1} n_j\llbracket$ et par récurrence on en déduit que $\psi$ est bien définie. 
+ 
 \end{itemize}
-\item[•]\underline{$\psi$ est surjectif.} \par 
-Soit $a \in [0, \prod_{1 \leqslant i \leqslant k }n_i[$. Alors plusieurs divisions euclidiennes nous donnent
+\item[•]\underline{$\psi$ est surjective.} \par 
+Soit $a \in \llbracket 0, \prod_{1 \leq i \leq k }n_i\llbracket$. On pose $q_0 =a$. Alors plusieurs divisions euclidiennes nous donnent :
 \begin{equation*}
 \left \{ \begin{array}{lcr}
-a&=& q_1 n_1 +a_1 \\
+q_0=a&=& q_1 n_1 +a_1 \\
 q_1 &=& q_2 n_2 +a_2\\
 & \vdots &      \\
-q_{k-1} &=& q_k n_k +a_k.   
+q_{k-1} &=& q_k n_k +a_k,
 \end{array} \right.
 \end{equation*}
-Alors
+ 
+ avec $q_i\in \N$ et $a_i\in \llbracket 0,n_i\llbracket$ pour tout $i\in \llbracket 1,k\rrbracket$. 
+
+Alors :
  \begin{eqnarray*}
 a &=& a_1 +  n_1 (  a_2 + n_2 (\ldots +n_{k-1}(a_k+q_k n_k) \ldots ))\\ 
   &=& \sum_{i=1}^k a_i \prod_{j=0}^{i-1} n_j + q_k \prod_{i=1}^k n_i.
 \end{eqnarray*}
-En particulier, comme $a \in [ 0, \prod_{1 \leqslant i \leqslant k}n_i [$, alors $q_k=0$. Il est évident que, pour tout $i$, $0 \leqslant a_i < n_i $, et ainsi, $\psi(a_1, \ldots, a_k)=a$.
+En particulier, comme $a \in \llbracket 0, \prod_{1 \leq i \leq k}n_i \llbracket$, on a  $q_k=0$. Ainsi, $\psi(a_1, \ldots, a_k)=a$.
 \item[$\star$] \underline{Conclusion}\par 
-Comme le cardinal de l'ensemble de départ de $\psi$ est égal à celui de son ensemble d'arrivée, alors $\psi$ est bijectif.
+Comme le cardinal de l'ensemble de départ de $\psi$ est égal à celui de son ensemble d'arrivée, alors $\psi$ est bijective.
 \end{itemize}
 \end{proof}
  
 \begin{Def}
-L'écriture d'un entier $a$ vérifiant $0 \leqslant a < \prod_{1 \leqslant i \leqslant k}n_i$ sous la forme $a= a_1+ a_2 n_1+ a_3 n_1 n_2+ \ldots  a_k n_1 \ldots n_{k-1}  $ s'appelle l'\textbf{écriture en base mixte} de $a$. 
+L'écriture d'un entier $a$ vérifiant $0 \leq a < \prod_{1 \leq i \leq k}n_i$ sous la forme $a= a_1+ a_2 n_1+ a_3 n_1 n_2+ \ldots  a_k n_1 \ldots n_{k-1}  $ s'appelle l'\textbf{écriture en base mixte} de $a$. 
 \end{Def}
 
 \begin{rems}\
 \begin{itemize}
 \item[•]
-Dans le cas où les $n_i$ sont deux à deux premiers entre eux, on dispose de deux systèmes de numération des entiers de l'intervalle $[0, \prod_{1 \leqslant  i \leqslant k}n_i [ $: celle donnée par le théorème chinois et celle donnée par l'écriture en base mixte.
-\item[•] Ces deux représentations sont distinctes et ont des propriétés distinctes. En effet, par exemple, lorsque $k=3$, $n_1=2$, $n_2=5$, $n_3=7$, et qu'on choisit $a=51 (< 70)$, on a alors $\varphi(a)=(1,1,2)$  tandis que $\psi^{-1}(a)=(1,0,5)$.
+Dans le cas où les $n_i$ sont deux à deux premiers entre eux, on dispose de deux systèmes de numération des éléments $\llbracket 0, \prod_{1 \leq i \leq k}n_i \llbracket $: celle donnée par le théorème chinois et celle donnée par l'écriture en base mixte.
+\item[•] Ces deux représentations sont distinctes et ont des propriétés distinctes. En effet, par exemple, lorsque $k=3$, $n_1=2$, $n_2=5$, $n_3=7$, et qu'on choisit $a=51 (< 70)$, on a alors $\phi(a)=(1,1,2)$  tandis que $\psi^{-1}(a)=(1,0,5)$.
 \end{itemize}
 \end{rems}
 
 
 \subsection{L'algorithme}
 
-Commençons par donner le principe de l'algorithme. Pour cela, on part des données du système \eqref{S}, et on code $x$ dans la base mixte; on sait qu'il existe des entiers $0 \leqslant \nu_i < n_i $ pour tout $1 \leqslant i \leqslant k$ tels que $x$ s'écrit sous la forme
-$$   x= \sum_{ i=1}^{k-1} \nu_i \prod_{ j=1}^{ i-1}n_j . $$
-On peut alors trouver les nombres $\nu_i$ les uns après les autres.\par 
+Commençons par donner le principe de l'algorithme de Garner. Pour cela, on part des données du système \eqref{S}. Soit $x\in \llbracket 0,n_1\ldots n_k\llbracket$ une solution de \eqref{S}. On code $x$ dans la base mixte; on sait qu'il existe des entiers $0 \leq \nu_i < n_i $ pour tout $1 \leq i \leq k$ tels que $x$ s'écrive sous la forme
+$$   x= \sum_{ i=1}^{k-1} \nu_i \prod_{ j=1}^{ i-1}n_j , $$
+et on va déterminer les  $\nu_i$ les uns après les autres. \par 
 On a d'abord $\nu_1 \equiv a_1 [n_1]$.\par 
-Supposons à présent qu'on connaisse les $\nu_i$ pour $1 \leqslant i \leqslant j-1$. Comme $x \equiv a_j [n_j]$, on a alors
+Supposons à présent qu'on connaisse les $\nu_i$ pour $1 \leq i \leq j-1$. Comme $x \equiv a_j [n_j]$, on a alors
 $$   a_j \equiv   \sum_{i=1}^{j} \nu_i \prod_{ \ell=0}^{i-1}n_{\ell}\   [n_j]  .   $$
-Or $\prod_{1 \leqslant i \leqslant  j-1 } n_i $ est premier avec $n_j$ et est donc inversible modulo $n_j$. On obtient alors
-$$     \nu_j=\Big( \prod_{i=1}^{j-1}n_i \Big)^{-1}  \Big( a_j-    \sum_{i=1}^{ j-1} \nu_i \prod_{\ell=0}^{i-1}n_{\ell} \Big)  \text{ mod } n_j.   $$
+Or $\prod_{1 \leq i \leq  j-1 } n_i $ est premier avec $n_j$ et est donc inversible modulo $n_j$. On obtient alors
+$$     \nu_j\mathrm{\ mod\ }n_j=\Big( (\prod_{i=1}^{j-1}n_i) \mathrm{\ mod\ }n_j \Big)^{-1}  \Big( a_j-    \sum_{i=1}^{ j-1} \nu_i \prod_{\ell=0}^{i-1}n_{\ell} \Big)  \text{ mod } n_j.   $$
 
-Cette démarche nous permet d'écrire à présent l'algorithme ci-dessous qui, prenant en entrée deux listes $N=[n_1, \ldots , n_k]$ et $A=[a_1,\ldots, a_k]$, renvoie la liste  $[\nu_1, \ldots, \nu_k ]$ et le plus petit entier naturel $x$ qui soit solution du système \eqref{S}.\\
+Cette démarche nous permet d'écrire à présent l'algorithme ci-dessous qui, prenant en entrée deux listes $N=[n_1, \ldots , n_k]$, où les $n_i$ sont deux à deux premiers entre eux et $A=[a_1,\ldots, a_k]$, renvoie la liste  $[\nu_1, \ldots, \nu_k ]$ et le plus petit entier naturel $x$ qui soit solution du système \eqref{S}.\\
 
 \begin{tabular}{ll}
 \textbf{Algorithme 8.} & Garner($A,N$)\\
@@ -800,78 +833,29 @@ Cette démarche nous permet d'écrire à présent l'algorithme ci-dessous qui, p
   %  return (M,x) 
 \begin{ex}
 Reprenons ici notre système \eqref{Ex}. \par 
-Avec l'algorithme de Garner, on cherche $x$ sous la forme $x=\nu_1 +1891 \nu_2 $ où $0 \leqslant \nu_1 < 1891$ et $0 \leqslant \nu_2 < 2499$. On a $\nu_1=1000$ et, après calcul, $\nu_2=(1891)^{-1}(3000-1000)\equiv 194 [2499]$, d'où $x=367854$.
+Avec l'algorithme de Garner, on cherche $x$ sous la forme $x=\nu_1 +1891 \nu_2 $ où $0 \leq \nu_1 < 1891$ et $0 \leq \nu_2 < 2499$. On a $\nu_1=1000$ et, après calcul, $\nu_2=(1891)^{-1}(3000-1000)\equiv 194 [2499]$, d'où $x=367854$.
 \end{ex}
 
 \chapter{Tests de primalité}
 
 
-\section{Définitions et premiers algorithmes}
-
-\begin{de}
-Un entier positif $p$ est dit \textbf{premier} si $p \neq 1$ et si ses seuls diviseurs sont 1 et $p$. Sinon, $p$ est dit \textbf{composé}.
-\end{de}
-
-\begin{Prop}\label{p41}
-Soit $a \in \mathbb{N}$ tel que $a \geqslant 2$. Alors le plus petit diviseur $\geqslant 2$ de $a$ est premier. 
-\end{Prop}
-
-\begin{proof}
-Soient $a \in \mathbb{N}$ tel que $a \geqslant 2$ et $p$ son plus petit diviseur $\geqslant 2$. Soit $q$ un diviseur de $p$ tel que $q\neq 1$.\par 
-$q \, \mid \, p$ donc $q \leqslant p$. \par 
-De plus, $q \, \mid \, a$ car $q \, \mid \, p$ et $p \, \mid \, a$, d'où $q \geqslant p$ par définition de $p$.\par 
-On obtient alors $q=p$, et ainsi $p$ est premier.
-\end{proof}
-
-\begin{thm}[Euclide] Il existe une infinité de nombres premiers.
-\end{thm}
-
-\begin{proof}
-On raisonne par l'absurde en supposant que l'ensemble des nombres premiers est fini; notons-le $\{ p_1, \ldots , p_k  \}$.\par 
-On pose $N= 1+ \prod_{1 \leqslant i \leqslant k}p_i$. $N \geqslant 2$ et admet un diviseur premier par la proposition précédente, donc il existe $p \, \mid   \, N$ tel que $p$ est premier. \par 
-Par définition, il existe $ 1 \leqslant i \leqslant k $ tel que $p=p_i$.\par 
-$p \, \mid \, N$ et $p \, \mid \,  \prod_{1 \leqslant i \leqslant k}p_i $ donc $p \, \mid \,   N - \prod_{1 \leqslant i \leqslant k}p_i =1    $, ce qui est impossible. Donc l'ensemble des nombres premiers est infini.  
-\end{proof}
-
-\vrt{\begin{rem}
-On verra une autre démonstration en TD avec les nombres de Fermat.
-\end{rem}
-}
+\section{Premiers algorithmes}
 
 
-\begin{Prop}
-Soient $p$ premier et $a \in \mathbb{Z}$. Si $p \nmid a$, alors $a$ et $p$ sont premiers entre eux. 
-\end{Prop}
 
-\begin{proof}
-Soit $d=PGCD(a,p)$. Comme $d \mid p$, alors $d \in \{ 1;p \}$, mais si $d=p$, alors $p\mid a$, ce qui est impossible; donc $d=1$.
-\end{proof}
 
-\begin{thm}[Lemme d'Euclide]
-Soient $a,b \in \mathbb{Z}^*$ et $p$ un nombre premier.
-\begin{itemize}
-\item[$1)$] Si $p \mid ab$, alors $p\mid a$ ou $p\mid b$.
-\item[$2)$] Pour $k \in \mathbb{N}^*$, si $p \mid a^k$, alors $p\mid a$.
-\end{itemize}
-
-\begin{proof}
-\item[$1)$] Supposons que $p \nmid a$. Par la proposition précédente et le lemme de Gauss, $p \mid b$.
-\item[$2)$] On applique le 1) avec $b=a^{k-1}$.
-\end{proof}
-
-\end{thm}
 
 
 
 
 \begin{Prop}
-Soit $n$ un entier composé positif. Alors il a un diviseur premier $\leqslant \sqrt{n}$.\par 
-Par contraposée, on a donc: si pour tout $p \leqslant \sqrt{n}$ premier, $p$ ne divise pas $n$, alors $n$ est premier.
+Soit $n$ un entier composé positif. Alors il a un diviseur premier $\leq \sqrt{n}$.\par 
+Par contraposée, on a donc: si pour tout $p \leq \sqrt{n}$ premier, $p$ ne divise pas $n$, alors $n$ est premier.
 \end{Prop}
 
 \begin{proof}
-Soient $n \in \mathbb{N}$ ($n \geqslant 2$) composé et $p$ son plus petit diviseur $\geqslant 2$ (qui est premier par la Proposition \ref{p41}). \par 
-$p \, \mid \,  n$ donc il existe $k$ tel que $n=kp$. Par définition, $k \geqslant p$, donc $pk=n \geqslant p^2$, d'où $p \leqslant \sqrt{n}$.  
+Soient $n \in \mathbb{N}$ ($n \geq 2$) composé et $p$ son plus petit diviseur $\geq 2$ (qui est premier par la lemme~\ref{lemExistence_diviseur_premier}). \par 
+$p \, \mid \,  n$ donc il existe $k$ tel que $n=kp$. Par définition, $k \geq p$, donc $pk=n \geq p^2$, d'où $p \leq \sqrt{n}$.  
 \end{proof}
 
 
@@ -880,7 +864,7 @@ $p \, \mid \,  n$ donc il existe $k$ tel que $n=kp$. Par définition, $k \geqsla
 
 \subsubsection*{Premier test}
 
-Commençons par un test en supposant qu'on connaisse tous les nombres premiers $\leqslant \sqrt{n}$, notées $p_1, \ldots , p_k $. \vrt{(Par exemple, grâce à un algorithme qui, prenant en entrée $n$, renvoie tous les nombres premiers $\leqslant \sqrt{n}$.) L'algorithme ci-dessous renvoie si $n$ est premier ou non et le plus petit diviseur premier si $n$ est composé.}\\
+Commençons par un test en supposant qu'on connaisse tous les nombres premiers $\leq \sqrt{n}$, notées $p_1, \ldots , p_k $. \vrt{(Par exemple, grâce à un algorithme qui, prenant en entrée $n$, renvoie tous les nombres premiers $\leq \sqrt{n}$.) L'algorithme ci-dessous renvoie si $n$ est premier ou non et le plus petit diviseur premier si $n$ est composé.}\\
 
 
 \begin{tabular}{ll}
@@ -889,18 +873,19 @@ Commençons par un test en supposant qu'on connaisse tous les nombres premiers $
            & \ \ \ {\rm | } renvoyer premier  \\
            & sinon \\
            & \ \ \ {\rm |} $i \leftarrow 1$ \\
-           & \ \ \ {\rm | } tant que $ n \text{ mod } p_i \neq 0 $ et $i \leqslant k$  \\
+           & \ \ \ {\rm | } tant que $ n \text{ mod } p_i \neq 0 $ et $i \leq k$  \\
            & \ \ \ {\rm | } \ \ \ {\rm |} $ i \leftarrow i+1$\\ 
-           & \ \ \ {\rm | } si $i \leqslant k$ renvoyer composé et $p_i$  \\    
+           & \ \ \ {\rm | } si $i \leq k$ renvoyer composé et $p_i$  \\    
            & sinon renvoyer premier 
 \end{tabular}\\
 
 L'avantage est qu'on obtient le plus petit diviseur premier de $n$.\par 
-Complexité: $O (\sqrt{n}/ \ln n)$.
+
+Nombre de divisions à effectuer : $O (\sqrt{n}/ \ln n)$, d'après le théorème de Hadamard-La Vallée Poussin (théorème~\ref{thmHadamard_lavallee_poussin}).
 
 \subsubsection*{Second test}
 
-On va maintenant donner un algorithme sans connaitre les nombres premiers $\leqslant \sqrt{n}$. \vrt{Cet algorithme teste 2 et tous les entiers impairs  $\leqslant \sqrt{n} $ comme diviseur potentiel de $n$. On a les mêmes entrée et sortie que l'algorithme précédent.}  \\
+On va maintenant donner un algorithme sans connaitre les nombres premiers $\leq \sqrt{n}$. \vrt{Cet algorithme teste 2 et tous les entiers impairs  $\leq \sqrt{n} $ comme diviseur potentiel de $n$. On a les mêmes entrée et sortie que l'algorithme précédent.}  \\
 
 \begin{tabular}{ll}
 \textbf{Algorithme 10.} & Primalité2($n$)\\
@@ -911,20 +896,30 @@ On va maintenant donner un algorithme sans connaitre les nombres premiers $\leqs
            & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer composé et 2 \\
            & \ \ \ {\rm |} sinon  \\
            & \ \ \ {\rm |} \ \ \ {\rm |}   $i \leftarrow 3$ \\
-           & \ \ \ {\rm |} \ \ \ {\rm |} tant que $ n \text{ mod }  i =0$ et $i \leqslant \sqrt{n}$  \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} tant que $ n \text{ mod }  i =0$ et $i \leq \sqrt{n}$  \\
            & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm |}  $ i \leftarrow i+2$\\
-           & \ \ \ {\rm |} \ \ \ {\rm |} si $i \leqslant \sqrt{n} $ \\
+           & \ \ \ {\rm |} \ \ \ {\rm |} si $i \leq \sqrt{n} $ \\
            & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm |} renvoyer composé et $i$ \\
            & \ \ \ {\rm |} \ \ \ {\rm |} sinon  \\
            & \ \ \ {\rm |} \ \ \ {\rm |} \ \ \ {\rm |}   renvoyer premier  
 \end{tabular}\\
 
 L'avantage est qu'on obtient à nouveau le plus petit diviseur premier de $n$. \par 
-Complexité: $O(\sqrt{n})$.
+Nombre de divisions à effecture : $O(\sqrt{n})$.
 
 \subsubsection*{Crible d'Eratosthène}
 
-\vrt{On détermine tous les nombres premiers $\leqslant \sqrt{n}$, et on vérifie s'ils divisent $n$ ou non. Si aucun de ces nombres premiers ne divisent $n$, alors $n$ est premier.}
+ On écrit dans un tableau les $n-1$ nombres de $2$ à $n$. On conserve $2$ puis on barre tous ses multiples stricts. Le premier nombre du tableau
+non barré est $3$. On le conserve et on barre tous ses multiples stricts. Le premier
+nombre du tableau non barré est $5$. On le conserve et on barre tous ses multiples
+stricts, et ainsi de suite. On fait ainsi apparaître les premiers nombres premiers
+$p_1$, $p_2=3$, $p_3=5$, ...  Lorsqu’on a barré tous les multiples stricts de $p_i$ pour
+$i\leq k$, le plus petit nombre supérieur à $p_k$ qui n’est pas encore barré est $p_{k+1}$.
+Dès que l’on arrive à un nombre premier $p \geq n$, tous les nombres non barrés dans la tableau sont premiers et on a donc tous les nombres premiers inférieurs ou égaux à $n$.
+Cet algorithme donne une méthode simple pour déterminer tous les nombres
+premiers inférieurs à un entier positif donné : il ne necessite aucun calcul, seulement le déplacement d'un curseur.  Il utilise par contre une mémoire importante.
+
+
 
 \begin{ex}
 Pour $n=30$: \\
@@ -933,8 +928,7 @@ Pour $n=30$: \\
    11 & \sout{12} & 13 & \sout{14} & \sout{15} & \sout{16} & 17 &\sout{18} & 19 & \sout{20}\\
    \sout{21} & \sout{22} & 23 & \sout{24} & \sout{25} & \sout{26} & \sout{27} & \sout{28} & 29 & \sout{30}
 \end{tabular}\\
-$7 > \sqrt{30}$, ce qui fait qu'on obtient tous les nombres premiers $\leqslant 30$.\par  Avantage: on obtient tous les nombres premiers inférieurs à un entier positif donné.\par 
-Inconvénient: emploi d'une mémoire importante.
+
 \end{ex}
 
 
@@ -954,58 +948,72 @@ $(\mathbb{Z}/n\mathbb{Z})^{\times}$ désigne l'ensemble des éléments inversibl
 \end{nota}
 
 \begin{thm}
-Soit $n \in \mathbb{N}^*$ Alors:\par 
+Soit $n \in \mathbb{N}^*$. Alors:\par 
 $n$ est premier $\Longleftrightarrow$ $\mathbb{Z} / n \mathbb{Z}$ est intègre $\Longleftrightarrow$ $\mathbb{Z}/n\mathbb{Z}$ est un corps.
 \end{thm}
 
 
 \begin{proof}\
 \begin{itemize}
-\item["(1) $ \Rightarrow$ (2)"] Soient $x,y \in \mathbb{Z}/n\mathbb{Z}$ tels que $xy=0$; on en déduit que $n \mid xy$, et $n$ premier, donc $n \mid x$ ou $n \mid y$, i.e. $x=0$ ou $y=0$.
-\item["(2) $\Rightarrow$ (1)"] Soient $n=n_1 n_2$ où $n_1,n_2 \neq n$. Si $n_1 n_2=0$ dans $\mathbb{Z}/n\mathbb{Z}$, comme $n_1 \neq 0$ et $n_2 \neq 0$, alors $\mathbb{Z}/n\mathbb{Z}$ n'est pas intègre.
-\item["(1) $\Rightarrow$ (3)"] Soit $x \in \mathbb{Z}/n \mathbb{Z}$ où $x \neq 0$. $n$ est premier donc $PGCD(x,n)\in \{ 1;n  \}$, i.e. $PGCD(x,n)=1$; donc $x$ inversible.
-\item["(3) $\Rightarrow$ (2)"]   Soient $x,y \in \mathbb{Z}/n \mathbb{Z}$ tels que $xy=0$. Si $y \neq 0$, alors $y$ est inversible, donc $x=xyy^{-1}=0. y^{-1}=0$, d'où $\mathbb{Z}/n\mathbb{Z}$.
+\item[« (1) $ \Rightarrow$ (2) »] Soient $\overline{x},\overline{y} \in \mathbb{Z}/n\mathbb{Z}$ tels que $\overline{x}.\overline{y}=0$. Alors $n \mid xy$, et $n$ premier, donc $n \mid x$ ou $n \mid y$, i.e. $\overline{x}=0$ ou $\overline{y}=0$, par le lemme d'Euclide (lemme~\ref{lem_Euclide}).
+\item[« (2) $\Rightarrow$ (1) »] Soient $n=n_1 n_2$ où $n_1,n_2 >1$. On a $\overline{n}=\overline{n_1}.\overline{n_2}=0$, et $\overline{n_1},\overline{n_2}\neq 0$, donc $\mathbb{Z}/n\mathbb{Z}$ n'est pas intègre.
+\item[« (1) $\Rightarrow$ (3) »] Soit $\overline{x} \in \mathbb{Z}/n \mathbb{Z}\setminus\{0\}$. Alors $n$ ne divise pas $x$ et comme $n$ est premier, $n\wedge x=1$, donc $\overline{x}$ est inversible, par le corollaire~\ref{corInversibles_de_ZnZ}.
+\item[« (3) $\Rightarrow$ (2) »]    Soient $x,y \in \mathbb{Z}/n \mathbb{Z}$ tels que $xy=0$. Si $y \neq 0$, alors $y$ est inversible, donc $x=xyy^{-1}=0. y^{-1}=0$, donc $\mathbb{Z}/n\mathbb{Z}$ est intègre.
 \end{itemize}
 \end{proof}
 
+
+\begin{remarques}
+\begin{itemize}
+\item[•] Plus généralement, tout corps est un anneau intègre (par la preuve donnée dans le résultat précédent).
+
+\item[•] (pour aller plus loin) Plus généralement, tout anneau intègre fini est un corps. En effet, soit $A$ un tel anneau. Soit $x\in A\setminus \{ 0\}$. Soit $m_x:A\rightarrow A$ définie par $m_x(y)=xy$, pour $y\in A$. Alors comme $A$ est intègre, $m_x$ est injective, donc elle est surjective, donc il existe $y\in A$ tel que $xy=1$, c'est à dire que $x$ est inversible. On n'a en fait pas besoin de supposer $A$ commutatif (exercice : démontrer que tout anneau fini sans diviseur de zéro est un corps non nécessairement commutatif). De plus, le théorème de Wedderburn (1905) affirme que tout corps fini est commutatif. On en déduit que tout anneau fini sans diviseur de $0$ est commutatif.
+\end{itemize}
+\end{remarques}
+
+
 \begin{Cor}\label{Cor}
-Soit $p\geqslant 3$ un nombre premier. Alors l'équation $x^2 \equiv 1 [p]$ n'admet que deux solutions: 1 et -1.
+Soit $p\in \mathbb{P}$. Alors l'ensemble des solutions de l'équation $\overline{x}^2 =\overline{1}$ d'inconnue $\overline{x}\in \Z/p\Z$ est $\{-\overline{1},\overline{1}\}$. Cet ensemble a $2$ éléments, sauf si $p=2$.
 \end{Cor}
 
 \begin{proof}
-$x^2 \equiv 1 [p]$ donc $(x+1)(x-1) \equiv 0 [p]$. Or $\mathbb{Z}/p\mathbb{Z}$ est intègre donc $x+1 \equiv 0 [p]$ ou $x-1 \equiv 0 [p]$. On obtient donc $x=1$ ou $x=-1$ modulo $p$. 
+Soit $x\in \Z$. Alors $\overline{x}^2 =\overline{1}$ si et seulement si $\overline{x}^2-1= (\overline{x}+\overline{1})(\overline{x}-\overline{1})=\overline{0}$ si et seulement si $\overline{x}\in \{\overline{1},\overline{-1}\}$.
 \end{proof}
 
 \begin{rem}
-Dans $\mathbb{Z}/35 \mathbb{Z}$, 6 est solution de l'équation $x^2\equiv 1[35]$ donc le corolaire est faux dans le cas général.
+Dans $\mathbb{Z}/35 \mathbb{Z}$, $\overline{6}$ est solution de l'équation $\overline{x}^2\equiv 1[35]$ donc le corolaire est faux dans le cas général.
 \end{rem}
 
 \begin{rem}
-Le Corollaire \ref{Cor} fournit un test de primalité: si on peut trouver un entier $a \neq 1,-1$ tel que $PGCD(a,n)=1$ et $a^2 \equiv 1 [n]$, alors $n$ n'est pas premier. 
+Le corollaire \ref{Cor} fournit un test de non-primalité: si on peut trouver un entier $a\in \Z\setminus (1+n\Z \cup -1+n\Z)$ tel que $a\wedge n=1$ et $a^2 \equiv 1 [n]$, alors $n$ n'est pas premier. 
 \end{rem}
 
 \begin{thm}
-$(\mathbb{Z}/n \mathbb{Z})^{\times}$ est un groupe abélien. Son cardinal, noté $\varphi(n)$, est appelé indicatrice d'Euler.\par 
-Pour tout nombre premier $p$, on a $\varphi(p)=p-1$ et $\varphi(p^k)=p^{k-1}(p-1)$. Plus généralement, pour tout $n \in \mathbb{N}^*$, on a $\varphi(n)= n \prod_{p \mid n}(1-1/p)$.
+ \begin{enumerate}
+\item Soit $n\in \N^*$. Alors  $(\mathbb{Z}/n \mathbb{Z})^{\times}$ est un groupe abélien. Son cardinal, noté $\varphi(n)$, est appelé indicatrice d'Euler. On a $\varphi(n)=|\{j\in \llbracket 0,n-1\rrbracket|j\wedge n=1\}$. \par 
+
+\item Si $n=n_1n_2$, avec $n_1,n_2$ premiers entre eux, alors $\varphi(n)=\varphi(n_1)\varphi(n_2)$.
+
+\item Pour tout  $p\in \mathbb{P}$ et $k\in \N^*$, on a $\varphi(p)=p-1$ et $\varphi(p^k)=p^{k-1}(p-1)$. Plus généralement, pour tout $n \in \mathbb{N}^*$, on a $\varphi(n)= n \prod_{p\in \mathbb{P}, p\mid n}(1-1/p)$.
+\end{enumerate}
+
 \end{thm}
 
 \begin{proof}\
 \begin{itemize}
-\item[•] groupe: exercice.
-\item[•] $\varphi(p)= \# \{ 0\leqslant m \leqslant p-1: \ PGCD(m,p)=1   \}= \# \{  1\leqslant m \leqslant p-1 \}=p-1$.
-\item[•]\begin{eqnarray*}
-\varphi(p^k) &=& p^k - \#  \{ 0 \leqslant m \leqslant p^k-1 : PGCD(m,p)\neq 1  \}\\
-                     &=& p^k-  \# \{  0,p,2p,\ldots, p^k-p  \}=p^k- \#  \{  jp, 0 \leqslant j \leqslant p^{k-1}-1 \} \\
-                     &=& p^k - p^{k-1} = p^{k-1}(p-1)
-\end{eqnarray*}
-\item[•] Si $m$ et $n$ sont premiers entre eux, par le théorème des restes chinois, $\mathbb{Z}/mn \mathbb{Z}\simeq \mathbb{Z}/m \mathbb{Z} \times \mathbb{Z}/n \mathbb{Z}$. En faisant la restriction à $(\mathbb{Z}/m \mathbb{Z})^{\times} \times (\mathbb{Z}/n \mathbb{Z})^{\times}$, on peut voir que la restriction de la bijection du théorème des restes chinois à $\mathbb{Z}/mn \mathbb{Z})^{ \times}$ est un isomorphisme de $\mathbb{Z}/mn \mathbb{Z})^{ \times}$ vers $\mathbb{Z}/m \mathbb{Z})^{ \times} \times \mathbb{Z}/n \mathbb{Z})^{ \times} $, et donc que $\varphi(mn)= \varphi(m) \varphi(n)$.
-\item[•]Enfin, si $n= \prod p_i^{\alpha_i}$ où $p_i \neq p_j$ si $i\neq j$, alors 
-$$ \varphi(n)= \prod \varphi(p_i^{\alpha_i})= \prod p_i^{\alpha_i-1}(p_i-1)=n \prod_{p \mid n} (1-1/p) $$ 
+\item[(1)]  exercice.
+
+
+\item[(2)] Par le théorème des restes chinois, il existe un isomorphisme de  $\phi:\Z/n\Z\overset{\sim}{\rightarrow}\Z/n_1\Z\times \Z/n_2 \Z$. Alors $\phi$ envoie tout élément inversible sur un élément inversible (car si $xy=1$, $\phi(xy)=\phi(1)=1$) et de même pour $\phi^{-1}$, donc $\phi\big((\Z/n\Z)^\times\big)=(Z/n_1\Z\times \Z/n_2\Z)^\times$. Soit $(\overline{x},\overline{y})\in \Z/n_1\Z\times \Z/n_2\Z$. Alors $(x,y)$ est inversible si et seulement si il existe $(x',y')\in  \Z/n_1\Z\times \Z/n_2\Z$ tel que $(xx',yy')=(1\mathrm{\ mod\ }n_1,1\mathrm{\ mod\ }n_2)$, si et seulement si $x$ et $y$ sont inversibles (et alors $(x,y)^{-1}=(x^{-1},y^{-1})$). On a donc   $(\Z/n_1\Z\times \Z/n_2 \Z)^{\times}=(\Z/n_1\Z)^\times \times (\Z/n_2\Z)^\times$ et en prenant les cardinaux, on en déduit que $\varphi(n_1n_2)=\varphi(n_1)\varphi(n_2)$. 
+
+
+
+\item[(3)] On a $\varphi(p^k)=|\{j\in \llbracket 0,p^k-1\rrbracket| j\wedge p^k=1\}|$. Soit $j\in \llbracket 0,p^k-1\rrbracket$. Alors $j\wedge p^k=1$ si et seulement si $j\wedge p=1$ si et seulement si $p$ ne divise pas $j$. Ainsi \[\{j\in \llbracket 0,p^k-1\rrbracket| j\wedge p^k=1\}= \llbracket 0,p^k-1\rrbracket\setminus \{0,p,2p,\ldots, p^k-p\}=\llbracket 0,p^k-1\rrbracket \setminus p\llbracket 0,p^{k-1}-1\rrbracket,\] et donc $\varphi(p^k)=p^{k-1}(p-1)=p^k(1-\frac{1}{p})$. On conclut en utilisant (2).
 \end{itemize}
 \end{proof}
 
 
-\begin{thm}
+\begin{thm}(admis)
 Si $p$ est un nombre premier, alors le groupe $(\mathbb{Z}/p \mathbb{Z})^{\times}$ est cyclique.
 \end{thm}
 
@@ -1013,16 +1021,26 @@ Si $p$ est un nombre premier, alors le groupe $(\mathbb{Z}/p \mathbb{Z})^{\times
 
 \vrt{Nous commençons par donner le théorème d'Euler et le petit théorème de Fermat qui seront admis ici.}
 
+\begin{theoreme}\label{thmLagrange}(Théorème de Lagrange, admis)
+Soient $G$ un groupe fini et $H$ un de ses sous groupes. Alors $|H|$ divise $|G|$.
+\end{theoreme}
+
+
+
 \begin{thm}[Théorème d'Euler]
-Soit $n \in \mathbb{N}^*$. Si $a$ est un entier premier avec $n$, alors $a^{\varphi(n)}\equiv 1 [n]$.
+Soient $n \in \mathbb{N}^*$ et $a\in \Z$. Si $a$ est un entier premier avec $n$, alors $a^{\varphi(n)}\equiv 1 [n]$.
 \end{thm}
 
-\begin{thm}[Petit théorème de Fermat] Soit $p$ un nombre premier. Alors si $a$ est un entier non divisible par $p$, on a $a^{p-1}\equiv 1 [p]$.
-\end{thm}
+\begin{proof}
+Soit $H=\langle \overline{a}\rangle=\{\overline{1},\overline{a},\overline{a}^2,\ldots \} \subset (\Z/n\Z)^\times$.
+\end{proof}
 
-\vrt{Ce théorème fournit un autre test de primalité: si on peut trouver un entier $a$ tel que $PGCD(a,n)=1$, et $a^{n-1}\not \equiv 1 [n]$, alors $n$ n'est pas premier.}
+\begin{corollaire}[Petit théorème de Fermat] Soit $p$ un nombre premier. Alors si $a$ est un entier non divisible par $p$, on a $a^{p-1}\equiv 1 [p]$.
+\end{corollaire}
 
-\vrt{Afin de pouvoir utiliser le petit théorème de Fermat dans un test de primalité (ou afin de pouvoir faire les calculs nécessaires à la mise en œuvre d'un système de chiffrement comme l RSA), il nous faut une méthode rapide pour calculer les puissances d'un entier $a$ modulo $n$: c'est le but de l'algorithme suivant.\\}
+\vrt{Ce théorème fournit un autre test de non-primalité: si on peut trouver un entier $a$ tel que $a\wedge n=1$, et $a^{n-1}\not \equiv 1 [n]$, alors $n$ n'est pas premier.}
+
+\vrt{Afin de pouvoir utiliser le petit théorème de Fermat dans un test de primalité (ou afin de pouvoir faire les calculs nécessaires à la mise en œuvre d'un système de chiffrement comme  RSA), il nous faut une méthode rapide pour calculer les puissances d'un entier $a$ modulo $n$: c'est le but de l'algorithme suivant.\\}
 
 
 \begin{tabular}{ll}
@@ -1045,7 +1063,7 @@ Donner la version récursive de l'exponentiation modulaire.
 
 Coût: $\beta$ opérations où $\beta$ est le nombre de bits de $b$.
 
-\section{Nombres pseudo-premiers}
+\section{Nombres pseudo-premiers (de Fermat)}
 
 \begin{Def}
 Soient $a,n \in \mathbb{N}^*$. On dit que $n$ est un nombre \textbf{pseudo-premier} de base $a$ si $n$ est composé et si 
@@ -1054,10 +1072,10 @@ $$    a^{n-1} \equiv 1 [n]. \quad \rge{(*)}   $$
 
 \begin{rem}
 Le petit théorème de Fermat nous permet d'affirmer que si $n$ est premier, alors \rge{$(*)$} est vérifié pour tout $a \in \mathbb{N}^*$. \par 
-Par contraposée, si on trouve un entier $1 \leqslant a \leqslant n-1$ tel que $a^{n-1} \not \equiv 1 [n]$, alors $n$ est composé.
+Par contraposée, si on trouve un entier $1 \leq a \leq n-1$ tel que $a^{n-1} \not \equiv 1 [n]$, alors $n$ est composé.
 \end{rem}
 
-\vrt{L'algorithme suivant prend en entrée un entier $n \geqslant 2$ et renvoie composé si $n$ l'est et premier? si $n$ est premier ou pseudo-premier de base 2.}
+\vrt{L'algorithme suivant prend en entrée un entier $n \geq 2$ et renvoie composé si $n$ l'est et premier? si $n$ est premier ou pseudo-premier de base 2.}
 
 \begin{tabular}{ll}
 \textbf{Algorithme 12.} & Pseudo-premier($n$)\\
@@ -1068,11 +1086,17 @@ Par contraposée, si on trouve un entier $1 \leqslant a \leqslant n-1$ tel que $
 \end{tabular}\\
 
 \textbf{Fiabilité:}\begin{itemize}
-\item[•]Test quasi-parfait \vrt{car il se trompe rarement: 22 entiers $\leqslant 10000$ (341, 561, 645, 1105, $\ldots$). Un nombre de 50 bits (respectivement 100) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test.}
-\item[•] Néanmoins, même si on teste plusieurs bases, on n'éliminera pas pour autant toutes les erreurs possibles car il existe des entiers strictement positifs tels que $n$ soit composé et que $a^{n-1} \equiv 1 [n]$ $\forall 1 \leqslant a \leqslant n-1$. Un tel nombre est appelé un nombre de Carmichaël (par exemple 561,1105,1729). Même s'il y en a une infinité, ils sont plutôt rares (il y en a 255 qui sont $\leqslant 10^8$).
+\item[•]Test quasi-parfait \vrt{car il se trompe rarement: 22 entiers $\leq 10000$ (341, 561, 645, 1105, $\ldots$). Un nombre de 50 bits (respectivement 100) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test.}
+\item[•] Néanmoins, même si on teste plusieurs bases, on n'éliminera pas pour autant toutes les erreurs possibles car il existe des entiers strictement positifs tels que $n$ soit composé et que $a^{n-1} \equiv 1 [n]$ $\forall 1 \leq a \leq n-1$. Un tel nombre est appelé un nombre de Carmichaël (par exemple 561,1105,1729). Même s'il y en a une infinité, ils sont plutôt rares (il y en a 255 qui sont $\leq 10^8$).
 \end{itemize}
 
-\section{Test de Rabin-Miller}
+
+
+? parler de l'aspect probabiliste ?
+
+
+
+\section{Test de Miller-Rabin}
 
 \begin{but}Améliorer le test de primalité avec les nombres pseudo-premiers.
 \end{but}
@@ -1083,8 +1107,8 @@ L'algorithme se base sur la propriété suivante, dont la démonstration provien
 
 \begin{Prop}
 \begin{itemize}
-\item[•] Soit $p \geqslant 3$ premier. Soient $s \in \mathbb{N}$ et $d$ impair tels que $p-1=2^s d$. Alors pour tout $1 \leqslant a \leqslant p-1$, $a^d \equiv 1 [p]$ ou $\exists 0 \leqslant r \leqslant s-1:$ $a^{2^r d}\equiv -1 [p]$.
-\item[•] Si $a^d \not \equiv 1 [n]$ et pour tout $0 \leqslant r \leqslant s-1$, $a^{2^r d} \not \equiv -1 [n]$, alors $n$ est composé. 
+\item[•] Soit $p \geq 3$ premier. Soient $s \in \mathbb{N}$ et $d$ impair tels que $p-1=2^s d$. Alors pour tout $1 \leq a \leq p-1$, $a^d \equiv 1 [p]$ ou $\exists 0 \leq r \leq s-1:$ $a^{2^r d}\equiv -1 [p]$.
+\item[•] Si $a^d \not \equiv 1 [n]$ et pour tout $0 \leq r \leq s-1$, $a^{2^r d} \not \equiv -1 [n]$, alors $n$ est composé. 
 \end{itemize}
 \end{Prop}
 
@@ -1118,14 +1142,14 @@ L'algorithme Témoin est une "amélioration" de celui dérivant du Corollaire \r
 Il est évident que si Témoin$(a,n)$ renvoie vrai, cela signifie que $n$ est composé. Sinon, on ne sait pas, et dans ce cas, $n$ est soit premier soit pseudo-premier de base $a$.
 \end{rem}
 
-\subsection*{Test de Rabin-Miller}
+\subsection*{Test de Miller-Rabin}
 
-\vrt{Le test de Rabin-Miller est basé sur l'utilisation de Témoin($a,n$). En effet, pour ce test, on utilisera Témoin($a,n$) avec $s$ entiers $a$ choisis aléatoirement antre 1 et $n-1$.}
+\vrt{Le test de Miller-Rabin est basé sur l'utilisation de Témoin($a,n$). En effet, pour ce test, on utilisera Témoin($a,n$) avec $s$ entiers $a$ choisis aléatoirement antre 1 et $n-1$.}
 
 On note Hasard($a,b$) une fonction renvoyant un entier choisi aléatoirement entre $a$ et $b$.
 
 \begin{tabular}{ll}
-\textbf{Algorithme 14.} & Rabin-Miller($n,s$)\\
+\textbf{Algorithme 14.} & Miller-Rabin($n,s$)\\
            & pour $j$ de 1 à $s$ \\
            & \ \ \ {\rm |} $a \leftarrow$ Hasard($1,n-1$) \\      
            & \ \ \ {\rm |} si Témoin($a,n$) \\
@@ -1133,10 +1157,10 @@ On note Hasard($a,b$) une fonction renvoyant un entier choisi aléatoirement ent
            & renvoyer premier ?
 \end{tabular}\\
 
-\vrt{Il est certain que si le test de Rabin-Miller renvoie composé, alors $n$ est vraiment composé, mais s'il renvoie premier?, cela signifie qu'on n'a pas trouvé de témoin de la nature composé de $n$, mais cela ne veut pas dire pour autant que $n$ est forcément premier. On peut faire les mêmes remarques que le test pseudo-premier pour la fiabilité de l'algorithme.}
+\vrt{Il est certain que si le test de Miller-Rabin renvoie composé, alors $n$ est vraiment composé, mais s'il renvoie premier?, cela signifie qu'on n'a pas trouvé de témoin de la nature composé de $n$, mais cela ne veut pas dire pour autant que $n$ est forcément premier. On peut faire les mêmes remarques que le test pseudo-premier pour la fiabilité de l'algorithme.}
 
 \begin{rem}
-Le test peut fonctionner pour un nombre de Carmichael. Par exemple, pour $n=561$, on peut remarquer que Témoin$(7,561)$ renvoie vrai car $n-1=35 \times 2^4$ et :$7^{35}\equiv 241 [561]$, $7^{70}\equiv 298 [561]$, $7^{140}\equiv 166 [561]$ et $7^{280}\equiv 67 [561]$. Donc si 7 est choisi pour tester la primalité de 561, le test de Rabin-Miller fonctionne.
+Le test peut fonctionner pour un nombre de Carmichael. Par exemple, pour $n=561$, on peut remarquer que Témoin$(7,561)$ renvoie vrai car $n-1=35 \times 2^4$ et :$7^{35}\equiv 241 [561]$, $7^{70}\equiv 298 [561]$, $7^{140}\equiv 166 [561]$ et $7^{280}\equiv 67 [561]$. Donc si 7 est choisi pour tester la primalité de 561, le test de Miller-Rabin fonctionne.
 \end{rem}
 
 \section{Test de Solovay-Strassen}
@@ -1168,7 +1192,7 @@ Soient $p$ un nombre premier impair et $a \in \mathbb{Z}$. Alors
 \begin{proof}\
 \begin{itemize}
 \item[•]$p \mid a$: OK.
-\item[•] si $p \nmid a$, alors $a$ mod $p \in (\mathbb{Z}/p\mathbb{Z})^{\times}$ qui est cyclique d'ordre $p-1$ soit $g$ un générateur. Alors $(\mathbb{Z}/p\mathbb{Z})^{\times}= \{ g^i, 0 \leqslant i \leqslant p-2 \}$. $(g^{\tfrac{p-1}{2}})^2=g^{p-1}=1$ et $g^{\tfrac{p-1}{2}}\neq 1$ donc $g^{\tfrac{p-1}{2}}=-1$. Donc si $a=g^k$, alors $a^{\tfrac{p-1}{2}}=(-1)^k$. On sait que $g^k$ est un carré dans $(\mathbb{Z}/p\mathbb{Z})^{\times} \Longleftrightarrow k$ est pair. D'où le résultat.
+\item[•] si $p \nmid a$, alors $a$ mod $p \in (\mathbb{Z}/p\mathbb{Z})^{\times}$ qui est cyclique d'ordre $p-1$ soit $g$ un générateur. Alors $(\mathbb{Z}/p\mathbb{Z})^{\times}= \{ g^i, 0 \leq i \leq p-2 \}$. $(g^{\tfrac{p-1}{2}})^2=g^{p-1}=1$ et $g^{\tfrac{p-1}{2}}\neq 1$ donc $g^{\tfrac{p-1}{2}}=-1$. Donc si $a=g^k$, alors $a^{\tfrac{p-1}{2}}=(-1)^k$. On sait que $g^k$ est un carré dans $(\mathbb{Z}/p\mathbb{Z})^{\times} \Longleftrightarrow k$ est pair. D'où le résultat.
 \end{itemize}
 \end{proof}
 
@@ -1185,7 +1209,7 @@ $$    \Big(  \frac{p}{q}\Big)=(-1)^{\tfrac{p-1}{2}\cdot \tfrac{q-1}{2}}\Big(  \f
 \subsection{Symbole de Jacobi}
 
 \begin{Def}[Symbole de Jacobi]
-Soit $n$ un entier naturel impair. On écrit $n=\prod_{1 \leqslant j \leqslant k}p_j^{\alpha_j}$ où les $p_j$ sont des nombres premiers (impairs). Pour $a \in \mathbb{Z}$, on définit le symbole de Jacobi $\big(  \tfrac{a}{n}\big)$ par
+Soit $n$ un entier naturel impair. On écrit $n=\prod_{1 \leq j \leq k}p_j^{\alpha_j}$ où les $p_j$ sont des nombres premiers (impairs). Pour $a \in \mathbb{Z}$, on définit le symbole de Jacobi $\big(  \tfrac{a}{n}\big)$ par
 $$ \Big(  \frac{a}{n}\Big) =\prod_{j=1}^k \Big(  \frac{a}{p_j}\Big)^{\alpha_j}  .  $$
 \end{Def}
 
@@ -1238,13 +1262,13 @@ Montrons par récurrence sur $n$ que l'algorithme 15 termine.
 \item[•] Si $n=1$, OK.
 \item[•] Supposons que l'algorithme 15 termine pour Jacobi($m',n'$) où $m'\in \mathbb{Z}$ et $n'$ impair $<n$. On peut supposer sans perte de généralité que $m=a$ où $0<a<n$.\\
 Si $a$ est impair, on calcule récursivement Jacobi($n,a$) qui termine bien par hypothèse de récurrence car $a<n$.\\
-Si $a$ est pair, on a $a=2^kb$ où $k \geqslant 1$ et $b$ impair. L'algorithme se ramène à Jacobi($b,n$) qui termine car $b$ impair. \\
+Si $a$ est pair, on a $a=2^kb$ où $k \geq 1$ et $b$ impair. L'algorithme se ramène à Jacobi($b,n$) qui termine car $b$ impair. \\
 Pour vérifier que le résultat renvoyé par Jacobi$(a,n)$ est le bon, on utilise les propriétés précédentes.
 \end{itemize}
 
 \subsection{Le test}
 
-L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de Jacobi. On utilise à nouveau la fonction Hasard$(a,b)$. Il prend en entrée un entier naturel impair $\geqslant 3$.\\
+L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de Jacobi. On utilise à nouveau la fonction Hasard$(a,b)$. Il prend en entrée un entier naturel impair $\geq 3$.\\
 
 
 
@@ -1269,13 +1293,13 @@ Si $n$ est premier, l'algorithme 16 renvoie nécessairement premier?. Sinon, il 
 \end{rem}
 
 \begin{rem}
-Si $n$ est composé, la probabilité de tomber sur un $a$ montrant la nature composée e $n$ est $\geqslant 1/2$. \\
-Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de déterminer la nature composée de $n$ est $\geqslant 1-1/2^k$.
+Si $n$ est composé, la probabilité de tomber sur un $a$ montrant la nature composée e $n$ est $\geq 1/2$. \\
+Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de déterminer la nature composée de $n$ est $\geq 1-1/2^k$.
 \end{rem}
 
 
 \begin{Prop}[admis]
-Soit $n \geqslant 3$ composé. Pour au moins la moitié de $a$ compris entre 1 et $n-1$, le test de Solovay-Strassen détecte le caractère composé de $n$.
+Soit $n \geq 3$ composé. Pour au moins la moitié de $a$ compris entre 1 et $n-1$, le test de Solovay-Strassen détecte le caractère composé de $n$.
 \end{Prop}
 
 \chapter{Un peu de cryptographie}
@@ -1321,7 +1345,7 @@ Déchiffrer SIZTLBMZRIZBLTCZLUB.
 Si un indiscret tombe sur le message précédent, même s'il n'y a que dix lettres différentes, s'il n'a pas la clé, il devra envisager tous les arrangements possibles: il y en a 26!/17!, c'est-à-dire plus de 19000 milliards.
 \end{rem}  
 
-La cryptanalyse a permis de "casser" tous ces codes.
+La cryptanalyse a permis de « casser » tous ces codes.
 
 \underline{Cependant}, en 1976, on a pu démontrer que 2 correspondants peuvent se fabriquer une clé secrète que les espions du monde entier ne pourraient parvenir à décrypter.
 
@@ -1387,7 +1411,7 @@ Ce système a été mis en place par Rivest, Schamir et Adleman; il s'agit d'un 
 \item[•] Bob choisit deux nombres premiers distincts $p$ et $q$ de taille comparable.
 \item[•] Bob calcule $n=pq$ et $\varphi=(p-1)(q-1)$.
 \item[•] Bob choisit un entier $e$ qui vérifie $1<e< \varphi$ et $PGCD(e,\varphi)=1$.
-\item[•] Bob cherche l'unique entier $2 \leqslant d \leqslant \varphi -1$ tel que $de \equiv 1 [\varphi]$.
+\item[•] Bob cherche l'unique entier $2 \leq d \leq \varphi -1$ tel que $de \equiv 1 [\varphi]$.
 \item[•] On obtient les clés publique et privée souhaités:
 \begin{itemize}
 \item[$\star$] clé publique: $(n,e)$;
@@ -1414,7 +1438,7 @@ Plusieurs questions se posent alors:
 \begin{prin}\
 \begin{itemize}
 \item[•] Alice récupère la clé publique de Bob.
-\item[•] Alice écrit le message sous la forme d'un entier $0 \leqslant m \leqslant n-1$.
+\item[•] Alice écrit le message sous la forme d'un entier $0 \leq m \leq n-1$.
 \item[•] Alice calcule $C=m^e$ mod $n$.
 \item[•] Alice envoie $C$ à Bob.
 \end{itemize}
@@ -1446,7 +1470,7 @@ Utilisons à présent la proposition suivante.
 \end{itemize}
 
 \begin{Prop}\label{p31}
-Pour au moins la moitié des éléments $a \in (\mathbb{Z}/n\mathbb{Z})^{\times}$, il existe $1 \leqslant i \leqslant s  $ tel que
+Pour au moins la moitié des éléments $a \in (\mathbb{Z}/n\mathbb{Z})^{\times}$, il existe $1 \leq i \leq s  $ tel que
 $$   a^{2^{i-1}t}\not \equiv \pm 1 [n] \qquad \text{et} \qquad a^{2^i t}\equiv 1 [n] .       $$
 \end{Prop}
 
@@ -1556,12 +1580,12 @@ Pour $U \in \mathbb{Z}[X]$, on pose $cd(U)$ le coefficient dominant de $U$ et $c
 
 \begin{Lem}
 Soient $U,V \in \mathbb{Z}[X]$ et soit $p$ un nombre premier qui ne divise pas simultanément $cd(U)$ et $cd(V)$. Alors
-$$ deg (PGCD(U_p,V_p))\geqslant deg( PGCD(U,V) ).      $$ 
+$$ deg (PGCD(U_p,V_p))\geq deg( PGCD(U,V) ).      $$ 
 \end{Lem}
 
 \begin{proof}
 Notons $W$ le pgcd de $U$ et de $V$. Il existe alors $\widehat{U},\widehat{V} \in \mathbb{Z}[X]$ tels que $U=W\widehat{U} $ et $V=W\widehat{V}$. On aura alors, par passage à $\mathbb{Z}/p\mathbb{Z}$, $U_p=W_p\widehat{U}_p $ et $V_p=W_p\widehat{V}_p$, ce qui implique que $W_p$ est un diviseur commun à $U_p$ et $V_p$ et donc divise leur PGCD. Nous obtenons alors
-$$ deg (PGCD(U_p,V_p) ) \geqslant deg (W_p).       $$
+$$ deg (PGCD(U_p,V_p) ) \geq deg (W_p).       $$
 En revanche, $n$ ne divise pas $cd(W)$, sinon il diviserait à la fois $cd(U)$ et $cd(V)$. D'où $deg(W_p)=deg(W)$.
 \end{proof}
 
@@ -1598,7 +1622,7 @@ Nous allons maintenant donner un résultat, admis ici, qui nous permet de dire q
 
 \begin{thm}[Borne de Landau-Mignotte]
 Si $U= \sum \limits_{i=0}^{n}u_iX^i$ et $V= \sum \limits_{j=0}^{m}v_jX^j$ sont deux polynômes non nuls de $\mathbb{Z}[X]$, de degrés respectifs $n$ et $m$ et si $V$ divise $U$ dans $\mathbb{Z}[X]$, alors
-$$     \frac{1}{|v_m|} \sum_{j=0}^m |v_j| \leqslant \frac{2^m}{|u_n|} \sqrt{\sum_{i=0}^n u_i^2} .      $$
+$$     \frac{1}{|v_m|} \sum_{j=0}^m |v_j| \leq \frac{2^m}{|u_n|} \sqrt{\sum_{i=0}^n u_i^2} .      $$
 \end{thm}
 
 On peut donc ainsi borner les coefficients du PGCD de deux polynômes.
@@ -1652,7 +1676,7 @@ $$    W \equiv X^2+3X+1 [6]    $$
 Ce dernier polynôme n'est pas non plus diviseur commun à $U$ et $V$.
 \item[•] Modulo 5, on a
 $$     PGCD(U_5,V_5) \equiv X^3  -2X+1[5].   $$
-On voit immédiatement que 5 correspond à un choix malheureux puisque les calculs modulo 2 et 3 permettent d'affirmer que $deg(PGCD(U,V))\leqslant 2 $. On écarte donc ce résultat.
+On voit immédiatement que 5 correspond à un choix malheureux puisque les calculs modulo 2 et 3 permettent d'affirmer que $deg(PGCD(U,V))\leq 2 $. On écarte donc ce résultat.
 \item[•] Modulo 7, on obtient
 $$    PGCD(U_7,V_7) \equiv X^2-3X [7]    $$
 \item[•]
