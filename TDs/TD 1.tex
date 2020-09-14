@@ -12,10 +12,13 @@
 \usepackage{amsthm}
 \usepackage{layout}
 \usepackage{fancyhdr}
+\usepackage{comment}
 
 \newtheorem*{thm}{Théorème}
 \newtheorem{ex}{Exercice}
 \newtheorem*{nota}{Notation}
+\newtheorem*{remarque}{Remarque}
+\newtheorem*{remarques}{Remarques}
 \newtheorem*{rem}{Remarque}
 \newtheorem*{rem2}{Remarques}
 \newtheorem{de2}{Définition}
@@ -26,6 +29,14 @@
 \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 \newcommand{\hsp}{\hspace{20pt}}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
 
 \title{}
 
@@ -38,7 +49,7 @@
 \fancyhead{}
  \fancyfoot{}
 
- \lhead{ 2019/2020 \\  L3 Mathématiques
+ \lhead{ 2020/2021 \\  L3 Mathématiques
 }
 \chead{\textbf{ Calcul formel}\\} 
  \rhead{   Université de Lorraine \\ }
@@ -60,13 +71,15 @@
 \begin{center}
 %    \HRule \\[0.6cm]
     { \huge \bfseries
-    Feuille de TD n$^{\boldsymbol{\circ}}$3
+    Feuille de TD n$^{\boldsymbol{\circ}}$1
      \\ [0cm] }
     \HRule \\[0.5cm]
 \end{center}
 \
 
-\begin{ex}\
+
+
+\begin{ex}\label{exDivision_Euclidienne}\
 \begin{itemize}
 \item[$1.$] Écrire un algorithme, que l'on notera DivEuc$($a,b$)$, qui à partir de deux entiers $(a,b) \in \mathbb{N}\times \mathbb{N}^* $, donne le quotient et le reste de la division euclidienne de $a$ par $b$.
 %\item[$2.$] Généraliser à $(a,b)\in \mathbb{Z}\times \mathbb{Z}^*$
@@ -76,49 +89,119 @@ Pour $(a,b) \in \mathbb{N}\times \mathbb{N}^*$, on a l'algorithme suivant:
 \begin{center}
 \begin{tabular}{l}
 DE$($a,b$)$\\
-$ u \leftarrow 0$ \\
-$v \leftarrow a$ \\
-tant que $v \geqslant b$ \\
+$ Q \leftarrow 0$ \\
+$R \leftarrow a$ \\
+tant que $R\geq b$ \\
 \ \ \ {\rm |} $n \leftarrow 0$ \\
 \ \ \ {\rm |}   $c \leftarrow 1$ \\
-\ \ \ {\rm |}   tant que $10^n b \leqslant v$ \\ 
+\ \ \ {\rm |}   tant que $10^n b \leq R$ \\ 
 \ \ \ {\rm |} \ \ \ {\rm |} $n \leftarrow n+1$\\
 \ \ \ {\rm |}     $n \leftarrow n-1$ \\
-\ \ \ {\rm |}    tant que $10^{n}bc \leqslant v$ \\ 
+\ \ \ {\rm |}    tant que $10^{n}bc \leq R$ \\ 
  \ \ \ {\rm |} \ \ \ {\rm |}    $c \leftarrow c+1$\\
  \ \ \ {\rm |}  $c \leftarrow c-1$ \\
-\ \ \ {\rm |}     $u \leftarrow u+10^{n}c$\\
-\ \ \ {\rm |}   $v \leftarrow v-10^{n}bc$\\
-renvoyer $(u,v)$      \\
+\ \ \ {\rm |}     $Q \leftarrow Q+10^{n}c$\\
+\ \ \ {\rm |}   $R \leftarrow R-10^{n}bc$\\
+renvoyer $(Q,R)$      \\
 
 \end{tabular}
 \end{center}
 \ \\
 Quel résultat renvoie cet algorithme? Justifier. \\
-\textit{Indication: Montrer qu'à chaque étape de la boucle indicée par $v$ dans l'algorithme, la relation $a=bu+v$ est vraie (ce qu'on appelle un invariant de boucle).}
+\textit{Indication: Montrer qu'à chaque étape de la boucle indicée par $k$ dans l'algorithme, la relation $a=bQ_k+R_k$ est vraie (ce qu'on appelle un invariant de boucle).}
 
 \end{itemize}  
   
   
 \end{ex}
 
-\begin{rem2}\
+\begin{remarque}
+ L'algorithme précédent est celui utilisé par les élèves du primaire pour effectuer des divisions.% Son coût est moins important que celui du premier algorithme.
+%Il existe encore un autre algorithme permettant la division euclidienne de $a$ par $b$, appelé méthode binaire (le premier étant appelé méthode naïve et le second la méthode décimale).
+\end{remarque}
+
+
+\begin{ex}\label{exBases de numération}$($Bases de numération$)$
+
+On admet que, si on fixe $b\geqslant 2$ un entier naturel, alors tout entier naturel $n$ peut s'écrire de façon unique sous la forme
+$$ n=a_k b^k +a_{k-1}b^{k-1}+ \ldots + a_1 b +a_0= \overline{a_k a_{k-1}\ldots a_1 a_0}^b  $$
+où, $ \forall i \in \lb 0; k \rb $, $a_i \in \lb 0; b-1 \rb$. Les entiers $a_i$ sont appelés les chiffres de la base $b$.
 \begin{itemize}
-\item[•] L'algorithme précédent est celui utilisé par les élèves du primaire pour effectuer des divisions. Son coût est moins important que celui du premier algorithme.
-\item[•] Il existe encore un autre algorithme permettant la division euclidienne de $a$ par $b$, appelé méthode binaire (le premier étant appelé méthode naïve et le second la méthode décimale).
+\item[\textbf{Algorithmes}] 
+\item[$1.$] Donner une méthode pour calculer $a_0$, puis $a_1, \ldots, a_k$.  En déduire un algorithme, que l'on notera $Pdb(b,n)$, qui à partir de l'écriture en base décimale de $n$ donne son écriture en base $b$. 
+\item[$2.$] Soit $n \in \mathbb{N}$ défini par son écriture en base $b$:
+$$ n=\overline{a_k a_{k-1}\ldots a_1 a_0}^b  $$
+Donner une méthode pour calculer l'écriture de cet entier en base décimale. 
+\item[\textbf{Applications}](Calculatrices autorisées)
+\item[$3.$] Donner l'écriture de $n=146556$ en base $12$.
+\item[$4.$] Donner l'écriture décimale de $n=\overline{16356}^7$.
 \end{itemize}
-\end{rem2}
+
+\end{ex}
+
+
+
+
+
+\begin{ex}\
+Écrire un algorithme permettant de calculer le pgcd de trois entiers naturels $a$, $b$ et $c$.
+\end{ex}
+
 
 
 \
 
-\begin{ex}$($Nombres de Fermat$)$
+\begin{ex}\
+Soient $(a,b)\in \N^*\times \N^*$ tels que $a>b$. Soit  $a=bq+r$ avec $0 \leqslant r <b$ la divisiion euclidienne de $a$ par $b$. Montrer que $a\wedge b=b\wedge r=b\wedge (b-r)$. En déduire une "amélioration" de l'algorithme d'Euclide. Comparer l'algorithme classique avec ce nouvel algorithme pour le calcul de $89\wedge 55$.
+\end{ex}
+
+\
+
+
+
+\begin{ex}\label{exPGCD_2n-1_2m-1}\
+En utilisant l'algorithme d'Euclide, montrer que pour tous entiers $m,n \in \mathbb{N}$, on a: $$(2^n-1)\wedge(2^m-1)=2^{m\wedge n}-1.$$
+\end{ex}
+
+\
+
+
+\begin{ex}(Calcul de la complexité de l'algorithme d'Euclide)
+
+On appelle suite de Fibonacci, notée $(F_n)_{n \in \mathbb{N}^*}$ la suite d'entiers définie par $F_1=F_2=1$ et pour $n\geqslant 3$, $F_{n+2}=F_{n+1}+F_n$. 
+\begin{itemize}
+\item[$1.$] Montrer par récurrence sur $k \in \mathbb{N}^*$ que si $a>b \geqslant 0$ et si Euclide$(a$,$b)$ effectue $k$ appels récursifs, alors $a \geqslant F_{k+2}$ et $b \geqslant F_{k+1}$.
+\item[$2.$]En déduire le théorème de Lamé, qui énonce que: $\forall k \in \mathbb{N}^*$, $\forall a,b \in \mathbb{N}$, si $b<F_{k+1}$, alors Euclide$(a$,$b)$ engendre moins de $k$ appels récursifs.
+\item[$3.$] Montrer par récurrence sur $k \in \mathbb{N}^*$ que Euclide$(F_{k+2}$, $F_{k+1})$ engendre exactement $k$ appels récursifs.
+\item[$4.$] On admet ici le fait que la suite de terme général $F_{n+1}/F_n$ converge vers le nombre d'or $\varphi$ de valeur $(1+\sqrt{5})/2$ et que $F_n \sim \varphi^n/\sqrt{5}$. Montrer alors que le nombre d'appels récursifs effectués par Euclide $(a$,$b)$ est $O(\ln b)$.
+\end{itemize}
+\end{ex}
+
+
+\begin{rem}
+Historiquement, Fibonacci, vers 1200, a introduit la suite qui porte son nom pour calculer le nombre de couples de lapins au mois $n$ sachant qu'à partir du deuxième mois de maturité un couple de lapin donne naissance à un autre couple et qu'on introduit un couple de lapins à la date $0$. 
+\end{rem}
+
+\
+
+
+
+\begin{ex}\
+Quel est le résultat de Euclide-étendu$(F_{k+1},F_k)$ ?
+\end{ex}
+
+\
+
+
+\
+
+\begin{ex}\label{exNombres_Fermat}$($Nombres de Fermat$)$
 \begin{itemize}
 \item[$1.$] Soit $m$ un entier impair. Montrer que $\forall x \in \mathbb{R}$, 
-$$ x^m+1=(x+1)(x^{m-1}-x^{m-2}+ \ldots +1)  .$$
+$$ x^m+1=(x+1)(1-x+x^2-x^3+\ldots + x^{m-1}).$$
 \item[$2.$] Soit $n \in \mathbb{N}^*$. Montrer que si $2^n+1$ est premier, alors $n$ est une puissance de $2$.%\\
 %\textit{Indication: On se servira du $1.$}
-\item[$3.$] Pour $n \in \mathbb{N}$, on pose $F_n=2^{2^{n}}+1$. Montrer que les nombres $\{ F_n \}_n$ sont premiers entre eux deux à deux. En déduire une autre  démonstration de l'infinitude des nombres premiers. 
+\item[$3.$] Pour $n \in \mathbb{N}$, on pose $F_n=2^{2^{n}}+1$. Montrer que les nombres $\{ F_n \}_n$ sont premiers entre eux deux à deux (on pourra montrer que si $x\in \Z$ et $k\in \N^*$, alors $x^k\equiv -x^{k-1} [x+1]$ et utiliser l'identité de Bézout). En déduire une autre  démonstration de l'infinitude des nombres premiers. 
 \end{itemize}
 \end{ex}
 
@@ -130,30 +213,13 @@ $$ x^m+1=(x+1)(x^{m-1}-x^{m-2}+ \ldots +1)  .$$
 \end{rem2}
 
 
-\begin{ex}$($Bases de numération$)$
-
-On admet que, si on fixe $b\geqslant 2$ un entier naturel, alors tout entier naturel $n$ peut s'écrire de façon unique sous la forme
-$$ n=a_k b^k +a_{k-1}b^{k-1}+ \ldots + a_1 b +a_0= \overline{a_k a_{k-1}\ldots a_1 a_0}^b  $$
-où, $ \forall i \in \lb 0; k \rb $, $a_i \in \lb 0; b-1 \rb$. Les entiers $a_i$ sont appelés les chiffres de la base $b$.
-\begin{itemize}
-\item[\textbf{Algorithmes}] 
-\item[$1.$] Donner une méthode pour calculer $a_0$, puis $a_1, \ldots, a_k$.  En déduire un algorithme, que l'on notera $Pdb(b,n)$, qui à partir de l'écriture en base décimale de $n$ donne son écriture en base $b$. 
-\item[$2.$] Soit $n \in \mathbb{N}$ défini par son écriture en base $b$:
-$$ n=\overline{a_k a_{k-1}\ldots a_1 a_0}^b  $$
-Donner une méthode pour calculer l'écriture de cet entier en base décimale. En déduire un algorithme, que l'on notera $Pbd(b,n)$ où, à partir de l'écriture en base $b$ de $n$ donne son écriture en base décimale.
-\item[\textbf{Applications}](Calculatrices autorisées)
-\item[$3.$] Donner l'écriture de $n=146556$ en base $12$.
-\item[$4.$] Donner l'écriture décimale de $n=\overline{16356}^7$.
-\end{itemize}
-
-\end{ex}
-
 \
 
 
-\begin{ex}\
+\begin{ex}\label{exPGCD_suite}\
 Soit $(u_n)_{n \in \mathbb{N}}$ la suite d'entiers définie par $u_0=14$ et $u_{n+1}=5 u_n -6$. Montrer que le PGCD de deux termes consécutifs de la suite est constante. Précisez sa valeur.
 \end{ex}
+
 
 
 \
@@ -165,21 +231,20 @@ Existe-t-il des entiers premiers à $0$ ? Si oui, lesquels ?
 \
 
 
-
+\begin{comment}
 \begin{ex}\
 On suppose qu'on dispose d'un algorithme de test de primalité TestPrim$($n$)$ qui renvoie vrai si $n$ est premier et faux sinon. A partir de cet algorithme, écrire un algorithme PreSui$($n$)$ qui, à partir d'un entier naturel $n$, renvoie le plus petit nombre premier strictement supérieur à $n$.
 \end{ex}
 
 \
+\end{comment}
 
-
-\begin{ex}\
+\begin{ex}\label{exPGCD_Polynomes}\
 Calculer, pour $n \in \mathbb{N}^*$:
-\begin{itemize}
-\item[•]
-$ PGCD(n^2+n,2n+1)$
-\item[•] $PGCD(15n^2+8n+6,30 n^2+21n+13)$ .
-\end{itemize} 
+\begin{enumerate}
+\item $ (n^2+n) \wedge (2n+1)$
+\item $(15n^2+8n+6)\wedge (30 n^2+21n+13)$.
+\end{enumerate}
 \end{ex}
 %\
 
@@ -187,7 +252,7 @@ $ PGCD(n^2+n,2n+1)$
 \
 
 
-\begin{ex}$($Nombres de Mersenne$)$
+\begin{ex}\label{exNombres_Mersenne}$($Nombres de Mersenne$)$
 \begin{itemize}
 \item[$1.$] Soient $a \geqslant 2$ et $n \geqslant 2$ deux entiers. Montrer que si $a^n-1$ est premier, alors $a=2$ et $n$ est premier. 
 \item[$2.$] Montrer que la réciproque est fausse.\\
@@ -204,6 +269,110 @@ $ PGCD(n^2+n,2n+1)$
 Il existe des tests pour déterminer si un nombre de Mersenne donné est premier. Le test de Lucas-Lehmer utilise la suite $(L_n)$ définie par récurrence par $L_0=4$ et $L_{n+1}=L_n^2-2$.\\
 Pour $n \geqslant 3$, le nombre $M_n= 2^n -1$ est premier si et seulement si $M_n \mid L_{n-2}$. 
 \end{rem}
+
+
+\section*{Correction}
+
+Exercice~\ref{exDivision_Euclidienne}.
+
+(1) \begin{center}
+\begin{tabular}{l}
+DivEucl$($a,b$)$\\
+$ Q \leftarrow 0$ \\
+$R \leftarrow a$ \\
+tant que $Q \notin \llbracket 0,b-1\rrbracket$ :\\
+\ \ \ {\rm  |}$R\leftarrow R-b$\\
+\ \ \ {\rm  |}$Q\leftarrow Q+1$\\
+renvoyer $(Q,R)$.
+
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item[•] Terminaison de l'algorithme : si à l'étape $k$, $R_k\geq b$, $R_{k+1}=R_k-b<R_k$ donc à chaque passage dans la boucle, $R$ diminiue strictement. Il y a donc au plus $a$ étapes (en fait $\lfloor a/b\rfloor$).
+
+\item[•] Validité du résultat : si $k$ est tel que $R_k,R_{k+1}$ sont définis, alors $b Q_{k+1} +R_{k+1}= b(Q_k+1)+R_k-b=b Q_k+R_k$. Soit $\ell$ la dernière étape. On a donc $bQ_\ell+R_\ell=b Q_1+R_1=a$.
+\end{itemize}
+
+(2) \begin{itemize}
+\item[•] Terminaison de l'algorithme : on a $n\geq 0$ et $c\geq 1$ donc si à l'étape $k$, $R_k\geq b$, alors $R_{k+1}\leq R_k-10^n bc\leq R_k-b<R_k$, il y a donc au plus $a$ étapes.
+
+\item[•] Validité du résultat : on à $bQ_{k+1}+R_{k+1}=bQ_k+R_k$ ...
+\end{itemize}
+
+Exercice~\ref{exNombres_Fermat}
+
+(1) Si $y\in \R$, on a  $(1-y)(1+y+\ldots y^{m-1})=1-y^m$. En l'appliquant à $y=-x$, on en déduit le résultat.
+
+(2) Supposons que $n$ admet un diviseur impair non trivial $k\geq 3$. Écrivons $n=kn'$, où $n'\in \N$. Alors $2^n+1=(2^{n'})^k+1=(2^{n'}+1)(1-2^{n'}+2^{2n'}+\ldots)$. Comme $1<2^{n'}+1<2^n+1$, on en déduit que $2^n+1$ n'est pas premier. Par contraposée, si $2^n+1$ est premier, $n$ est une puissance de $2$.
+
+(3) Soient $m,n\in \N$ tels que $m\neq n$. Quitte à échanger $m$ et $n$, on peut supposer que $m<n$. Écrivons $2^n=2^m k$, où $k\in \N$ et posons $x=2^m$. Alors $x^k=(x+1)x^{k-1}-x^{k-1}$ donc $x^k\equiv -x^{k-1}[x+1]$.  Par récurrence on en déduit que $x^k\equiv (-1)^\ell x^{k-\ell} [x+1]$, pour $\ell\in \llbracket 0,k\rrbracket$. 
+Comme $k$ est pair, on a $x^k\equiv 1 [x+1]$. On a donc $F_{n}=2^{2^n}+1=x^k+1\equiv 2[F_m]$. Autrement dit, il existe $a\in \N$  tel que $F_n -a F_m =2$. Par conséquent, $F_m\wedge F_n $ divise $2$. Comme $F_m$ et $F_n$ sont impairs, on en déduit que $F_m\wedge F_n =1$. 
+
+Si $n\in \N$, on note $P_n$ l'ensemble des diviseurs premiers de $F_n$. Alors si $n\in \N^*$, $P_n$ est non vide et les $P_n$ sont tous disjoints, ce qui prouve que $\bigsqcup_{n\in \N^*}  P_n\subset \mathbb{P}$ est infini.
+
+
+Exercice~\ref{exBases de numération}
+
+
+(1) $a_0$ est le reste de la division euclidienne de $n$ par $b$, $a_1$ celui de $\frac{1}{b}(n-a_0)$ par $b$, ...
+
+\begin{center}
+\begin{tabular}{l}
+$Pdb(b,n)$\\
+$N\leftarrow n$ \\
+$A\leftarrow [\ ]$\\
+$a\leftarrow 0$
+tant que $N>0$ : \\
+\ \ \ {\rm |} $a\leftarrow N \%b$\\
+\ \ \ {\rm |} $A\leftarrow [int(A),a]$\\
+\ \ \ {\rm |}  $N\leftarrow \frac{1}{b} (N-a)$ \\
+renvoyer $A$.
+
+
+
+\end{tabular}
+\end{center}
+
+(2) On a $n=\sum_{i=0}^k a_i b^k$. 
+
+(3) $146556=\overline{70990}^{12}$.
+
+(4) $\overline{16356}^7=6.1+5.7+3.7^2+6.7^3+1.7^4=4647$.
+
+
+Exercice~\ref{exPGCD_suite} On a $u_{n+1}-5u_n=-6$ donc $u_n\wedge u_{n+1}$ divise $6$. Soit $n\in \N$. Supposons que $3$ divise $u_{n+1}$. Alors $3$ divise $u_{n+1}+6=5 u_n$. Comme $5\wedge 3=1$, on en déduit que $3$ divise $u_n$. Par récurrence, si $3$ divise $u_n$, alors $3$ divise $u_0$. On en déduit que pour tous $n\in \N$, $3$ ne divise pas $u_n$. Comme $u_n$ est pair pour tous $n$, $u_n\wedge u_{n+1}=2$, pour tout $n\in \N$.
+
+Exercice~\ref{exPGCD_Polynomes}
+
+(1) Soit $d=(2n+1)\wedge n$. Alors $d$ divise $2(n^2+n)-n(2n+1)=n$, donc $d | (2n+1)\wedge n=1$.
+
+(2) Soit $d=(15n^2+8n+6)\wedge (30 n^2+21n+13)$. Alors $d$ divise  $30 n^2+21n+13-2.(15 n^2+8n+6)=5n+1$ donc $d$ divise $(15 n^2+8n+6)\wedge 5n+1$ donc $d$ divise $15 n^2+8n+6-3n(5n+1)=15 n^2+8n+6-15n^2-3n=5n+6$ donc $d$ divise $(5n+6)\wedge(5n+1)$ donc $d$ divise $5$.
+
+Supposons que $5$ divise $15n^2+8n+6$ et $30 n^2+21n+13$. Alors $5$ divise $8n+6$ donc $3n+1$ et $21n+13$ donc $n+3$. Ainsi, $5$ divise $3n+1-3(n+3)=-8$ : c'est absurde donc $d=1$. 
+
+Exercice~\ref{exNombres_Mersenne}
+
+(1) On a $a^n-1=(a-1)\sum_{i=0}^{n-1} a^i$ donc si $a\geq 3$, $a^n-1$ n'est pas premier. Supposons que $n=n_1n_2$ avec $n_1,n_2\geq 2$. Alors $2^{n_1n_2}-1=(2^{n_1})^{n_2}-1$, qui n'est pas premier par la formule du dessus.
+
+(2) $2^{11}-1=2047=23\times 89$.
+
+(3) Soit $N=2^{(p-1)/2} (\frac{p-1}{2})!$. On a $N=2\times 4\times 6\times \ldots \times (p-1)$. 
+
+Dans $\Z/p\Z$, on a :\[\begin{aligned} \overline{N}=\prod_{i=1}^{k+1} \overline{2i}\prod_{i=k+2}^{2k+2} \overline{2i} &=&  \prod_{i=1}^{k+1} \overline{2i} \prod_{i=k+2}^{2k+2} \overline{2i-4k-3}\\
+&=& \prod_{i=1}^{k+1} \overline{2i} \prod_{i=k+2}^{2k+2} \overline{2\big(i-2(k+1)\big)-1}\\
+&=& \prod_{i=1}^{k+1} \overline{2i} \prod_{i=-k}^{0} \overline{2i-1}\\
+&=& \prod_{i=1}^{k+1} \overline{2i}\overline{(-1)^{k+1}} \prod_{0}^{k} \overline{2i+1}\\
+&=& (-1)^{k+1} \overline{(2k+2)!}=(-1)^{k+1}\overline{(\frac{p-1}{2})!}.\end{aligned}.\]
+
+Exercice~\ref{exPGCD_2n-1_2m-1}
+
+
+Par symétrie, on peut supposer que $m<n$. Soit $n=mq+r$ la division euclidienne de $n$ par $m$, avec $q\in \N^*$ et $r\in \llbracket 0,m\rrbracket$. On a $a^{mq}-1=(a^m-1)\sum_{i=0}^{q-1} a^{mi}$. En particulier, $a^m-1$ divise $a^{mq}-1$. De plus, \begin{equation}\label{eqDiv_eucl}
+a^{mq+r}-1=a^r (a^{mq}-1)+a^{r}-1=(a^{m}-1)a^{r}\frac{a^{mq}-1}{a^m-1}+a^{r}-1.
+\end{equation} et donc 
+Comme $r<m$, $a^r-1<a^m-1$ et donc \eqref{eqDiv_eucl} est la division euclidienne de $a^n-1=a^{mq+r}-1$ par $a^m-1$. Par conséquent, $(a^{n}-1)\wedge (a^{m}-1)=(a^{m}-1)\wedge (a^r-1)$. Par définition de l'algorithme d'Euclide, on en déduit le résultat.
+
 
 
 
