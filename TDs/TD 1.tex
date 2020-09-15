@@ -151,8 +151,8 @@ Donner une méthode pour calculer l'écriture de cet entier en base décimale.
 
 \
 
-\begin{ex}\
-Soient $(a,b)\in \N^*\times \N^*$ tels que $a>b$. Soit  $a=bq+r$ avec $0 \leqslant r <b$ la divisiion euclidienne de $a$ par $b$. Montrer que $a\wedge b=b\wedge r=b\wedge (b-r)$. En déduire une "amélioration" de l'algorithme d'Euclide. Comparer l'algorithme classique avec ce nouvel algorithme pour le calcul de $89\wedge 55$.
+\begin{ex}\label{exOptimisation_algo_Euclide}\
+Soient $(a,b)\in \N^*\times \N^*$ tels que $a>b$. Soit  $a=bq+r$ avec $0 \leq  r <b$ la divisiion euclidienne de $a$ par $b$. Montrer que $a\wedge b=b\wedge r=b\wedge (b-r)$. En déduire une «~amélioration~» de l'algorithme d'Euclide. Comparer l'algorithme classique avec ce nouvel algorithme pour le calcul de $89\wedge 55$.
 \end{ex}
 
 \
@@ -160,20 +160,24 @@ Soient $(a,b)\in \N^*\times \N^*$ tels que $a>b$. Soit  $a=bq+r$ avec $0 \leqsla
 
 
 \begin{ex}\label{exPGCD_2n-1_2m-1}\
-En utilisant l'algorithme d'Euclide, montrer que pour tous entiers $m,n \in \mathbb{N}$, on a: $$(2^n-1)\wedge(2^m-1)=2^{m\wedge n}-1.$$
+En utilisant l'algorithme d'Euclide, montrer que pour tous entiers $a,m,n \in \mathbb{N}^*$, on a: $$(a^n-1)\wedge(a^m-1)=a^{m\wedge n}-1.$$
 \end{ex}
 
 \
 
 
-\begin{ex}(Calcul de la complexité de l'algorithme d'Euclide)
+\begin{ex}\label{exComplexite_division_euclidienne}(Calcul de la complexité de l'algorithme d'Euclide)
 
 On appelle suite de Fibonacci, notée $(F_n)_{n \in \mathbb{N}^*}$ la suite d'entiers définie par $F_1=F_2=1$ et pour $n\geqslant 3$, $F_{n+2}=F_{n+1}+F_n$. 
 \begin{itemize}
-\item[$1.$] Montrer par récurrence sur $k \in \mathbb{N}^*$ que si $a>b \geqslant 0$ et si Euclide$(a$,$b)$ effectue $k$ appels récursifs, alors $a \geqslant F_{k+2}$ et $b \geqslant F_{k+1}$.
-\item[$2.$]En déduire le théorème de Lamé, qui énonce que: $\forall k \in \mathbb{N}^*$, $\forall a,b \in \mathbb{N}$, si $b<F_{k+1}$, alors Euclide$(a$,$b)$ engendre moins de $k$ appels récursifs.
-\item[$3.$] Montrer par récurrence sur $k \in \mathbb{N}^*$ que Euclide$(F_{k+2}$, $F_{k+1})$ engendre exactement $k$ appels récursifs.
-\item[$4.$] On admet ici le fait que la suite de terme général $F_{n+1}/F_n$ converge vers le nombre d'or $\varphi$ de valeur $(1+\sqrt{5})/2$ et que $F_n \sim \varphi^n/\sqrt{5}$. Montrer alors que le nombre d'appels récursifs effectués par Euclide $(a$,$b)$ est $O(\ln b)$.
+\item[$1.$] Montrer par récurrence sur $k \in \mathbb{N}^*$ que si $a> b > 0$ et si Euclide$(a$,$b)$ nécessite $k$ divisions euclidiennes (l'algorithme d'Euclide se fait donc en $k$ étapes), alors $a \geq F_{k+2}$ et $b \geq F_{k+1}$.
+\item[$2.$]En déduire le théorème de Lamé, qui énonce que: $\forall k \in \mathbb{N}^*$, $\forall a,b \in \mathbb{N}$, si $b<F_{k+1}$, alors Euclide$(a$,$b)$ utilise  moins de $k$ divisions euclidiennes.
+
+
+\item[$3.$] Montrer par récurrence sur $k \in \mathbb{N}^*$ que Euclide $(F_{k+2}$, $F_{k+1})$ s'effectue en exactement $k$ divisions euclidiennes.
+
+
+\item[$4.$] On admet ici le fait que la suite de terme général $F_{n+1}/F_n$ converge vers le nombre d'or $\varphi$ de valeur $(1+\sqrt{5})/2$ et que $F_n \sim \varphi^n/\sqrt{5}$. Montrer alors que le nombre de divisions euclidiennes nécessitées  par Euclide $(a$,$b)$ est $O(\ln b)$.
 \end{itemize}
 \end{ex}
 
@@ -186,7 +190,7 @@ Historiquement, Fibonacci, vers 1200, a introduit la suite qui porte son nom pou
 
 
 
-\begin{ex}\
+\begin{ex}\label{exEuclide_etendu_fibonnacci}\
 Quel est le résultat de Euclide-étendu$(F_{k+1},F_k)$ ?
 \end{ex}
 
@@ -217,7 +221,7 @@ $$ x^m+1=(x+1)(1-x+x^2-x^3+\ldots + x^{m-1}).$$
 
 
 \begin{ex}\label{exPGCD_suite}\
-Soit $(u_n)_{n \in \mathbb{N}}$ la suite d'entiers définie par $u_0=14$ et $u_{n+1}=5 u_n -6$. Montrer que le PGCD de deux termes consécutifs de la suite est constante. Précisez sa valeur.
+Soit $(u_n)_{n \in \mathbb{N}}$ la suite d'entiers définie par $u_0=14$ et $u_{n+1}=5 u_n -6$. Montrer que la suite $(u_n\wedge u_{n+1})$ est constante. Précisez sa valeur.
 \end{ex}
 
 
@@ -368,11 +372,36 @@ Dans $\Z/p\Z$, on a :\[\begin{aligned} \overline{N}=\prod_{i=1}^{k+1} \overline{
 Exercice~\ref{exPGCD_2n-1_2m-1}
 
 
-Par symétrie, on peut supposer que $m<n$. Soit $n=mq+r$ la division euclidienne de $n$ par $m$, avec $q\in \N^*$ et $r\in \llbracket 0,m\rrbracket$. On a $a^{mq}-1=(a^m-1)\sum_{i=0}^{q-1} a^{mi}$. En particulier, $a^m-1$ divise $a^{mq}-1$. De plus, \begin{equation}\label{eqDiv_eucl}
+Par symétrie, on peut supposer que $m<n$. Comme le cas $m=0$ est clair, on suppose que $m\geq 1$.  Soit $n=mq+r$ la division euclidienne de $n$ par $m$, avec $q\in \N^*$ et $r\in \llbracket 0,m-1\rrbracket$. On a $a^{mq}-1=(a^m-1)\sum_{i=0}^{q-1} a^{mi}$. En particulier, $a^m-1$ divise $a^{mq}-1$. De plus, \begin{equation}\label{eqDiv_eucl}
 a^{mq+r}-1=a^r (a^{mq}-1)+a^{r}-1=(a^{m}-1)a^{r}\frac{a^{mq}-1}{a^m-1}+a^{r}-1.
-\end{equation} et donc 
-Comme $r<m$, $a^r-1<a^m-1$ et donc \eqref{eqDiv_eucl} est la division euclidienne de $a^n-1=a^{mq+r}-1$ par $a^m-1$. Par conséquent, $(a^{n}-1)\wedge (a^{m}-1)=(a^{m}-1)\wedge (a^r-1)$. Par définition de l'algorithme d'Euclide, on en déduit le résultat.
+\end{equation}  
+Comme $r<m$, $a^r-1<a^m-1$ et donc \eqref{eqDiv_eucl} est la division euclidienne de $a^n-1=a^{mq+r}-1$ par $a^m-1$.
 
+Posons $r_0=n$, $r_1=m$. On définit $(r_i)_{i\in \llbracket 1,k+2\rrbracket}$ par récurrence comme suit : tant que $r_{i+1}\neq 0$, on effectue la division euclidienne de $r_{i}$ par $r_{i+1}$ : \[r_i=q_{i+1} r_{i+1}+ r_{i+2},\] où $r_{i+2}\in \llbracket 0, r_{i+1}\llbracket$. Alors si $i\in \llbracket 1,k\rrbracket$, la division euclidienne de $a^{r_i}-1$ par $a^{r_{i+1}}-1$ s'écrit $a^{r_i}=q'_{i+1} (a^{r_{i+1}}-1)+a^{r_{i+2}}-1$, pour un certain $q'_{i+1}\in \Z$. La suite $(a^{r_i}-1)_{i\in \llbracket 0,k+2\rrbracket}$ est donc la suite obtenue en appliquant l'algorithme d'Euclide à $a^{n}-1$ et $a^m-1$, d'où le résultat.
+
+Exercice~\ref{exOptimisation_algo_Euclide}
+
+On a $\Z a+\Z b =\Z b+\Z r=\Z b+ \Z (b-r)$ (double inclusion). De manière alternative :
+
+Le nombre $b\wedge r$ divise $b$ et $r$ donc aussi $b-r$. On a donc $b\wedge r\  |\  b\wedge (b-r)$. De même, $b\wedge (b-r)$ divise $b$ et $b-r$ donc $b-(b-r)=r$, donc $b\wedge (b-r)\ |\  b\wedge r$ et donc  $b\wedge r=b\wedge (b-r)$.
+
+
+Exercice~\ref{exComplexite_division_euclidienne}
+
+(1) Supposons que l'algorithme d'Euclide se termine en $1$ étape. Alors $a>b\geq 1=F_2$ et $a\geq 2=F_{3}$. Soit $k\in \N^*$. On suppose que le résultat est vrai pour $k$. Soient $a,b$ tels que Euclide$(a,b)$ effectue $k+1$ divisions euclidiennes. Effectuons la division euclidienne de $a$ par $b$ : $a=bq+r$ avec $r\in \llbracket 0,b-1\rrbracket$ et $q\in \Z$. Alors Euclide$(b,r)$ s'effectue en $k$ étapes, donc $b\geq F_{k+2}$ et $r\geq F_{k+1}$. De plus, $a\geq b+r\geq F_{k+2}+F_{k+1}=F_{k+3}$, donc le résultat est vrai pour $k+1$ donc le résultat est vrai par récurrence.
+
+(2) Par contraposée, on en déduit le théorème de Lamé.
+
+(3) La division euclidienne de $F_{i+2}$ par $F_{i+1}$ est $F_{i+2}=F_{i+1}+F_i$, pour tous $i\in \N$. 
+
+(4) On pose $k(a,b)$ le nombre de divisions euclidiennes effectuées par l'algorithme d'Euclide. Soit $n(b)\in \N$ l'unique entier vérifiant $F_{n(b)}\leq n(b)<F_{n(b)+1}$. On a alors $k(a,b)\leq n(b)$. 
+
+Soit $K\in \N$ tel que pour tout $m\geq K$, $F_m\geq \frac{1}{2\sqrt{5}}\varphi^{m}$. Alors $n(b)\rightarrow_{b\rightarrow +\infty} +\infty$ et donc pour $b\gg 0$, $n(b) >K$. On a alors $\frac{1}{2\sqrt{5}} \varphi^{n(b)}\leq b$ donc $n(b)\ln(\varphi)+\ln(\frac{1}{2\sqrt{5}})\leq \ln(b)$, ce qui montre le résultat.
+
+Soit $k\in \N_{\geq 4}$. On suppose que $(-1)^k F_k F_{k-3} +(-1)^{k+1} F_{k-1} F_{k-2}=1$. Alors \[\begin{aligned} 1 &=& (-1)^k F_k F_{k-3} +(-1)^{k+1} F_{k-1} F_{k-2} \\
+&=& (-1)^k F_k (F_{k-1}-F_{k-2})+(-1)^{k+1} (F_{k+1}-F_k) F_{k-2}\\
+&=& (-1)^{k+1} F_{k+1} F_{k-2}+(-1)^k F_k(F_{k-2}+F_{k-3})\\
+1 &=& (-1)^{k+1} F_{k+1} F_{k-2} + (-1)^k F_kF_{k-1}.\end{aligned}\]
 
 
 

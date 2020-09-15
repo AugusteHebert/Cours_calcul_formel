@@ -321,7 +321,7 @@ L'algorithme suivant permet de calculer le PGCD de 2 entiers $a>0$ et $b \geq 0$
 \begin{proof}
 Montrons que l'algorithme termine. On pose $a_0=a$ et $b_0=b$. Soit $i\in \N$ tel qu'on a défini $a_i$ et $b_i$. Si $b_i=0$, on pose $k=i$ et on s'arrête là. Sinon, on pose $a_{i+1}=b_i$ et $b_{i+1}=a_i\mathrm{\ mod\ }b_i$. On a alors, $b_{i+1}< b_i$. On en déduit que tant que $b_i$ est défini, on a $0\leq b_i<b_{i-1}<\ldots < b_0=b$. On a donc $i\leq b$ et donc l'algorithme termine (et le nombre $k+1$ d'étapes est inférieur ou égal à $b+1$). 
 
-De plus, si $i\in \llbracket 1,k\rrbracket$, on a $a_i\wedge b_i=a_{i+1}\wedge b_{i+1}$ par le lemme~\ref{lemEuclide}. On en déduit que $a\wedge b= a_0\wedge b_0=a_k\wedge b_k =a_k\wedge 0=a_k$.
+De plus, si $i\in \llbracket 1,k\rrbracket$, on a $a_i\wedge b_i=a_{i+1}\wedge b_{i+1}$ par le lemme~\ref{lemAlgo_Euclide}. On en déduit que $a\wedge b= a_0\wedge b_0=a_k\wedge b_k =a_k\wedge 0=a_k$.
 \end{proof}
 
 \vrt{Exemple du fonctionnement de l'algorithme avec Euclide(27,15).}
