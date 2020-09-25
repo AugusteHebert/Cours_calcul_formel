@@ -35,6 +35,7 @@
 \newtheorem{remarques}[thm]{Remarques}
 \newtheorem*{but}{But}
 \newtheorem{Def}[thm]{Définition}
+\newtheorem{definition}[thm]{Définition}
 \newtheorem{Def/prop}[thm]{Définition/Proposition}
 \newtheorem{Lem}[thm]{Lemme}
 \newtheorem{lemme}[thm]{Lemme}
@@ -44,9 +45,10 @@
 \newtheorem*{prin}{Principe}
 \newtheorem*{nota}{Notation}
 \newtheorem*{notas}{Notations}
+
 \newtheorem{Cor}[thm]{Corollaire}
 \newtheorem{corollaire}[thm]{Corollaire}
-
+\usepackage{comment}
 
 
 
@@ -58,6 +60,7 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\PCC}{\mathscr{P}}
 
 
 \begin{document}
@@ -439,7 +442,7 @@ Soit $p\in \Z\setminus \{1,-1\}$. On dit que $p$ est premier s'il a exactement q
 
 Comme tout nombre entier $x$ admet $x,-x, 1$ et $-1$ comme diviseurs, un nombre $p$ est premier si et seulement si $p\notin \{1,-1\}$ et si ses seuls diviseurs sont $1,-1,p,-p$.
 
-Un nombre $p$ est premier si et seulement si $-p$ est premier. On s'intéressera donc principalement aux nombres premiers positifs. On note $\mathbb{P}$ l'ensemble des nombres premiers.
+Un nombre $p$ est premier si et seulement si $-p$ est premier. On s'intéressera donc principalement aux nombres premiers positifs. On note $\mathbb{P}$ l'ensemble des nombres premiers positifs.
  
 \begin{Lem}\label{lem_Euclide}
 Soient $a\in \Z$ et $p\in \mathbb{P}$. \begin{enumerate}
@@ -461,7 +464,7 @@ Soit $n\in \Z$ tel que $|n|\geq 2$. Soit $p$ son plus petit diviseur supérieur 
 \end{Lem}
 
 \begin{proof}
-Soit $q$ un diviseur de $q$ différent de $1$ ou $-1$. Alors $|q|$ divise $p$ donc $|q|$ divise $n$ donc $|q|\geq p$ donc $|q|=p$, ce qui prouve le lemme.
+Soit $q$ un diviseur de $p$ différent de $1$ ou $-1$. Alors $|q|$ divise $p$ donc $|q|$ divise $n$ donc $|q|\geq p$ donc $|q|=p$, ce qui prouve le lemme.
 \end{proof}
 
 \begin{theoreme}(Euclide)
@@ -479,7 +482,7 @@ Pour $n\in \N$, on note $\pi(n)$ le nombre de nombres premiers compris entre $1$
 \end{theoreme}
 
 \begin{thm}\label{thmDécomposition_produit_facteurs_premiers}
-Soit $n\in \Z$ tel que $|n|\geq 2$. Alors il existe $\epsilon\in \{-1,1\}$, $k\in \N$, $p_1<\ldots <p_k\in \mathbb{P}$ des nombres premiers distincts et $\alpha_1,\ldots,\alpha_k\in\N_{\geq 1}$ tels que $n=\epsilon p_1^{\alpha_1}\ldots p_k^{\alpha_k}$. De plus, cette décomposition est unique et $\{p_1,\ldots,p_k\}$ est l'ensemble des diviseurs premiers de $n$.
+Soit $n\in \Z$ tel que $|n|\geq 2$. Alors il existe $\epsilon\in \{-1,1\}$, $k\in \N$, $p_1<\ldots <p_k\in \mathbb{P}$ des nombres premiers  et $\alpha_1,\ldots,\alpha_k\in\N_{\geq 1}$ tels que $n=\epsilon p_1^{\alpha_1}\ldots p_k^{\alpha_k}$. De plus, cette décomposition est unique et $\{p_1,\ldots,p_k\}$ est l'ensemble des diviseurs premiers de $n$.
 \end{thm}
 
 \begin{proof}
@@ -493,11 +496,11 @@ Soit $n\in \N_{\geq 2}$ et $n=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ sa décomposi
 \end{Cor}
 
 \begin{Cor}\label{corExpression_PGCD}
-Soient $a,b\in \N_{\geq 2}$. On écrit $a=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ et $b=p_1^{\beta_1}\ldots p_{k}^{\beta_k}$, avec $p_1,\ldots,p_k\in \mathbb{P}$ et $\alpha_1,\ldots,\alpha_k,\beta_1,\ldots,\beta_k\in \N$. Alors $a\wedge b=p_1^{\gamma_1}\ldots p_k^{\gamma_k}$, avec $\gamma_i=\min \{\alpha_i,\beta_i\}$, pour tout $i\in \llbracket 1,k\rrbracket$.
+Soient $a,b\in \N_{\geq 2}$. On écrit $a=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ et $b=p_1^{\beta_1}\ldots p_{k}^{\beta_k}$, avec $p_1<\ldots <p_k\in \mathbb{P}$ et $\alpha_1,\ldots,\alpha_k,\beta_1,\ldots,\beta_k\in \N$. Alors $a\wedge b=p_1^{\gamma_1}\ldots p_k^{\gamma_k}$, avec $\gamma_i=\min \{\alpha_i,\beta_i\}$, pour tout $i\in \llbracket 1,k\rrbracket$.
 \end{Cor}
 
 \begin{rem}(pour aller plus loin)
-Le théorème~\ref{thmDécomposition_produit_facteurs_premiers} reste vrai dans n'importe quel anneau anneau $A$ principal (sauf qu'en général on n'a plus d'ordre sur $A$ et qu'il n'y a pas forcément de manière canonique pour ordonner $p_1,\ldots, p_k$. Il y a donc unicité « à l'ordre des facteurs près »). Les anneaux vérifiant cette propriété sont appelés anneaux principaux et jouent un rôle important en arithmétique. Pour montrer que $\Z$ est principal, on a utilisé de manière cruciale la valeur absolue, qui permet de montrer le lemme~\ref{lemExistence_diviseur_premier} et de raisonner par récurrence. Pour montrer que tout anneau principal est factoriel, on peut montrer en préliminaire que dans un tel anneau, toute suite croissante d'idéaux $(I_k)_{k\in \N}$ est stationnaire (exercice). Voir \cite[Chapitre 11]{combes1998algebre}, par exemple.
+Le théorème~\ref{thmDécomposition_produit_facteurs_premiers} reste vrai dans n'importe quel anneau anneau $A$ principal (sauf qu'en général on n'a plus d'ordre sur $A$ et qu'il n'y a pas forcément de manière canonique pour ordonner $p_1,\ldots, p_k$. Il y a donc unicité « à l'ordre des facteurs près »). Les anneaux vérifiant cette propriété sont appelés anneaux factoriels et jouent un rôle important en arithmétique. Pour montrer que $\Z$ est factoriel, on a utilisé de manière cruciale la valeur absolue, qui permet de montrer le lemme~\ref{lemExistence_diviseur_premier} et de raisonner par récurrence. Pour montrer que tout anneau principal est factoriel, on peut montrer en préliminaire que dans un tel anneau, toute suite croissante d'idéaux $(I_k)_{k\in \N}$ est stationnaire (exercice). Voir \cite[Chapitre 11]{combes1998algebre}, par exemple.
 
 \end{rem}
 
@@ -654,7 +657,7 @@ Soit $a\in \Z$ tel que $\phi(a\mathrm{\ mod\ } n)=0$. Alors $n_i$ divise $a$ pou
 
 On a $|\Z/n\Z|=n=|\Z/n_1\Z\times \ldots \times \Z/n_k\Z|$ et $\phi$ est injectif donc $\phi$ est nécessairement surjectif, ce qui prouve que c'est un isomorphisme. On donne ici une méthode plus constructive pour déterminer $\phi^{-1}$.
 
-Pour $i\in \llbracket 1,k\rrbracket$, on pose $\hat{n}_i=n/n_i=\prod_{j\neq i} n_j$. Alors $n_i\wedge \hat{n}_i=1$, donc il existe $u_i,v_i\in \Z$ tels que $u_i\hat{n}_i+v_in_i=1$. Posons $c_i=u_i\mathrm{\ mod \ }n$. Alors $\phi(c_i)$ est le vecteur dont les coordonnées sont nulles sauf la $i$-ème qui vaut $1\mathrm{\ mod\ }n_i$.  Soit $x=(x_1 \mathrm{\ mod\ }n_1,\ldots,x_k \mathrm{\ mod\ }n_k)\in \Z/n_1\Z\times \ldots\times \Z/n_k \Z$. Alors $\phi(\sum_{i=1}^k x_i c_i)=x$, ce qui prouve que $\phi$ est surjectif. 
+Pour $i\in \llbracket 1,k\rrbracket$, on pose $\hat{n}_i=n/n_i=\prod_{j\neq i} n_j$. Alors $n_i\wedge \hat{n}_i=1$, donc il existe $u_i,v_i\in \Z$ tels que $u_i\hat{n}_i+v_in_i=1$. Posons $c_i=u_i\hat{n}_i\mathrm{\ mod \ }n$. Alors $\phi(c_i)$ est le vecteur dont les coordonnées sont nulles sauf la $i$-ème qui vaut $1\mathrm{\ mod\ }n_i$.  Soit $x=(x_1 \mathrm{\ mod\ }n_1,\ldots,x_k \mathrm{\ mod\ }n_k)\in \Z/n_1\Z\times \ldots\times \Z/n_k \Z$. Alors $\phi(\sum_{i=1}^k x_i c_i)=x$, ce qui prouve que $\phi$ est surjectif. 
  \end{itemize}
 \end{proof}
 
@@ -676,7 +679,7 @@ possède une unique solution modulo $n$.
 \end{Cor}
 
 \begin{proof}
-Soit $x\in \Z$. Alors $x$ est solution de  \eqref{S} si et seulement si $\phi(x\mathrm{\ mod\ }n)=(a_1,\ldots, a_k)$ . Alors en reprenant les notations du Théorème \ref{T29}, $\phi(x)=(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$. Comme $\phi$ est bijective, alors $x$ existe bien et il est unique modulo $n$ en tant qu'antécédent de $(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$ par $\phi$. 
+Soit $x\in \Z$. Alors $x$ est solution de  \eqref{S} si et seulement si $\phi(x\mathrm{\ mod\ }n)=(a_1,\ldots, a_k)$ . Alors en reprenant les notations du théorème~\ref{thmChinois}, $\phi(x)=(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$. Comme $\phi$ est bijective, alors $x$ existe bien et il est unique modulo $n$ en tant qu'antécédent de $(a_1\mathrm{\ mod \ }n_1, \ldots, a_k\mathrm{\ mod\ }n_k)$ par $\phi$. 
 \end{proof}
 
 \begin{Cor}
@@ -786,6 +789,8 @@ L'écriture d'un entier $a$ vérifiant $0 \leq a < \prod_{1 \leq i \leq k}n_i$ s
 
 \begin{rems}\
 \begin{itemize}
+\item[•] Lorsque tous les $n_i$ sont égaux à un certain $b\in \N_{\geq 2}$, on obtient le développement en base $b$ usuel.
+
 \item[•]
 Dans le cas où les $n_i$ sont deux à deux premiers entre eux, on dispose de deux systèmes de numération des éléments $\llbracket 0, \prod_{1 \leq i \leq k}n_i \llbracket $: celle donnée par le théorème chinois et celle donnée par l'écriture en base mixte.
 \item[•] Ces deux représentations sont distinctes et ont des propriétés distinctes. En effet, par exemple, lorsque $k=3$, $n_1=2$, $n_2=5$, $n_3=7$, et qu'on choisit $a=51 (< 70)$, on a alors $\phi(a)=(1,1,2)$  tandis que $\psi^{-1}(a)=(1,0,5)$.
@@ -835,6 +840,213 @@ Cette démarche nous permet d'écrire à présent l'algorithme ci-dessous qui, p
 Reprenons ici notre système \eqref{Ex}. \par 
 Avec l'algorithme de Garner, on cherche $x$ sous la forme $x=\nu_1 +1891 \nu_2 $ où $0 \leq \nu_1 < 1891$ et $0 \leq \nu_2 < 2499$. On a $\nu_1=1000$ et, après calcul, $\nu_2=(1891)^{-1}(3000-1000)\equiv 194 [2499]$, d'où $x=367854$.
 \end{ex}
+
+
+
+
+
+\chapter{Introduction à la complexité}
+\section{Notions de complexité}
+\subsection{Coût d'un algorithme}
+ 
+Cette introduction est fortement inspirée de \cite{picart1999cours}. 
+ 
+Pour un concepteur d'algorithme, une tâche capitale est de pouvoir a priori évaluer le
+temps que prendra son algorithme pour fournir le résultat escompté sur une machine
+donnée. Il faut en effet prendre conscience du fait que de nombreux algorithmes et 
+formules (une formule n'étant qu'un algorithme particulier) n'ont qu'une valeur théorique
+et ne débouchent sur aucun calcul pratique car leur exécution demanderait beaucoup trop
+de temps. Par exemple, pour calculer le déterminant d'une matrice $25 \times 25$ à coefficients entier (qu'on peut même supposer entre $0$ et $9$) $A = (a{i,j})_{1\leq i,j\leq 25}$, on peut envisager d'utiliser la formule suivante : \[\det(A)=\sum_{\sigma \in \mathfrak{S}_n} \epsilon(\sigma) a_{\sigma(1),1}\ldots a_{\sigma(25),25},\] où $\mathfrak{S}_{25}$ désigne le groupe des permutations de l'ensemble $\llbracket 1, 25\rrbracket$. L'application de cette formule nécessite d'effectuer $|\mathfrak{S}_{25}|=25 !\simeq 1.55.10^{25}$ produits. Si l'on dispose d'un ordinateur capable d'effectuer $10$ milliards de ces produits par seconde, il faudrait $49\ 000\ 000$ millions d'années pour effectuer ce calcul. C'est donc inenvisable en pratique, même en tenant compte des progrès techniques à venir (à court terme) des processeurs. En fait l'application directe de la définition pour le calcul du déterminant d'une matrice de taille $n$ nécessite de faire $n!$ multiplications et additions, alors qu'une méthode relativement simple basée sur le pivot de Gauss permet de l'effectuer en $O(n^3)$ multiplications et additions.   
+Il est donc important d'évaluer le temps que nécessitera un algorithme pour fournir
+le résultat avant même de le programmer. De plus, on aimerait pouvoir comparer autant que faire se peut,
+les algorithmes entre eux, et ceci de manière aussi intrinsèque que possible, c'est-à-dire,
+sans que notre mesure dépende de l'ordinateur ou du langage de programmation que l'on
+utilisera. 
+
+
+
+
+Nous supposons   que nous sommes en possession d'un ordinateur dont le micro-processeur est capable d'effectuer directement les additions, 
+soustractions et multiplications sur tout nombre entier naturel inférieur à un certain entier $b$. Nous supposons aussi
+qu'il peut réaliser les divisions d'un nombre à deux chiffres par un nombre à un chiffre
+en base $b$, fournissant en une seule commande le quotient et le reste. Nous appelons
+\textit{opérations élémentaires} ou ces quatre opérations définies sur $\llbracket 0,b-1\rrbracket$, réalisables
+par le micro-processeur en une seule commmande. En pratique, $b$ dépend du processeur de l'ordinateur sur lequel on travaille. Actuellement, pour la plupart des ordinateurs grands public, $b =2^{64}$. Pour nous, la valeur de $b$ n'est pas très importante car on cherchera à évaluer les algorithmes à une constante multiplicative près qui dépend du processeur utilisé. 
+
+
+On choisit une base $b\in\N_{\geq 2}$ dans laquelle on représente les entiers naturels. Tout $N\in \N^*$ s'écrit $N=\sum_{i=0}^k a_i b_i$, avec $a_i\in \llbracket 0,b-1\rrbracket$ et $a_k\neq 0$. On a  $b^k\leq N<b^{k+1}$ et donc $k=\lceil \log_b(N)\rceil$. Pour représenter $N$ en base $b$, on a besoin de $\lfloor \log_b(N)\rfloor$ chiffres. 
+
+\begin{definition}
+La taille d'un entier $N\neq 0$ est $\log_2(|N|)$ (c'est l'ordre de grandeur du  nombre de  bits qu'il faut pour le représenter).
+\end{definition}
+
+
+On peut distinguer le \textit{coût en temps} et \textit{le coût en mémoire}. On s'intéressera surtout au coût en temps.
+
+\begin{definition}
+Le coût en temps d'un algorithme est le nombre d'opérations élémentaires effectuées au cours de cet algorithme. Il dépend de la taille des données.
+\end{definition}
+
+
+
+On considère un algorithme qui prend en entrée un entier $N\in \N^*$. On note $c(N)$ son coût en temps. On dit que l'algorithme est :\begin{itemize}
+\item[•] \textit{linéaire} si $c(N)=_{N\rightarrow +\infty} O\big(\log_2(N)\big)$,
+
+\item[•] \textit{quadratique} si $c(N)=O\big(\log_2(N)^2)$,
+
+\item[•] \textit{polynomial} si $c(N)=O\big(\log_2(N)^\alpha\big)$ pour un certain $\alpha\in \N$,
+
+\item[•] \textit{exponentiel} si $c(N)=O\big(2^{\log_2(N)^\alpha}\big)$ pour un certain $\alpha\in \N$.
+
+
+\end{itemize} 
+
+On prendra garde au fait qu'un algorithme tel que $c(N)\sim N$ est exponentiel et non linéaire. Pour qu'un algorithme soit considéré comme réalisable en pratique, il faut que son coût soit polynomial (avec $\alpha$ pas trop grand).
+
+
+\subsection{Coût des opérations arithémétiques de base}
+
+\begin{proposition}\label{propCout_addition}
+Le coût en calcul de l'addition de deux entiers naturels $m,n$ par l'algorithme usuel (en posant l'addition) ou de la soustraction (en la posant égalemnt) est $O\big(\max\big(\log_2 m,\log_2 n)\big)$ opération élémentaires.
+\end{proposition}
+
+\begin{proof}
+Soit $k=O\big(\max\big(\log_2 m,\log_2 n)\big)$. On suppose que $m$ et $n$ sont représentés dans la base $b$ par les listes $M=[a_0,\ldots,a_k]$ et $N=[a_0',\ldots,a_k']$ (c'est à dire que $M=\sum_{i=0}^k a_i b^i$, $N=\sum_{i=0}^k a_i' b_i$ avec $a_i,a_i'\in \llbracket 0,b-1\rrbracket$ pour tous $i\in \llbracket 0,k\rrbracket$.
+On utilise l'algorithme suivant :
+
+
+\begin{tabular}{ll}
+\textbf{Algorithme } & addition($M,N$)\\
+& $k\leftarrow len(L)$ \\
+& $i\leftarrow 0$\\
+& $R\leftarrow 0$\\
+& $S=[\ ]$\\
+& tant que $i<k$ :\\
+& \ \ \ {\rm |} $s\leftarrow M[i]+N[i]+R$  \\
+& \ \ \ {\rm |} $i\leftarrow i+1$  \\
+& \ \ \ {\rm |} si $s\geq b$ :\\
+& \ \ \ \ \ \ {\rm |}$R\leftarrow 1$\\
+& \ \ \ \ \ \ {\rm |}$s\leftarrow s-b$\\
+& \ \ \ {\rm |} sinon $s\geq b$ :\\
+& \ \ \ \ \ \ {\rm |}$R\leftarrow 0$\\
+& \ \ \ {\rm |} $S\leftarrow S+[s]$ \\
+
+& \ \ \ {\rm |} $k\leftarrow k+1$  \\
+& si $R=1$ : \\
+& \ \ \ {\rm |} $S=S+[1]$\\
+& renvoyer $S$.
+\end{tabular}
+
+Cet algorithme calcule la somme de $m$ et $n$ (exercice le vérifier). Il y a $k+2$ étapes et chacunes de ces étapes s'effectue en au plus $3$ opérations élémentaires. Le cas de la soustraction se démontre similairement.
+
+\end{proof}
+
+\begin{proposition}\label{propCout_multiplication}(exercice)
+Soient $m,n\in \N^*$. \begin{enumerate}
+\item Le coût en calcul du produit  $mn$ en posant la multiplication est $O\big(\log_2(m)\log_2(n)\big)$. 
+
+\item Si $m\leq n$, le coût en calcul de la division euclienne (par l'algorithme vu en primaire) de $m$ par $n$ est $O\big(\log_2(|m/n|)\log_2(|n|)\big)$.
+
+\end{enumerate} 
+
+
+\end{proposition}
+
+\begin{remarque}
+Il existe des algorithmes plus efficaces pour calculer le produit de deux «~grands~» entiers (à partir de $1000$ chiffres). Par exemple l'algorithme de Schöhnage-Strassen permet de calculer le produit de deux entiers de taille $n$ en $O(n\log_2(n)\log_2(\log_2(n))\big)$.
+\end{remarque}
+
+
+
+Soit $n\in \N^*$. On représente les éléments de $\Z/n\Z$ par des entiers de $\llbracket 0,n-1\rrbracket$. On note $\pi:\Z\twoheadrightarrow Z/n\Z\simeq \llbracket 0,n-1\rrbracket$ la projection canonique (si $k\in \Z$, $\pi(k)$ est le reste de la division euclidienne de $k$ par $n$). Par la proposition~\ref{propCout_multiplication} que si $x\in \Z$, le coût du calcul de son image dans $\Z/n\Z$ est $O\big(\log_2(x/n)\log_2(n)\big)$.  Si $x,y\in \Z/n\Z$, le coût du calcul de $x+y$ est $O\big(\log_2(n)\big)$. En effet, on écrit $x=\overline{a}$ et $y=\overline{b}$, avec $a,b\in \llbracket 0,n-1\rrbracket$. Alors $x+y=\pi(a+b)\in \{a+b,a+b-n\}$ et on conclut avec la proposition~\ref{propCout_addition}. Le coût du calcul de $xy$ est $O(\log_2(n)^2)$. En effet, on calcule $ab\in \llbracket 0,(n-1)^2\rrbracket$, puis on effectue la division euclidienne de $ab$ par $n$ et on conclut avec la proposition~\ref{propCout_multiplication}.
+
+\paragraph{Algorithme récursif ou itératif}
+
+Un algorithme est dit \textit{récursif} s'il fait appel à lui-même. Un algorithme est dit \textit{itératif} s'il n'est pas récursif. L'algorithme d'Euclide que nous avons vu est récursif. Un autre exemple est l'algorithme suivant, qui prend en entrée un entier naturel $n$ et qui renvoie $n!$ :
+
+
+ \begin{tabular}{ll}
+\textbf{Algorithme } & FactRec($n$)\\
+& si $n=0$\\
+& \ \ \ {\rm |}  renvoyer $1$\\
+& sinon\\
+& \ \ \ {\rm |}  renvoyer $n\mathrm{FactRec}(n-1)$.\\
+\end{tabular}
+
+Cet algorithme est très facile à programmer. Par contre il utilise une grande quantité de mémoire car il faut stocker tous les résultats intermédiaires. L'algorithme itératif suivant  permet d'aboutir au même résultat, mais avec un coût en mémoire beaucoup plus faible :
+
+ \begin{tabular}{ll}
+\textbf{Algorithme } & FactIt($n$)\\
+& $a=1$ \\
+& $k\leftarrow 1$\\
+& tant que $k\leq n$ :\\
+& \ \ \ {\rm |} $a\leftarrow ak$\\
+& \ \ \ {\rm |} $k\leftarrow k+1$\\
+& Renvoyer $a$.
+\end{tabular}
+
+De manière générale, il vaut mieux programmer des algorithmes itératifs plutôt que récursifs, même si ces derniers sont parfois plus faciles à programmer. L'algorithme d'Euclide étendu a également une version itérative, voir par exemple \cite{demazure2008cours}.
+
+\section{Exponentiation rapide}
+
+Soit $A$ un anneau, $x\in A$ et $n\in \N$. Pour calculer $x^n$, on peut utiliser l'algorithme «~naïf~» suivant : 
+
+\begin{tabular}{ll}
+\textbf{Algorithme } & Puissance($x,n$)\\
+& $k\leftarrow 0$ \\
+& $b\leftarrow 1$ \\
+& tant que $k<n$ :\\
+& \ \ \ {\rm |} $b\leftarrow b.x$  \\
+& \ \ \ {\rm |} $k\leftarrow k+1$  \\
+& renvoyer $b$.
+\end{tabular}
+ 
+ 
+ Cet algorithme effectue $n$ multiplications, on peut en fait faire beaucoup mieux. Écrivons $n$ en base $2$ : $n=\sum_{i=0}^\ell a_i 2^i$, avec $a_i\in \{0,1\}$ pour tous $i\in \llbracket 0,\ell\rrbracket$ et $a_\ell =1$. Alors : \[x^n=x^{\sum_{i=0}^\ell a_i 2^i}=\prod_{i=0}^\ell (x^{2^i})^{a_i}=\prod_{i\in \llbracket 0,\ell\rrbracket |\ a_i\neq 0} x^{2^i} .\] Soit $i\in \N$. Alors $x^{2^{i+1}}=(x^{2^i})^2$. L'algorithme suivant permet de calculer $x^n$.
+ 
+  
+ \begin{tabular}{ll}
+\textbf{Algorithme } & ExpRapRec($x,n$)\\
+& si $n=0$\\
+& \ \ \ {\rm |} renvoyer $1$\\
+& sinon\\
+& \ \ \ {\rm |} si $n$ pair\\
+& \ \ \ \ \ \ {\rm |} Renvoyer $\mathrm{ExpRapRec}(x,n/2)^2$,\\
+& \ \ \ {\rm |} si $n$ impair\\
+& \ \ \ \ \ \ {\rm |} Renvoyer $x\mathrm{ExpRapRec}(x,(n-1)/2)^2$.\\
+\end{tabular}
+ 
+Si $n\in \N$, on note $\mathrm{Pdb}(n,2)$ son écriture en base $2$, c'est à dire la liste $L=[a_0,\ldots,a_k]$ telle que $n=\sum_{i=0}^k a_i 2^i$, avec $a_k\neq 0$ et $a_i\in\llbracket 0,b-1\rrbracket$ pour tous $i\in \llbracket 0,k\rrbracket$. On a également l'algorithme itératif suivant, qui prend en entrée un élément $x\in A$ et $n\in \N^*$ et qui renvoie $x^n$.
+ 
+ \begin{tabular}{ll}
+\textbf{Algorithme } & ExpRapIt($x,n$)\\
+
+& $k\leftarrow 0$ \\
+& $L\leftarrow \mathrm{Pdb}(n)$\\
+&$\ell\leftarrow \mathrm{len}(L)$\\
+& $b\leftarrow 1$ \\
+& $y\leftarrow x$ \\
+& tant que $k<\ell$ :\\
+& \ \ \ {\rm |} si $L[k]= 1$\\
+& \ \ \ \ \ \ {\rm |}$b\leftarrow bx$\\
+& \ \ \ {\rm |} $a\leftarrow a^2$\\
+
+& \ \ \ {\rm |} $k\leftarrow k+1$  \\
+& renvoyer $b$.
+\end{tabular}
+
+\paragraph{Validité de l'algorithme} Soit $i\in \N$ tel que l'étape $i$ est définie. Notons $k_i, b_i$ et $y_i$ les valeurs de $k,b$ et $y$ au début de l'étape $i$. On a $k_i=i$, donc l'algorithme se termine en $\ell$ étapes. On a  $k_0=0$, $b_0=1=\prod_{j<0| a_j=1}x^{2^j}$  et $y_0=x=x^{2^0}$. Soit $i\in \llbracket 0,\ell\rrbracket$. Soit $\PCC_i$ l'hypothèse : 
+$b_i=\prod_{j<i| a_j=1} x^{2^j}$ et $y_i=x^{2^i}$.
+Soit $i\in \llbracket 0,\ell-1\rrbracket$. Supposons que $\PCC_i$ est vraie. Alors si $a_i=1$, $b_{i+1}=b_i x^{2^i}=\prod_{j\leq i|a_j=1}x^{2^j}$. Si 
+$y_i=0$,   $b_{i+1}=b_i=\prod_{j\leq i|a_j=1}x^{2^j}$. L'hypothèse $\PCC_{i+1}$ est donc vraie. On a aussi $y_{i+1}=(x^{2^i})^2=x^{2^{i+1}}$. Par récurrence on en déduit que $\PCC_\ell$ est vraie, c'est à dire que $b=\prod_{i\in \llbracket 0,\ell\rrbracket| a_i=1} x^{2^i}=x^n$, ce qui prouve la validité de l'algorithme.
+ 
+ 
+ \paragraph{Étude du coût de l'algorithme} Commençons par étudier le nombre de multiplications que l'on effectue dans $A$. À chaque étape, on effectue une élévation au carré, ce qui correspond à une multiplication et on effectue au plus une autre multiplication (en fonction de la valeur de $a_i$). On a donc au plus $2$ multiplications par étape, soit au plus $2\ell$ multiplications. De plus, on a $2^\ell \leq n<2^{\ell+1}$. On a donc $\log_2(2^\ell)=\ell\leq \log_2(n)<\log_2(2^{\ell+1})= \ell+1$. On a donc $\ell=\lfloor \log_2(n)\rfloor$. Le nombre de multiplications est donc $O\big(\ln(n)\big)$ ce qui est beaucoup mieux que l'algorithme naïf. 
+ 
+ Pour étudier plus précisément le coût de l'algorithme, il faut savoir dans quel anneau on se place. Par exemple  si $A=\Z$, le coût du calcul du produit $ab$, pour $a,b\in \Z$ dépend de la taille de $a$ et de $b$ : plus $a$ et $b$ sont grands, plus ce coût est élevé. Comme pour $|x|\geq 2$, la taille de $x^{2^i}$ augmente lorsque $i$ augmente, notre étude ne suffit pas pour savoir si l'algorithme d'exponentiation rapide est vraiment plus efficace que l'algorithme naïf. Par contre, si $A=\Z/N\Z$, pour $N\in \Z$ on peut majorer le coût du calcul de $ab$, pour $a,b\in \Z/N\Z$ est $O\big(\log_2(N)^2\big)$. Le coût du calcul de $x^n$ pour $n\in \N$ par l'algorithme d'exponentiation rapide est donc $O\big(\log_2(N)^2\log_2(n)\big)$ alors que celui par l'algorithme  naïf est $O\big(\log_2(N)n\big)$.
+ 
+ 
+
 
 \chapter{Tests de primalité}
 

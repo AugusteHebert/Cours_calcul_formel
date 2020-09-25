@@ -1,0 +1,117 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{remarque}{Remarque}
+\newtheorem*{remarques}{Remarques}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{   Université de Lorraine \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod #2 }
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$1
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+\
+
+
+
+\begin{center}
+\begin{tabular}{l}
+Pdb$($b,n$)$\\
+$ L \leftarrow [\ ]$ \\
+$N \leftarrow n$ \\
+$k\leftarrow 0$
+tant que $b^k\leq n$ \\
+\ \ \ {\rm |} $x \leftarrow N \mathrm{\ mod\ }x$ \\
+\ \ \ {\rm |}   $L\leftarrow [a,L]$ \\
+\ \ \ {\rm |}   $k\leftarrow k+1$ \\ 
+\ \ \ {\rm |}   $N\leftarrow \frac{N-x}{b}$ \\ 
+renvoyer $L$.
+\end{tabular}
+\end{center}
+
+Alors Pdb$(b,n)$ renvoie la liste $[a_\ell,\ldots,a_0]$ telle que :\begin{enumerate}
+\item $b=\sum_{i=0}^\ell a_i b^i$,
+
+\item $a_i\in \llbracket 0,b-1\rrbracket$, pour $i\in \llbracket 0,\ell\rrbracket$,
+
+\item $a_\ell\neq 0$.
+\end{enumerate}
+
+En effet : \begin{itemize}
+\item[•] \textbf{Terminaison de l'algorithme}  Soit $i\in \N$ tel que l'étape $i$ de l'algorithme est définie. Alors $k_i=i$. De plus, il existe $j\in \N$ tel que $b^j>n$. En prenant $\ell=\min\{ j\in \N|b^j>n\}-1$, on obtient que l'algorithme se termine en exactement $\ell+1$ étapes.
+
+\item[•] \textbf{Validité de l'algorithme} Pour $i\in \llbracket 0,\ell\rrbracket$, notons $N_i$, $L_i$, ... les valeurs de  $N$, $L$, ... que l'on obtient à la fin de l'étape $i$. Pour s'inspirer, on peut étudier les étapes $1$ et $2$.  On a   $x_0=n\mathrm{\ mod\ }b=a_0$, donc $L_0=[a_0]$ et \[N_0=\frac{n-a_0}{b}=\frac{\sum_{i=0}^\ell a_i b^i-a_0}{b}=\sum_{i=1}^n a_i b^{i-1}=a_\ell b^{\ell-1}+\ldots + a_2 b+ a_1.\] On a donc $x_1=a_1$, $L_1=[a_1,a_0]$ et \[N_1=\frac{\sum_{i=1}^\ell a_i b^{i-1}-a_1 b}{b}=\sum_{i=2}^\ell a_i b^{i-2}.\]
+
+    Soit $i\in \llbracket 0,\ell\rrbracket$. Supposons  que $L_i=[a_i,\ldots,a_0]$ et $N_i=\sum_{j=i}^\ell a_j b^{j-i}=a^\ell b^{\ell-i}+\ldots + a_{i+1}$. Alors $x_{i+1}=a_{i+1}$, $L_{i+1}=[a_{i+1},\ldots,a_0]$ et $N_{i+1}=\sum_{j=i+1}^\ell a_j b^{\ell-(i+1)}$. Par récurrence on en déduit pour tout $j\in \llbracket 0,\ell\rrbracket$, $L_j=[a_j,\ldots,a_0]$ et $N_j=\sum_{j'=j}^{\ell} a_{j'} b^{j-j'}$. En particulier, $L_\ell=[a_\ell,\ldots,a_0]$.
+\end{itemize}
+
+(3) Après calcul, on obtient que $146556=\overline{70990}^{12}$.
+
+(4) $\overline{16356}^7=6.1+5.7+3.7^2+6.7^3+1.7^4=4647$.
+
+\end{document}

@@ -140,22 +140,74 @@ Donner une méthode pour calculer l'écriture de cet entier en base décimale.
 \end{ex}
 
 
-
-
-
-\begin{ex}\
-Écrire un algorithme permettant de calculer le pgcd de trois entiers naturels $a$, $b$ et $c$.
-\end{ex}
-
-
-
 \
 
 \begin{ex}\label{exOptimisation_algo_Euclide}\
-Soient $(a,b)\in \N^*\times \N^*$ tels que $a>b$. Soit  $a=bq+r$ avec $0 \leq  r <b$ la divisiion euclidienne de $a$ par $b$. Montrer que $a\wedge b=b\wedge r=b\wedge (b-r)$. En déduire une «~amélioration~» de l'algorithme d'Euclide. Comparer l'algorithme classique avec ce nouvel algorithme pour le calcul de $89\wedge 55$.
+Soient $(a,b)\in \N^*\times \N^*$ tels que $a>b$. Soit  $a=bq+r$ avec $0 \leq  r <b$ la division euclidienne de $a$ par $b$. Montrer que $a\wedge b=b\wedge r=b\wedge (b-r)$. En déduire une «~amélioration~» de l'algorithme d'Euclide. Comparer l'algorithme classique avec ce nouvel algorithme pour le calcul de $89\wedge 55$.
 \end{ex}
 
 \
+
+
+
+\begin{ex}\label{exEuclide_etendu_exemple}
+Déterminer $u,v\in \Z$ tels que $899 u+493v=29$.
+\end{ex}
+
+
+\
+
+
+\begin{ex}\label{exPGCD_suite}\
+Soit $(u_n)_{n \in \mathbb{N}}$ la suite d'entiers définie par $u_0=14$ et $u_{n+1}=5 u_n -6$. Montrer que la suite $(u_n\wedge u_{n+1})$ est constante. Précisez sa valeur.
+\end{ex}
+
+
+\
+\begin{ex}\label{exLemmeGauss}(lemme de Gauss)\
+ Soient $a,b,c \in \mathbb{Z}^*$. Montrer que 
+\begin{itemize}
+\item[$1)$] Si $a\mid bc$ et $a \wedge b=1$, alors $a \mid c$.
+\item[$2)$] Si $a \wedge b=1$, alors :\[a \mid c \text{ et }b \mid c  \Rightarrow ab \mid c.\] 
+\end{itemize}
+\end{ex}
+
+
+\
+
+
+
+\begin{ex}\label{exPGCD_famille}\
+\begin{itemize}
+\item[$1$.] Soit $I$ un ensemble non vide et $(a_i)\in \Z^I\setminus\{0\}$. Montrer que $\{a_i|\ i\in I\}$ admet un plus grand diviseur commun, c'est à dire qu'il existe $d\in \Z$ tel que $d$ divise $a_i$, pour tout $i\in I$ et que si $d'\in \Z$ est tel que $d'$ divise $a_i$ pour tout $i\in I$, alors $d'$ divise $d$.
+
+\item[$2.$] Soit $n\in \N_{\geq 2}$ et $(a_1,\ldots,a_n)\in \Z^n\setminus\{0\}$. Comparer $a_1\wedge\ldots \wedge a_n$ et $a_1\wedge (a_2\wedge \ldots \wedge a_n)$.
+
+\item[$3.$] Décrire une méthode permettant de déterminer le PGCD de $n$ entiers. 
+
+\end{itemize}
+
+\end{ex}
+
+
+
+
+\
+
+
+
+\begin{ex}\label{exPGCD_Polynomes}\
+Calculer, pour $n \in \mathbb{N}^*$:
+\begin{enumerate}
+\item $ (n^2+n) \wedge (2n+1)$
+\item $(15n^2+8n+6)\wedge (30 n^2+21n+13)$.
+\end{enumerate}
+\end{ex}
+\
+
+
+
+
 
 
 
@@ -186,9 +238,45 @@ On appelle suite de Fibonacci, notée $(F_n)_{n \in \mathbb{N}^*}$ la suite d'en
 Historiquement, Fibonacci, vers 1200, a introduit la suite qui porte son nom pour calculer le nombre de couples de lapins au mois $n$ sachant qu'à partir du deuxième mois de maturité un couple de lapin donne naissance à un autre couple et qu'on introduit un couple de lapins à la date $0$. 
 \end{rem}
 
-\
+\paragraph{Correction Exo 2}
 
 
+
+
+\begin{center}
+\begin{tabular}{l}
+Pdb$($b,n$)$\\
+$ L \leftarrow [\ ]$ \\
+$N \leftarrow n$ \\
+$k\leftarrow 0$
+tant que $b^k\leq n$ \\
+\ \ \ {\rm |} $x \leftarrow N \mathrm{\ mod\ }x$ \\
+\ \ \ {\rm |}   $L\leftarrow [a,L]$ \\
+\ \ \ {\rm |}   $k\leftarrow k+1$ \\ 
+\ \ \ {\rm |}   $N\leftarrow \frac{N-x}{b}$ \\ 
+renvoyer $L$.
+\end{tabular}
+\end{center}
+
+Alors Pdb$(b,n)$ renvoie la liste $[a_\ell,\ldots,a_0]$ telle que :\begin{enumerate}
+\item $b=\sum_{i=0}^\ell a_i b^i$,
+
+\item $a_i\in \llbracket 0,b-1\rrbracket$, pour $i\in \llbracket 0,\ell\rrbracket$,
+
+\item $a_\ell\neq 0$.
+\end{enumerate}
+
+En effet : \begin{itemize}
+\item[•] \textbf{Terminaison de l'algorithme}  Soit $i\in \N$ tel que l'étape $i$ de l'algorithme est définie. Alors $k_i=i$. De plus, il existe $j\in \N$ tel que $b^j>n$. En prenant $\ell=\min\{ j\in \N|b^j>n\}-1$, on obtient que l'algorithme se termine en exactement $\ell+1$ étapes.
+
+\item[•] \textbf{Validité de l'algorithme} Pour $i\in \llbracket 0,\ell\rrbracket$, notons $N_i$, $L_i$, ... les valeurs de  $N$, $L$, ... que l'on obtient à la fin de l'étape $i$. Pour s'inspirer, on peut étudier les étapes $1$ et $2$.  On a   $x_0=n\mathrm{\ mod\ }b=a_0$, donc $L_0=[a_0]$ et \[N_0=\frac{n-a_0}{b}=\frac{\sum_{i=0}^\ell a_i b^i-a_0}{b}=\sum_{i=1}^n a_i b^{i-1}=a_\ell b^{\ell-1}+\ldots + a_2 b+ a_1.\] On a donc $x_1=a_1$, $L_1=[a_1,a_0]$ et \[N_1=\frac{\sum_{i=1}^\ell a_i b^{i-1}-a_1 b}{b}=\sum_{i=2}^\ell a_i b^{i-2}.\]
+
+    Soit $i\in \llbracket 0,\ell\rrbracket$. Supposons  que $L_i=[a_i,\ldots,a_0]$ et $N_i=\sum_{j=i}^\ell a_j b^{j-i}=a^\ell b^{\ell-i}+\ldots + a_{i+1}$. Alors $x_{i+1}=a_{i+1}$, $L_{i+1}=[a_{i+1},\ldots,a_0]$ et $N_{i+1}=\sum_{j=i+1}^\ell a_j b^{\ell-(i+1)}$. Par récurrence on en déduit pour tout $j\in \llbracket 0,\ell\rrbracket$, $L_j=[a_j,\ldots,a_0]$ et $N_j=\sum_{j'=j}^{\ell} a_{j'} b^{j-j'}$. En particulier, $L_\ell=[a_\ell,\ldots,a_0]$.
+\end{itemize}
+
+(3) Après calcul, on obtient que $146556=\overline{70990}^{12}$.
+
+(4) $\overline{16356}^7=6.1+5.7+3.7^2+6.7^3+1.7^4=4647$.
 
 \begin{ex}\label{exEuclide_etendu_fibonnacci}\
 Quel est le résultat de Euclide-étendu$(F_{k+1},F_k)$ ?
@@ -217,22 +305,7 @@ $$ x^m+1=(x+1)(1-x+x^2-x^3+\ldots + x^{m-1}).$$
 \end{rem2}
 
 
-\
 
-
-\begin{ex}\label{exPGCD_suite}\
-Soit $(u_n)_{n \in \mathbb{N}}$ la suite d'entiers définie par $u_0=14$ et $u_{n+1}=5 u_n -6$. Montrer que la suite $(u_n\wedge u_{n+1})$ est constante. Précisez sa valeur.
-\end{ex}
-
-
-
-\
-\begin{ex}\
-Existe-t-il des entiers premiers à $0$ ? Si oui, lesquels ?
-\end{ex}
-
-
-\
 
 
 \begin{comment}
@@ -243,14 +316,6 @@ On suppose qu'on dispose d'un algorithme de test de primalité TestPrim$($n$)$ q
 \
 \end{comment}
 
-\begin{ex}\label{exPGCD_Polynomes}\
-Calculer, pour $n \in \mathbb{N}^*$:
-\begin{enumerate}
-\item $ (n^2+n) \wedge (2n+1)$
-\item $(15n^2+8n+6)\wedge (30 n^2+21n+13)$.
-\end{enumerate}
-\end{ex}
-%\
 
 
 \
@@ -274,7 +339,7 @@ Il existe des tests pour déterminer si un nombre de Mersenne donné est premier
 Pour $n \geqslant 3$, le nombre $M_n= 2^n -1$ est premier si et seulement si $M_n \mid L_{n-2}$. 
 \end{rem}
 
-
+\begin{comment}
 \section*{Correction}
 
 Exercice~\ref{exDivision_Euclidienne}.
@@ -403,7 +468,28 @@ Soit $k\in \N_{\geq 4}$. On suppose que $(-1)^k F_k F_{k-3} +(-1)^{k+1} F_{k-1} 
 &=& (-1)^{k+1} F_{k+1} F_{k-2}+(-1)^k F_k(F_{k-2}+F_{k-3})\\
 1 &=& (-1)^{k+1} F_{k+1} F_{k-2} + (-1)^k F_kF_{k-1}.\end{aligned}\]
 
+Exercice~\ref{exPGCD_famille}
 
+1. Comme $\Z$ est principal, il existe $d\in \Z$ tel que $\sum_{i\in I} \Z a_i=\Z d$. Comme $d\in a_i\Z$, $d$ divise $a_i$, pour tous $i\in I$. Soit $d'$ un diviseur de tous les $a_i$. Alors $d'$ divise $d$ car $d$ est une combinaison linéaire de $a_i$.
+
+2. $a_1\wedge \ldots \wedge a_n$ divise  $a_2,\ldots, a_n$, donc $a_1\wedge \ldots \wedge a_n$ divise $a_2\wedge \ldots \wedge a_n$. Comme $a_1\wedge \ldots \wedge a_n$ divise $a_1$, on en déduit que $a_1\wedge \ldots \wedge a_n$ divise $a_1\wedge (a_2\wedge \ldots \wedge a_n)$. 
+
+Réciproquement, $a_1\wedge (a_2\wedge \ldots\wedge a_n)$ divise $a_1$ et $a_2,\ldots,a_n$, donc divise $a_1\wedge\ldots \wedge a_n$, donc $a_1\wedge (a_2\wedge \ldots\wedge a_n)=a_1\wedge\ldots\wedge a_n$.
+
+Exercice~\ref{exEuclide_etendu_exemple}
+
+On a  $899 = 493\times 1+406$, $493=406\times 1+87$, $406=87\times 4+58$, $87=58+29$, $58=9\times 2$. On a donc \[\begin{aligned} 29 &=& 87-58\\
+ &=& 87-(406-4\times 87) &=& 5\times 87-406\\
+ &=& 5\times (493-406)-406 &=& 5\times 493-6\times 406\\
+ &=& 5\times 493-6\times (899-493) &=& 11\times 493-6\times 899.\end{aligned}\]
+ 
+Exercice~\ref{exLemmeGauss}
+
+(1) Écrivons $bc=ad$, avec $d\in \Z$. Par le théorème de Bézout, il existe $u,v\in \Z$ tels que $au+bv=1$. On a alors $auc+bvc=c=auc+adv=a(uc+dv)$, ce qui montre que $a$ divise $c$.
+
+(2) Écrivons $$c=ac'$, avec $c'\in \Z$. Alors $b$ divise $c=ac'$ donc $b$ divise $c'$ par (1) donc $ab$ divise $ac'=c$.
+
+\end{comment}
 
 
 \end{document}

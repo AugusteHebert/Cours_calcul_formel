@@ -1,0 +1,236 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{remarque}{Remarque}
+\newtheorem*{remarques}{Remarques}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{   Université de Lorraine \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$2
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+\
+
+\begin{ex}\
+A partir de l'algorithme d'Euclide étendu, calculer $\moa{8^{-1}}{27}$.
+\end{ex}
+
+
+\
+
+\
+
+\begin{ex}\
+Trouver les solutions entières de l'équation:
+$$  {45x}\equiv {10}\  [{50}].    $$
+\end{ex}
+
+
+
+\
+
+\
+
+
+
+\begin{ex}\
+Pierre donne à sa banque un chèque de $x$ euros et $y$ centimes. Par erreur, le banquier encaisse $y$ euros et $x$ centimes, ce qui représente $5$ centimes de plus que le double du montant de son chèque. Calculer $x$ et $y$.
+\end{ex}
+
+\
+
+\begin{ex}
+Soit $n\in \Z$. Montrer que l'addition et la multiplication sont bien définies dans $\Z/n\Z$, c'est  à dire que si $\overline{x},\overline{y}\in \Z/n\Z$, alors $\overline{x+y}=\overline{x'+y'}$ et $\overline{x'y'}=\overline{xy}$, pour tous $x'\in \overline{x}, y'\in \overline{y}$. 
+\end{ex}
+
+\
+
+\begin{ex}
+\begin{enumerate}
+\item Soit $p\in \mathbb{P}$. Déterminer $\{x\in \Z/p\Z|\ x^2=\overline{1}\}$.
+
+\item En utilisant le théorème chinois, déterminer l'ensemble des $x\in \Z/44\Z$ tels que $x^2=\overline{1}$.
+\end{enumerate}
+
+
+\end{ex}
+
+
+\
+
+\begin{ex}\
+Soient $a \in \mathbb{Z}^*$ et $n \in \mathbb{N}^* $. \begin{enumerate}
+\item On suppose que $a\wedge n=1$. Montrer que si $x,y\in \Z$ vérifient  $ \mda{ax}{ay}{n}  $, alors $ \mda{x}{y}{n}$.
+
+\item Donner un contre-exemple pour le cas $a\wedge n\neq 1 $.
+\end{enumerate} 
+\end{ex}
+
+\
+
+
+\
+
+\begin{ex}\
+Donner les solutions entières du système:
+$$ \left \{ \begin{array}{l}
+{x}\equiv {4} \ [{5}] \\
+{x} \equiv {5} \ [{11}]
+\end{array} \right.   $$
+\end{ex}
+
+\
+
+
+
+\begin{ex}\
+Trouver tous les entiers $x$ dont la division euclidienne par $2$, $3$, $4$, $5$ et $6$ a pour restes respectifs $1$, $2$, $3$, $4$ et $5$.
+\end{ex}
+\
+
+
+
+\begin{ex}\
+Soient $a$ et $n$ deux entiers premiers entre eux. Supposons que $n=\prod_{i=1}^k n_i$ où les $n_i$ sont premiers entre deux à deux et posons $ a_i= a \! \mod n_i$ pour $i \in \lb 1,k \rb$. Montrer alors que:
+$$ x=a^{-1}\! \! \! \! \!  \mod n \Longleftrightarrow \left \{ \begin{array}{c}
+x= a_1^{-1} \! \! \! \! \! \mod n_1 \\
+\ \ \ \ \ \ \vdots  \\
+x= a_k^{-1} \! \! \! \! \! \mod n_k 
+\end{array} \right.    $$
+
+\end{ex}
+
+
+\
+
+
+\begin{ex}\label{exEquation_degre_2_F_p}(Équations du second degré dans $\Z/p\Z$)
+Soit $p\in \mathbb{P}_{\geq 3}$. 
+\begin{enumerate}
+\item Soit $u\in \Z/p\Z\setminus\{0\}$. Montrer que l'ensemble des solutions de l'équation $x^2=u$ est soit l'ensemble vide, soit de la forme $\{b,-b\}$, pour un certain $b\in \Z/p\Z$.
+
+\item Montrer qu'il y a exactement $\frac{p+1}{2}$ carrés dans $\Z/p\Z$.
+
+\item Soient $a,b\in \Z/p\Z$. On suppose que l'on sait résoudre l'équation $x^2=u$ d'inconnue $x\in \Z/p\Z$, pour 
+tous $u\in \Z/p\Z$. Résoudre l'équation $x^2+ax+b=0$, d'inconnue $x\in \Z/p\Z$ (on pourra calculer $(x+\overline{2}^{-1} a)^2$). 
+
+\item Soient $p_1,\ldots,p_k\in \mathbb{P}$ et $n=p_1\ldots p_k$. On suppose les $p_i$ distincts. Montrer que si $u\in \Z/n\Z$, alors $|\{x\in \Z/n\Z|\ x^2=u\}|\in \{0,2^{k-1},2^k\}$ (on pourra utiliser le théorème  chinois). 
+
+\end{enumerate}
+
+\end{ex}
+
+
+
+\begin{ex}(Nombres parfaits. Un théorème d'Euclide)\
+
+Un entier $n$ est dit \textbf{parfait} si $n \geqslant 2$ et si $n$ est égal à la somme de ses diviseurs positifs autres que lui-même. Par exemple, $6$ est parfait car $6=1+2+3$. \\
+On a déjà vu au TD n$^{\circ}3$ que si $2^p-1$ est premier, alors $p$ est premier. \\
+Soit $n\geqslant 2$ un entier. Notons $\sigma(n)$ la somme de tous les diviseurs positifs de $n$, de sorte que $n$ est parfait si et seulement si $\sigma(n)=2n$.
+\begin{itemize}
+\item[$1.$]\begin{itemize}
+\item[$a)$] Montrer que $n$ est premier si et seulement si $\sigma(n)=n+1$.
+\item[$b)$] Montrer que pour tout $r \in \mathbb{N}^*$, $\sigma(2^r)=2^{r+1}-1$.
+\item[$c)$] Montrer que si $m$ et $n$ sont premiers entre eux, alors $\sigma(mn)=\sigma(m)\sigma(n)$.
+\end{itemize}
+\item[$2.$] Montrer le résultat suivant, appelé théorème d'Euclide: si le nombre $q=2^p-1$ est premier, le nombre
+$$ n=\sum_{j=1}^q i=\frac{q(q+1)}{2}=2^{p-1}(2^p-1) $$
+est parfait.
+\end{itemize}
+\end{ex}
+
+\
+
+
+
+\begin{ex}(Une réciproque du théorème d'Euclide)\
+
+On suppose le résultat de l'exercice précédent résolu. Soit $n$ un nombre parfait pair.
+\begin{itemize}
+\item[$1.$] Montrer qu'il existe un entier $k \geqslant 2$ tel que $n=2^{k-1}m$ avec $m$ impair.
+\item[$2.$] Montrer que $m$ est divisible par $(2^k-1)$. On pose $m=(2^k-1)d$.
+\item[$3.$] Montrer que $d+m=\sigma(m)$.
+\item[$4.$] Montrer que si $d \geqslant 2$, on a $1+d+m \leqslant \sigma(m)$. En déduire que $d=1$.
+\item[$5.$] En déduire le résultat d'Euler: tout nombre parfait pair est de la forme $2^{p-1}(2^p-1)$, avec $(2^p-1)$ premier.
+\end{itemize}
+\end{ex}
+
+
+
+\begin{rem}
+Les nombres parfaits ont été étudiés par Euclide au $III^{eme}$ siècle avant J.C., et ce dernier a montré le résultat de l'exercice 11. Au $XVIII^{eme}$ siècle, Euler a démontré la réciproque partielle, qui montre le lien entre la recherche entre les nombres parfais pairs et les nombres de Mersenne premiers. \\
+En revanche, on ne connait aucun nombre parfait impair et l'existence de tels nombres reste un problème ouvert. On ne sait pas non plus s'il existe une infinité de nombres de Mersenne premiers ou de nombres parfaits. 
+\end{rem}
+
+
+
+
+\end{document}
