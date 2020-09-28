@@ -79,8 +79,8 @@
 
 \
 
-\begin{ex}\
-A partir de l'algorithme d'Euclide étendu, calculer $\moa{8^{-1}}{27}$.
+\begin{ex}\label{inverse_modulaire}\
+A partir de l'algorithme d'Euclide étendu, calculer $\big(\moa{8}{27}\big)^{-1}$.
 \end{ex}
 
 
@@ -88,7 +88,7 @@ A partir de l'algorithme d'Euclide étendu, calculer $\moa{8^{-1}}{27}$.
 
 \
 
-\begin{ex}\
+\begin{ex}\label{equation_lineaire_modulaire}\
 Trouver les solutions entières de l'équation:
 $$  {45x}\equiv {10}\  [{50}].    $$
 \end{ex}
@@ -101,7 +101,20 @@ $$  {45x}\equiv {10}\  [{50}].    $$
 
 
 
-\begin{ex}\
+\begin{ex}\label{equation_lineaire_modulaire_generale}
+Soient $a,b\in \Z$, $n\in \N$. Soit (E) l'équation $a x\equiv b[n]$, d'inconnue $x\in \Z$. \begin{enumerate}
+\item On suppose que $a\wedge n=1$. Résoudre (E) (on pourra exprimer les solutions à l'aide de $(a \mathrm{\ mod\ }n)^{-1}$).
+
+\item En utilisant (1), résoudre (E) dans le cas où $a\wedge n$  divise $b$. Que peut-on dire lorsque $a\wedge n$ ne divise pas $b$ ?
+\end{enumerate}
+\end{ex}
+
+
+
+\
+\
+
+\begin{ex}\label{banque}\
 Pierre donne à sa banque un chèque de $x$ euros et $y$ centimes. Par erreur, le banquier encaisse $y$ euros et $x$ centimes, ce qui représente $5$ centimes de plus que le double du montant de son chèque. Calculer $x$ et $y$.
 \end{ex}
 
@@ -113,11 +126,11 @@ Soit $n\in \Z$. Montrer que l'addition et la multiplication sont bien définies 
 
 \
 
-\begin{ex}
+\begin{ex}\label{Carrés_modulo_n}
 \begin{enumerate}
 \item Soit $p\in \mathbb{P}$. Déterminer $\{x\in \Z/p\Z|\ x^2=\overline{1}\}$.
 
-\item En utilisant le théorème chinois, déterminer l'ensemble des $x\in \Z/44\Z$ tels que $x^2=\overline{1}$.
+\item En utilisant le théorème chinois, déterminer l'ensemble des $x\in \Z/92\Z$ tels que $x^2=\overline{1}$.
 \end{enumerate}
 
 
@@ -126,7 +139,7 @@ Soit $n\in \Z$. Montrer que l'addition et la multiplication sont bien définies 
 
 \
 
-\begin{ex}\
+\begin{ex}\label{division_Z_nZ}\
 Soient $a \in \mathbb{Z}^*$ et $n \in \mathbb{N}^* $. \begin{enumerate}
 \item On suppose que $a\wedge n=1$. Montrer que si $x,y\in \Z$ vérifient  $ \mda{ax}{ay}{n}  $, alors $ \mda{x}{y}{n}$.
 
@@ -139,7 +152,7 @@ Soient $a \in \mathbb{Z}^*$ et $n \in \mathbb{N}^* $. \begin{enumerate}
 
 \
 
-\begin{ex}\
+\begin{ex}\label{systeme_equations_modulaires}\
 Donner les solutions entières du système:
 $$ \left \{ \begin{array}{l}
 {x}\equiv {4} \ [{5}] \\
@@ -151,7 +164,7 @@ $$ \left \{ \begin{array}{l}
 
 
 
-\begin{ex}\
+\begin{ex}\label{systeme_non_premier}\
 Trouver tous les entiers $x$ dont la division euclidienne par $2$, $3$, $4$, $5$ et $6$ a pour restes respectifs $1$, $2$, $3$, $4$ et $5$.
 \end{ex}
 \
@@ -159,7 +172,7 @@ Trouver tous les entiers $x$ dont la division euclidienne par $2$, $3$, $4$, $5$
 
 
 \begin{ex}\
-Soient $a$ et $n$ deux entiers premiers entre eux. Supposons que $n=\prod_{i=1}^k n_i$ où les $n_i$ sont premiers entre deux à deux et posons $ a_i= a \! \mod n_i$ pour $i \in \lb 1,k \rb$. Montrer alors que:
+Soient $a$ et $n$ deux entiers premiers entre eux. Supposons que $n=\prod_{i=1}^k n_i$ où les $n_i$ sont premiers entre deux à deux et posons $ a_i= a \! \mod n_i$ pour $i \in \lb 1,k \rb$. Montrer alors que $a\mathrm{\ mod\ }n$ est inversible si et seulement si $a_i \mathrm{\ mod\ }n_i$ est inversible pour tout $i\in \llbracket 1,k\rrbracket$. 
 $$ x=a^{-1}\! \! \! \! \!  \mod n \Longleftrightarrow \left \{ \begin{array}{c}
 x= a_1^{-1} \! \! \! \! \! \mod n_1 \\
 \ \ \ \ \ \ \vdots  \\
@@ -193,7 +206,7 @@ tous $u\in \Z/p\Z$. Résoudre l'équation $x^2+ax+b=0$, d'inconnue $x\in \Z/p\Z$
 \begin{ex}(Nombres parfaits. Un théorème d'Euclide)\
 
 Un entier $n$ est dit \textbf{parfait} si $n \geqslant 2$ et si $n$ est égal à la somme de ses diviseurs positifs autres que lui-même. Par exemple, $6$ est parfait car $6=1+2+3$. \\
-On a déjà vu au TD n$^{\circ}3$ que si $2^p-1$ est premier, alors $p$ est premier. \\
+D'après une feuille de TD précédente, si $2^p-1$ est premier, alors $p$ est premier. \\
 Soit $n\geqslant 2$ un entier. Notons $\sigma(n)$ la somme de tous les diviseurs positifs de $n$, de sorte que $n$ est parfait si et seulement si $\sigma(n)=2n$.
 \begin{itemize}
 \item[$1.$]\begin{itemize}
@@ -202,7 +215,7 @@ Soit $n\geqslant 2$ un entier. Notons $\sigma(n)$ la somme de tous les diviseurs
 \item[$c)$] Montrer que si $m$ et $n$ sont premiers entre eux, alors $\sigma(mn)=\sigma(m)\sigma(n)$.
 \end{itemize}
 \item[$2.$] Montrer le résultat suivant, appelé théorème d'Euclide: si le nombre $q=2^p-1$ est premier, le nombre
-$$ n=\sum_{j=1}^q i=\frac{q(q+1)}{2}=2^{p-1}(2^p-1) $$
+$$ n=\sum_{i=1}^q i=\frac{q(q+1)}{2}=2^{p-1}(2^p-1) $$
 est parfait.
 \end{itemize}
 \end{ex}
@@ -211,7 +224,7 @@ est parfait.
 
 
 
-\begin{ex}(Une réciproque du théorème d'Euclide)\
+\begin{ex}\label{reciproque_euclide}(Une réciproque du théorème d'Euclide)\
 
 On suppose le résultat de l'exercice précédent résolu. Soit $n$ un nombre parfait pair.
 \begin{itemize}
@@ -231,6 +244,59 @@ En revanche, on ne connait aucun nombre parfait impair et l'existence de tels no
 \end{rem}
 
 
+\paragraph{Correction}
 
+Exercice~\ref{inverse_modulaire}. On a  :\[\begin{aligned} 27&=&3\times 8+3\\ 8&=&3\times 2+2\\ 3&=&2\times 1+1,\end{aligned}\] et donc \[1=3-2=3-(8-3\times 2)=-8+3\times 3=-8+3\times (27-3\times 8)=-10\times 8+3\times 27.\]
+
+Dans $\Z/27\Z$, $\overline{8}$ est donc inversible et on a  $\overline{8}^{-1}=\overline{-10}=\overline{17}$.
+
+Exercice~\ref{equation_lineaire_modulaire}
+
+On a $45\wedge 50=5|10$, donc l'équation admet des solutions. Soit $x\in \Z$. Alors $45x\equiv 0[50]$ si et seulement si $50$ divise $45 x$, ssi $10$ divise $9x$ ssi $10$ divise $x$. On a donc $\{\overline{x}\in \Z/50\Z|45 \overline{x}=\overline{0}\}=10 \Z/50\Z=\{\overline{0},\overline{10}, \overline{20}, \overline{30}, \overline{40}\}$ ou $\{x\in |45x\equiv 0[50]\}=10\Z$. 
+
+Par Euclide étendu (ou directement), on obtient que $50\times 2-45\times 2 =10$, donc $\overline{x_0}=\overline{-2}$ est solution de l'équation. On obtient donc que $\{x\in \Z|45x\equiv 10[50]\}=-2+10\Z$. 
+
+
+Exercice~\ref{equation_lineaire_modulaire_generale}
+
+
+(1) On se place dans $\Z/n\Z$. Comme $a\wedge n=1$, $\overline{a}$ est inversible. Alors $\overline{a}\overline{x}=\overline{b}$ si et seulement si $\overline{x}=\overline{a}^{-1}\overline{b}$. 
+
+(2) Si $ax\equiv b[n]$, on a $b\in a\Z+n\Z=a\wedge n \Z$, donc si $b\notin a\wedge n \Z$, l'équation n'admet pas de solution. Supposons que $a\wedge n $ divise $b$. Soit $d=a\wedge n$. Alors $ax\equiv b[n]$ équivaut à $a/d x\equiv b/d[n/d]$ et $a/d\wedge n/d=1$.
+
+Exercice~\ref{banque}
+
+On a $(100 y +x) 2(100x+y)+5$, avec $x,y\in \N$, ce qui équivaut à $199x +98 y=5$. Résolvons d'abord cette équation dans $\Z$ : soit $(E_\Z)$ : $199x +98 y=5$, d'inconnue $(x,y)\in \Z^2$. Après Euclide étendu, on trouve que $x_0=33$ et $y_0=67$ est une solution particulière de $(E_\Z)$.  Soit $(x,y)\in \Z^2$ tel que $199x+98y=0$. Alors $199$ divise $98y$ donc $199$ divise $y$, on peut donc écrire $y=199 k$, où $k\in \N$. On a donc $199 x +98.199 k=0$, donc $x=-98k$. Si $(x',y')\in \Z^2$ est solution de $(E_\Z)$, alors $x'=x_0-98k$ et $y'=y'+199k$, pour $k\in \N$. Si $x',y'\in\N$, on obtient donc $k=0$. 
+
+Exercice~\ref{Carrés_modulo_n}
+
+(1) Dans $\Z/p\Z$, on a $x^2-\overline{1}=\overline{0}$ équivaut à $(x-\overline{1})(x+\overline{1})=\overline{0}$ équivaut à $\overline{x}=\pm \overline{1}$. 
+
+(2) Dans $\{x\in \Z/4\Z|\ x^2=\overline{1}\}=\{\overline{1},\overline{3}\}$. Soit $\phi:\Z/92\Z\rightarrow \Z/4\Z\times \Z/23\Z$ l'isomorphisme chinois. 
+
+On a $4\times 6-23=1$. On a $\phi(\overline{24})=(\overline{0},\overline{1})$ et $\phi(\overline{-23})=(\overline{1},\overline{0})$. On a donc $\{x\in \Z/92\Z|x^2=1\}=\{\overline{1},\overline{-1},\overline{47},\overline{-47}\}$. 
+
+Exercice~\ref{division_Z_nZ}
+
+(2) Si $a=2$, $n=4$ et $x=0$, $y=2$, alors ok.
+
+Exercice~\ref{systeme_equations_modulaires}
+
+Soit $\phi:\Z/55\Z\rightarrow \Z/5\Z\times \Z/11\Z$ l'isomorphisme chinois. On a $11-5\times 2=1$, donc $\phi(\overline{11})=(\overline{1},\overline{0})$ et $\phi(\overline{-10})=(\overline{0},\overline{1})$. On a donc $\phi^{-1}(\overline{4},\overline{5})=4.\overline{11}+5.\overline{-10}=\overline{-6}$.
+
+
+Exercice~\ref{systeme_equations_modulaires}
+
+Soit $E=\{x\in \Z|x\equiv1 [2], x\equiv 2[3], x\equiv 3[4], x\equiv 4[5]\text{ et }x\equiv 5[6]\}$. Soit $x\in \Z$. Alors $x\equiv 5[6]$ si et seulement si $x\equiv 2[3]$ et $x\equiv 1[2]$. Donc $E=\{x\in \Z|x\equiv1 [2], x\equiv 2[3], x\equiv 3[4]\text{ et } x\equiv 4[5]\}$. De plus, si $x\equiv 3[4]$, alors $x\equiv 1[2]$. Donc $E=\{x\in \Z| x\equiv 2[3], x\equiv 3[4] \text{ et }x\equiv 4[5]\}$. Alors $E$ s'écrit $x_0+60\Z$, pour un certain $x_0\in \Z$. On cherche $x_0$ sous la forme $x_0=n_3+3 n_4+3.4 n_5$, où $n_i\in \llbracket 0,i-1\rrbracket$. Alors $n_3=2$. On a $n_3+3n_4\equiv 3[4]$, donc $n_4=3$. On a $n_3+3n_4+12 n_5\equiv 3[5]$, donc $n_4=1$. On a donc $x_0=2+9+12=23$.
+
+Exercice~\ref{reciproque_euclide}
+
+
+
+2) On a  $2^{k-1}\wedge m =1$. On a $\sigma(m)=\sigma(2^{k-1}m)=\sigma(2^{k-1})\sigma(m)=2m$, donc $2^k-1=\sigma(2^{k-1}) | m$. 
+
+3) On a $\sigma(n)=(2^k-1)\sigma(m)=2n=2^km=2^k(2^k-1)d$. On a donc $\sigma(m)=2^kd=m+d$. 
+
+4) Si $d\geq 2$, $\{1,d,m\}$ est un ensemble de diviseurs de $m$ de cardinal $3$, donc $\sigma(m)\geq 1+d+m$. On en déduit que $d=1$ et donc que $m$ est premier, ce qui démontre le théorème d'Euler.
 
 \end{document}

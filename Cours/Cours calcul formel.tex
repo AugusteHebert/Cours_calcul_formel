@@ -856,7 +856,7 @@ temps que prendra son algorithme pour fournir le résultat escompté sur une mac
 donnée. Il faut en effet prendre conscience du fait que de nombreux algorithmes et 
 formules (une formule n'étant qu'un algorithme particulier) n'ont qu'une valeur théorique
 et ne débouchent sur aucun calcul pratique car leur exécution demanderait beaucoup trop
-de temps. Par exemple, pour calculer le déterminant d'une matrice $25 \times 25$ à coefficients entier (qu'on peut même supposer entre $0$ et $9$) $A = (a{i,j})_{1\leq i,j\leq 25}$, on peut envisager d'utiliser la formule suivante : \[\det(A)=\sum_{\sigma \in \mathfrak{S}_n} \epsilon(\sigma) a_{\sigma(1),1}\ldots a_{\sigma(25),25},\] où $\mathfrak{S}_{25}$ désigne le groupe des permutations de l'ensemble $\llbracket 1, 25\rrbracket$. L'application de cette formule nécessite d'effectuer $|\mathfrak{S}_{25}|=25 !\simeq 1.55.10^{25}$ produits. Si l'on dispose d'un ordinateur capable d'effectuer $10$ milliards de ces produits par seconde, il faudrait $49\ 000\ 000$ millions d'années pour effectuer ce calcul. C'est donc inenvisable en pratique, même en tenant compte des progrès techniques à venir (à court terme) des processeurs. En fait l'application directe de la définition pour le calcul du déterminant d'une matrice de taille $n$ nécessite de faire $n!$ multiplications et additions, alors qu'une méthode relativement simple basée sur le pivot de Gauss permet de l'effectuer en $O(n^3)$ multiplications et additions.   
+de temps. Par exemple, pour calculer le déterminant d'une matrice $25 \times 25$ à coefficients entier (qu'on peut même supposer entre $0$ et $9$) $A = (a_{i,j})_{1\leq i,j\leq 25}$, on peut envisager d'utiliser la formule suivante : \[\det(A)=\sum_{\sigma \in \mathfrak{S}_n} \epsilon(\sigma) a_{\sigma(1),1}\ldots a_{\sigma(25),25},\] où $\mathfrak{S}_{25}$ désigne le groupe des permutations de l'ensemble $\llbracket 1, 25\rrbracket$. L'application de cette formule nécessite d'effectuer $|\mathfrak{S}_{25}|=25 !\simeq 1.55.10^{25}$ produits. Si l'on dispose d'un ordinateur capable d'effectuer $10$ milliards de ces produits par seconde, il faudrait $49\ 000\ 000$ millions d'années pour effectuer ce calcul. C'est donc inenvisable en pratique, même en tenant compte des progrès techniques à venir (à court terme) des processeurs. En fait l'application directe de la définition pour le calcul du déterminant d'une matrice de taille $n$ nécessite de faire $n!$ multiplications et additions, alors qu'une méthode relativement simple basée sur le pivot de Gauss permet de l'effectuer en $O(n^3)$ multiplications et additions.   
 Il est donc important d'évaluer le temps que nécessitera un algorithme pour fournir
 le résultat avant même de le programmer. De plus, on aimerait pouvoir comparer autant que faire se peut,
 les algorithmes entre eux, et ceci de manière aussi intrinsèque que possible, c'est-à-dire,
@@ -870,11 +870,11 @@ Nous supposons   que nous sommes en possession d'un ordinateur dont le micro-pro
 soustractions et multiplications sur tout nombre entier naturel inférieur à un certain entier $b$. Nous supposons aussi
 qu'il peut réaliser les divisions d'un nombre à deux chiffres par un nombre à un chiffre
 en base $b$, fournissant en une seule commande le quotient et le reste. Nous appelons
-\textit{opérations élémentaires} ou ces quatre opérations définies sur $\llbracket 0,b-1\rrbracket$, réalisables
-par le micro-processeur en une seule commmande. En pratique, $b$ dépend du processeur de l'ordinateur sur lequel on travaille. Actuellement, pour la plupart des ordinateurs grands public, $b =2^{64}$. Pour nous, la valeur de $b$ n'est pas très importante car on cherchera à évaluer les algorithmes à une constante multiplicative près qui dépend du processeur utilisé. 
+\textit{opérations élémentaires}  ces quatre opérations définies sur $\llbracket 0,b-1\rrbracket$, réalisables
+par le micro-processeur en une seule commande. En pratique, $b$ dépend du processeur de l'ordinateur sur lequel on travaille. Actuellement, pour la plupart des ordinateurs grands public, $b =2^{64}$. Pour nous, la valeur de $b$ n'est pas très importante car on cherchera à évaluer les algorithmes à une constante multiplicative près qui dépend du processeur utilisé. 
 
 
-On choisit une base $b\in\N_{\geq 2}$ dans laquelle on représente les entiers naturels. Tout $N\in \N^*$ s'écrit $N=\sum_{i=0}^k a_i b_i$, avec $a_i\in \llbracket 0,b-1\rrbracket$ et $a_k\neq 0$. On a  $b^k\leq N<b^{k+1}$ et donc $k=\lceil \log_b(N)\rceil$. Pour représenter $N$ en base $b$, on a besoin de $\lfloor \log_b(N)\rfloor$ chiffres. 
+On choisit une base $b\in\N_{\geq 2}$ dans laquelle on représente les entiers naturels. Tout $N\in \N^*$ s'écrit $N=\sum_{i=0}^k a_i b_i$, avec $a_i\in \llbracket 0,b-1\rrbracket$ et $a_k\neq 0$. On a  $b^k\leq N<b^{k+1}$ et donc $k=\lfloor \log_b(N)\rfloor$. Pour représenter $N$ en base $b$, on a besoin de $\lfloor \log_b(N)\rfloor+1$ chiffres. 
 
 \begin{definition}
 La taille d'un entier $N\neq 0$ est $\log_2(|N|)$ (c'est l'ordre de grandeur du  nombre de  bits qu'il faut pour le représenter).
@@ -884,7 +884,7 @@ La taille d'un entier $N\neq 0$ est $\log_2(|N|)$ (c'est l'ordre de grandeur du 
 On peut distinguer le \textit{coût en temps} et \textit{le coût en mémoire}. On s'intéressera surtout au coût en temps.
 
 \begin{definition}
-Le coût en temps d'un algorithme est le nombre d'opérations élémentaires effectuées au cours de cet algorithme. Il dépend de la taille des données.
+Le \textit{coût en temps} ou \textit{complexité binaire} d'un algorithme est le nombre d'opérations élémentaires effectuées au cours de cet algorithme. Il dépend de la taille des données.
 \end{definition}
 
 
@@ -892,11 +892,11 @@ Le coût en temps d'un algorithme est le nombre d'opérations élémentaires eff
 On considère un algorithme qui prend en entrée un entier $N\in \N^*$. On note $c(N)$ son coût en temps. On dit que l'algorithme est :\begin{itemize}
 \item[•] \textit{linéaire} si $c(N)=_{N\rightarrow +\infty} O\big(\log_2(N)\big)$,
 
-\item[•] \textit{quadratique} si $c(N)=O\big(\log_2(N)^2)$,
+\item[•] \textit{quadratique} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^2)$,
 
-\item[•] \textit{polynomial} si $c(N)=O\big(\log_2(N)^\alpha\big)$ pour un certain $\alpha\in \N$,
+\item[•] \textit{polynomial} si $c(N)=_{N\rightarrow +\infty}O\big(\log_2(N)^\alpha\big)$ pour un certain $\alpha\in \N$,
 
-\item[•] \textit{exponentiel} si $c(N)=O\big(2^{\log_2(N)^\alpha}\big)$ pour un certain $\alpha\in \N$.
+\item[•] \textit{exponentiel} si $c(N)=_{N\rightarrow +\infty}O\big(2^{\log_2(N)^\alpha}\big)$ pour un certain $\alpha\in \N$.
 
 
 \end{itemize} 
@@ -1028,8 +1028,8 @@ Si $n\in \N$, on note $\mathrm{Pdb}(n,2)$ son écriture en base $2$, c'est à di
 & $y\leftarrow x$ \\
 & tant que $k<\ell$ :\\
 & \ \ \ {\rm |} si $L[k]= 1$\\
-& \ \ \ \ \ \ {\rm |}$b\leftarrow bx$\\
-& \ \ \ {\rm |} $a\leftarrow a^2$\\
+& \ \ \ \ \ \ {\rm |}$b\leftarrow by$\\
+& \ \ \ {\rm |} $y\leftarrow y^2$\\
 
 & \ \ \ {\rm |} $k\leftarrow k+1$  \\
 & renvoyer $b$.
@@ -1038,12 +1038,12 @@ Si $n\in \N$, on note $\mathrm{Pdb}(n,2)$ son écriture en base $2$, c'est à di
 \paragraph{Validité de l'algorithme} Soit $i\in \N$ tel que l'étape $i$ est définie. Notons $k_i, b_i$ et $y_i$ les valeurs de $k,b$ et $y$ au début de l'étape $i$. On a $k_i=i$, donc l'algorithme se termine en $\ell$ étapes. On a  $k_0=0$, $b_0=1=\prod_{j<0| a_j=1}x^{2^j}$  et $y_0=x=x^{2^0}$. Soit $i\in \llbracket 0,\ell\rrbracket$. Soit $\PCC_i$ l'hypothèse : 
 $b_i=\prod_{j<i| a_j=1} x^{2^j}$ et $y_i=x^{2^i}$.
 Soit $i\in \llbracket 0,\ell-1\rrbracket$. Supposons que $\PCC_i$ est vraie. Alors si $a_i=1$, $b_{i+1}=b_i x^{2^i}=\prod_{j\leq i|a_j=1}x^{2^j}$. Si 
-$y_i=0$,   $b_{i+1}=b_i=\prod_{j\leq i|a_j=1}x^{2^j}$. L'hypothèse $\PCC_{i+1}$ est donc vraie. On a aussi $y_{i+1}=(x^{2^i})^2=x^{2^{i+1}}$. Par récurrence on en déduit que $\PCC_\ell$ est vraie, c'est à dire que $b=\prod_{i\in \llbracket 0,\ell\rrbracket| a_i=1} x^{2^i}=x^n$, ce qui prouve la validité de l'algorithme.
+$a_i=0$,   $b_{i+1}=b_i=\prod_{j\leq i|a_j=1}x^{2^j}$. L'hypothèse $\PCC_{i+1}$ est donc vraie. On a aussi $y_{i+1}=(x^{2^i})^2=x^{2^{i+1}}$. Par récurrence on en déduit que $\PCC_\ell$ est vraie, c'est à dire que $b=\prod_{i\in \llbracket 0,\ell\rrbracket| a_i=1} x^{2^i}=x^n$, ce qui prouve la validité de l'algorithme.
  
  
  \paragraph{Étude du coût de l'algorithme} Commençons par étudier le nombre de multiplications que l'on effectue dans $A$. À chaque étape, on effectue une élévation au carré, ce qui correspond à une multiplication et on effectue au plus une autre multiplication (en fonction de la valeur de $a_i$). On a donc au plus $2$ multiplications par étape, soit au plus $2\ell$ multiplications. De plus, on a $2^\ell \leq n<2^{\ell+1}$. On a donc $\log_2(2^\ell)=\ell\leq \log_2(n)<\log_2(2^{\ell+1})= \ell+1$. On a donc $\ell=\lfloor \log_2(n)\rfloor$. Le nombre de multiplications est donc $O\big(\ln(n)\big)$ ce qui est beaucoup mieux que l'algorithme naïf. 
  
- Pour étudier plus précisément le coût de l'algorithme, il faut savoir dans quel anneau on se place. Par exemple  si $A=\Z$, le coût du calcul du produit $ab$, pour $a,b\in \Z$ dépend de la taille de $a$ et de $b$ : plus $a$ et $b$ sont grands, plus ce coût est élevé. Comme pour $|x|\geq 2$, la taille de $x^{2^i}$ augmente lorsque $i$ augmente, notre étude ne suffit pas pour savoir si l'algorithme d'exponentiation rapide est vraiment plus efficace que l'algorithme naïf. Par contre, si $A=\Z/N\Z$, pour $N\in \Z$ on peut majorer le coût du calcul de $ab$, pour $a,b\in \Z/N\Z$ est $O\big(\log_2(N)^2\big)$. Le coût du calcul de $x^n$ pour $n\in \N$ par l'algorithme d'exponentiation rapide est donc $O\big(\log_2(N)^2\log_2(n)\big)$ alors que celui par l'algorithme  naïf est $O\big(\log_2(N)n\big)$.
+ Pour étudier plus précisément le coût de l'algorithme, il faut connaître le coût d'une multiplication dans $A$. Par exemple  si $A=\Z$, le coût du calcul du produit $ab$, pour $a,b\in \Z$ dépend de la taille de $a$ et de $b$ : plus $a$ et $b$ sont grands, plus ce coût est élevé. Comme pour $|x|\geq 2$, la taille de $x^{2^i}$ augmente lorsque $i$ augmente, notre étude ne suffit pas pour savoir si l'algorithme d'exponentiation rapide est vraiment plus efficace que l'algorithme naïf. Par contre, si $A=\Z/N\Z$, pour $N\in \N^*$   le coût du calcul de $ab$, pour $a,b\in \Z/N\Z$ est $O\big(\log_2(N)^2\big)$. Le coût du calcul de $x^n$ pour $n\in \N$ par l'algorithme d'exponentiation rapide est donc $O\big(\log_2(N)^2\log_2(n)\big)$ alors que celui par l'algorithme  naïf est $O\big(\log_2(N)^2n\big)$.
  
  
 
@@ -1125,7 +1125,7 @@ Nombre de divisions à effecture : $O(\sqrt{n})$.
 non barré est $3$. On le conserve et on barre tous ses multiples stricts. Le premier
 nombre du tableau non barré est $5$. On le conserve et on barre tous ses multiples
 stricts, et ainsi de suite. On fait ainsi apparaître les premiers nombres premiers
-$p_1$, $p_2=3$, $p_3=5$, ...  Lorsqu’on a barré tous les multiples stricts de $p_i$ pour
+$p_1=2$, $p_2=3$, $p_3=5$, ...  Lorsqu’on a barré tous les multiples stricts de $p_i$ pour
 $i\leq k$, le plus petit nombre supérieur à $p_k$ qui n’est pas encore barré est $p_{k+1}$.
 Dès que l’on arrive à un nombre premier $p \geq n$, tous les nombres non barrés dans la tableau sont premiers et on a donc tous les nombres premiers inférieurs ou égaux à $n$.
 Cet algorithme donne une méthode simple pour déterminer tous les nombres
