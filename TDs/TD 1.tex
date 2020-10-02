@@ -339,7 +339,7 @@ Il existe des tests pour déterminer si un nombre de Mersenne donné est premier
 Pour $n \geqslant 3$, le nombre $M_n= 2^n -1$ est premier si et seulement si $M_n \mid L_{n-2}$. 
 \end{rem}
 
-\begin{comment}
+
 \section*{Correction}
 
 Exercice~\ref{exDivision_Euclidienne}.
@@ -414,11 +414,11 @@ Exercice~\ref{exPGCD_suite} On a $u_{n+1}-5u_n=-6$ donc $u_n\wedge u_{n+1}$ divi
 
 Exercice~\ref{exPGCD_Polynomes}
 
-(1) Soit $d=(2n+1)\wedge n$. Alors $d$ divise $2(n^2+n)-n(2n+1)=n$, donc $d | (2n+1)\wedge n=1$.
+(1) Soit $d=(2n+1)\wedge n^2+n$. Alors $d$ divise $2(n^2+n)-n(2n+1)=n$, donc $d | (2n+1)\wedge n=1$, donc $d=1$.
 
-(2) Soit $d=(15n^2+8n+6)\wedge (30 n^2+21n+13)$. Alors $d$ divise  $30 n^2+21n+13-2.(15 n^2+8n+6)=5n+1$ donc $d$ divise $(15 n^2+8n+6)\wedge 5n+1$ donc $d$ divise $15 n^2+8n+6-3n(5n+1)=15 n^2+8n+6-15n^2-3n=5n+6$ donc $d$ divise $(5n+6)\wedge(5n+1)$ donc $d$ divise $5$.
+(2) Soit $d=(15n^2+8n+6)\wedge (30 n^2+21n+13)$. Alors $d$ divise  $30 n^2+21n+13-2.(15 n^2+8n+6)=5n+1$ donc $d$ divise $(15 n^2+8n+6)\wedge 5n+1$ donc $d$ divise $15 n^2+8n+6-3n(5n+1)=15 n^2+8n+6-15n^2-3n=5n+6$ donc $d$ divise $(5n+6)\wedge(5n+1)$ donc $d$ divise $5=(5n+6)-(5n+1)$.
 
-Supposons que $5$ divise $15n^2+8n+6$ et $30 n^2+21n+13$. Alors $5$ divise $8n+6$ donc $3n+1$ et $21n+13$ donc $n+3$. Ainsi, $5$ divise $3n+1-3(n+3)=-8$ : c'est absurde donc $d=1$. 
+Supposons que $5$ divise $15n^2+8n+6$ et $30 n^2+21n+13$. Alors $5$ divise $8n+6$ donc $3n+1=8n+6-5(n+1)$ et  $n+3=30n^2+21+13-5(6n^2+4n+2)$. Ainsi, $5$ divise $3n+1-3(n+3)=-8$ : c'est absurde donc $d=1$. 
 
 Exercice~\ref{exNombres_Mersenne}
 
@@ -487,9 +487,7 @@ Exercice~\ref{exLemmeGauss}
 
 (1) Écrivons $bc=ad$, avec $d\in \Z$. Par le théorème de Bézout, il existe $u,v\in \Z$ tels que $au+bv=1$. On a alors $auc+bvc=c=auc+adv=a(uc+dv)$, ce qui montre que $a$ divise $c$.
 
-(2) Écrivons $$c=ac'$, avec $c'\in \Z$. Alors $b$ divise $c=ac'$ donc $b$ divise $c'$ par (1) donc $ab$ divise $ac'=c$.
-
-\end{comment}
+(2) Écrivons $c=ac'$, avec $c'\in \Z$. Alors $b$ divise $c=ac'$ donc $b$ divise $c'$ par (1) donc $ab$ divise $ac'=c$.
 
 
 \end{document}

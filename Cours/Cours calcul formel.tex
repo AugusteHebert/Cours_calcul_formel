@@ -567,7 +567,7 @@ Soit $a\in \Z$. Alors $\overline{a}$ engendre $\Z/n\Z$ (i.e $\langle \overline{a
 Dans $\mathbb{Z}/30\mathbb{Z}$, $\langle \overline{12} \rangle = \{ \overline{0},\overline{12},\overline{24},\overline{6},\overline{18} \}$ et $\langle \overline{7} \rangle = \mathbb{Z}/30 \mathbb{Z}$.
 \end{exs}
 
-\begin{rem}(pour aller plus loin) On peut déduire le cardinal de $\{\overline{x}\in \Z/n\Z|\overline{a}\overline{x}=\overline{0\}}$ de la proposition~\ref{propMultiplication_par_abar}  (1) de la façon suivante. Soit $\phi:\Z/n\Z\rightarrow \Z/n\Z$ définie par  $\phi(\overline{x})=\overline{a}\overline{x}$. Alors par distributivité de $+$ par rapport à $.$, $\phi$ est un morphisme de $(\Z/n\Z,+)$ dans lui-même. On a $\mathrm{im}(\phi)=\langle \overline{a}\rangle$ et $\ker(\phi)=\{\overline{x}\in Z/n\Z|\overline{a}\overline{x}=\overline{0}\}$. De plus $\mathrm{im}(\phi)=|\Z/n\Z|/\ker(\phi)=n/\ker(\phi)$ (exercice : le démontrer.  Pour ce faire on pourra déterminer le cardinal de $\phi^{-1}(\{\overline{y}\})$, pour $\overline{y}\in \Z/n\Z$) et donc $|\ker(\phi)|=d$.
+\begin{rem}(pour aller plus loin) On peut déduire le cardinal de $\{\overline{x}\in \Z/n\Z|\overline{a}\overline{x}=\overline{0\}}$ de la proposition~\ref{propMultiplication_par_abar}  (1) de la façon suivante. Soit $\phi:\Z/n\Z\rightarrow \Z/n\Z$ définie par  $\phi(\overline{x})=\overline{a}\overline{x}$. Alors par distributivité de $+$ par rapport à $.$, $\phi$ est un morphisme de $(\Z/n\Z,+)$ dans lui-même. On a $\mathrm{im}(\phi)=\langle \overline{a}\rangle$ et $\ker(\phi)=\{\overline{x}\in \Z/n\Z|\overline{a}\overline{x}=\overline{0}\}$. De plus $\mathrm{im}(\phi)=|\Z/n\Z|/\ker(\phi)=n/\ker(\phi)$ (exercice : le démontrer.  Pour ce faire on pourra déterminer le cardinal de $\phi^{-1}(\{\overline{y}\})$, pour $\overline{y}\in \Z/n\Z$) et donc $|\ker(\phi)|=d$.
 
 \end{rem}
 
@@ -856,7 +856,7 @@ temps que prendra son algorithme pour fournir le résultat escompté sur une mac
 donnée. Il faut en effet prendre conscience du fait que de nombreux algorithmes et 
 formules (une formule n'étant qu'un algorithme particulier) n'ont qu'une valeur théorique
 et ne débouchent sur aucun calcul pratique car leur exécution demanderait beaucoup trop
-de temps. Par exemple, pour calculer le déterminant d'une matrice $25 \times 25$ à coefficients entier (qu'on peut même supposer entre $0$ et $9$) $A = (a_{i,j})_{1\leq i,j\leq 25}$, on peut envisager d'utiliser la formule suivante : \[\det(A)=\sum_{\sigma \in \mathfrak{S}_n} \epsilon(\sigma) a_{\sigma(1),1}\ldots a_{\sigma(25),25},\] où $\mathfrak{S}_{25}$ désigne le groupe des permutations de l'ensemble $\llbracket 1, 25\rrbracket$. L'application de cette formule nécessite d'effectuer $|\mathfrak{S}_{25}|=25 !\simeq 1.55.10^{25}$ produits. Si l'on dispose d'un ordinateur capable d'effectuer $10$ milliards de ces produits par seconde, il faudrait $49\ 000\ 000$ millions d'années pour effectuer ce calcul. C'est donc inenvisable en pratique, même en tenant compte des progrès techniques à venir (à court terme) des processeurs. En fait l'application directe de la définition pour le calcul du déterminant d'une matrice de taille $n$ nécessite de faire $n!$ multiplications et additions, alors qu'une méthode relativement simple basée sur le pivot de Gauss permet de l'effectuer en $O(n^3)$ multiplications et additions.   
+de temps. Par exemple, pour calculer le déterminant d'une matrice $25 \times 25$ à coefficients entier (qu'on peut même supposer entre $0$ et $9$) $A = (a_{i,j})_{1\leq i,j\leq 25}$, on peut envisager d'utiliser la formule suivante : \[\det(A)=\sum_{\sigma \in \mathfrak{S}_n} \epsilon(\sigma) a_{\sigma(1),1}\ldots a_{\sigma(25),25},\] où $\mathfrak{S}_{25}$ désigne le groupe des permutations de l'ensemble $\llbracket 1, 25\rrbracket$. L'application de cette formule nécessite d'effectuer $|\mathfrak{S}_{25}|=25 !\simeq 1.55.10^{25}$ produits. Si l'on dispose d'un ordinateur capable d'effectuer $10$ milliards de ces produits par seconde, il faudrait $49$ millions d'années pour effectuer ce calcul. C'est donc inenvisable en pratique, même en tenant compte des progrès techniques à venir (à court terme) des processeurs. En fait l'application directe de la définition pour le calcul du déterminant d'une matrice de taille $n$ nécessite de faire $n!$ multiplications et additions, alors qu'une méthode relativement simple basée sur le pivot de Gauss permet de l'effectuer en $O(n^3)$ multiplications et additions.   
 Il est donc important d'évaluer le temps que nécessitera un algorithme pour fournir
 le résultat avant même de le programmer. De plus, on aimerait pouvoir comparer autant que faire se peut,
 les algorithmes entre eux, et ceci de manière aussi intrinsèque que possible, c'est-à-dire,
@@ -866,8 +866,7 @@ utilisera.
 
 
 
-Nous supposons   que nous sommes en possession d'un ordinateur dont le micro-processeur est capable d'effectuer directement les additions, 
-soustractions et multiplications sur tout nombre entier naturel inférieur à un certain entier $b$. Nous supposons aussi
+Nous supposons   que nous sommes en possession d'un ordinateur dont le micro-processeur est capable de calculer  directement la somme, la différence et le produit de toute paire de nombres entiers naturels inférieurs à un certain entier $b$. Nous supposons aussi
 qu'il peut réaliser les divisions d'un nombre à deux chiffres par un nombre à un chiffre
 en base $b$, fournissant en une seule commande le quotient et le reste. Nous appelons
 \textit{opérations élémentaires}  ces quatre opérations définies sur $\llbracket 0,b-1\rrbracket$, réalisables
@@ -907,7 +906,7 @@ On prendra garde au fait qu'un algorithme tel que $c(N)\sim N$ est exponentiel e
 \subsection{Coût des opérations arithémétiques de base}
 
 \begin{proposition}\label{propCout_addition}
-Le coût en calcul de l'addition de deux entiers naturels $m,n$ par l'algorithme usuel (en posant l'addition) ou de la soustraction (en la posant égalemnt) est $O\big(\max\big(\log_2 m,\log_2 n)\big)$ opération élémentaires.
+Le coût en calcul de l'addition de deux entiers naturels $m,n$ par l'algorithme usuel (en posant l'addition) ou de la soustraction (en la posant également) est $O\big(\max\big(\log_2 m,\log_2 n)\big)$ opération élémentaires.
 \end{proposition}
 
 \begin{proof}
@@ -958,7 +957,7 @@ Il existe des algorithmes plus efficaces pour calculer le produit de deux «~gra
 
 
 
-Soit $n\in \N^*$. On représente les éléments de $\Z/n\Z$ par des entiers de $\llbracket 0,n-1\rrbracket$. On note $\pi:\Z\twoheadrightarrow Z/n\Z\simeq \llbracket 0,n-1\rrbracket$ la projection canonique (si $k\in \Z$, $\pi(k)$ est le reste de la division euclidienne de $k$ par $n$). Par la proposition~\ref{propCout_multiplication} que si $x\in \Z$, le coût du calcul de son image dans $\Z/n\Z$ est $O\big(\log_2(x/n)\log_2(n)\big)$.  Si $x,y\in \Z/n\Z$, le coût du calcul de $x+y$ est $O\big(\log_2(n)\big)$. En effet, on écrit $x=\overline{a}$ et $y=\overline{b}$, avec $a,b\in \llbracket 0,n-1\rrbracket$. Alors $x+y=\pi(a+b)\in \{a+b,a+b-n\}$ et on conclut avec la proposition~\ref{propCout_addition}. Le coût du calcul de $xy$ est $O(\log_2(n)^2)$. En effet, on calcule $ab\in \llbracket 0,(n-1)^2\rrbracket$, puis on effectue la division euclidienne de $ab$ par $n$ et on conclut avec la proposition~\ref{propCout_multiplication}.
+Soit $n\in \N^*$. On représente les éléments de $\Z/n\Z$ par des entiers de $\llbracket 0,n-1\rrbracket$. On note $\pi:\Z\twoheadrightarrow \Z/n\Z\simeq \llbracket 0,n-1\rrbracket$ la projection canonique (si $k\in \Z$, $\pi(k)$ est le reste de la division euclidienne de $k$ par $n$). Par la proposition~\ref{propCout_multiplication} que si $x\in \Z$, le coût du calcul de son image dans $\Z/n\Z$ est $O\big(\log_2(x/n)\log_2(n)\big)$.  Si $x,y\in \Z/n\Z$, le coût du calcul de $x+y$ est $O\big(\log_2(n)\big)$. En effet, on écrit $x=\overline{a}$ et $y=\overline{b}$, avec $a,b\in \llbracket 0,n-1\rrbracket$. Alors $x+y=\pi(a+b)\in \{a+b,a+b-n\}$ et on conclut avec la proposition~\ref{propCout_addition}. Le coût du calcul de $xy$ est $O(\log_2(n)^2)$. En effet, on calcule $ab\in \llbracket 0,(n-1)^2\rrbracket$, puis on effectue la division euclidienne de $ab$ par $n$ et on conclut avec la proposition~\ref{propCout_multiplication}.
 
 \paragraph{Algorithme récursif ou itératif}
 
@@ -1022,7 +1021,7 @@ Si $n\in \N$, on note $\mathrm{Pdb}(n,2)$ son écriture en base $2$, c'est à di
 \textbf{Algorithme } & ExpRapIt($x,n$)\\
 
 & $k\leftarrow 0$ \\
-& $L\leftarrow \mathrm{Pdb}(n)$\\
+& $L\leftarrow \mathrm{Pdb}(n,2)$\\
 &$\ell\leftarrow \mathrm{len}(L)$\\
 & $b\leftarrow 1$ \\
 & $y\leftarrow x$ \\
@@ -1062,12 +1061,12 @@ $a_i=0$,   $b_{i+1}=b_i=\prod_{j\leq i|a_j=1}x^{2^j}$. L'hypothèse $\PCC_{i+1}$
 
 \begin{Prop}
 Soit $n$ un entier composé positif. Alors il a un diviseur premier $\leq \sqrt{n}$.\par 
-Par contraposée, on a donc: si pour tout $p \leq \sqrt{n}$ premier, $p$ ne divise pas $n$, alors $n$ est premier.
+Par contraposée, on a donc: si pour tout $p\in \mathbb{P}$ tel que $p\leq \sqrt{n}$ premier, $p$ ne divise pas $n$, alors $n$ est premier.
 \end{Prop}
 
 \begin{proof}
-Soient $n \in \mathbb{N}$ ($n \geq 2$) composé et $p$ son plus petit diviseur $\geq 2$ (qui est premier par la lemme~\ref{lemExistence_diviseur_premier}). \par 
-$p \, \mid \,  n$ donc il existe $k$ tel que $n=kp$. Par définition, $k \geq p$, donc $pk=n \geq p^2$, d'où $p \leq \sqrt{n}$.  
+Soient $n \in \mathbb{N}$ ($n \geq 2$) composé et $p$ son plus petit diviseur $\geq 2$ (qui est premier par le lemme~\ref{lemExistence_diviseur_premier}). \par 
+Alors $p$ divise $n$ donc il existe $k\in \Z$ tel que $n=kp$. Par définition, $k \geq p$, donc $pk=n \geq p^2$, d'où $p \leq \sqrt{n}$.  
 \end{proof}
 
 
@@ -1076,7 +1075,7 @@ $p \, \mid \,  n$ donc il existe $k$ tel que $n=kp$. Par définition, $k \geq p$
 
 \subsubsection*{Premier test}
 
-Commençons par un test en supposant qu'on connaisse tous les nombres premiers $\leq \sqrt{n}$, notées $p_1, \ldots , p_k $. \vrt{(Par exemple, grâce à un algorithme qui, prenant en entrée $n$, renvoie tous les nombres premiers $\leq \sqrt{n}$.) L'algorithme ci-dessous renvoie si $n$ est premier ou non et le plus petit diviseur premier si $n$ est composé.}\\
+Commençons par un test en supposant qu'on connaisse tous les nombres premiers $\leq \sqrt{n}$, notés $p_1, \ldots , p_k $. \vrt{(Par exemple, grâce à un algorithme qui, prenant en entrée $n$, renvoie tous les nombres premiers $\leq \sqrt{n}$.) L'algorithme ci-dessous renvoie si $n$ est premier ou non et le plus petit diviseur premier si $n$ est composé.}\\
 
 
 \begin{tabular}{ll}
@@ -1117,7 +1116,7 @@ On va maintenant donner un algorithme sans connaitre les nombres premiers $\leq 
 \end{tabular}\\
 
 L'avantage est qu'on obtient à nouveau le plus petit diviseur premier de $n$. \par 
-Nombre de divisions à effecture : $O(\sqrt{n})$.
+Nombre de divisions à effectuer : $O(\sqrt{n})$.
 
 \subsubsection*{Crible d'Eratosthène}
 
@@ -1148,16 +1147,13 @@ Pour $n=30$: \\
 
 \subsection{Structure}
 
-\vrt{Rappeler la propriété \ref{co28}.
-\begin{prop}
-Soient $a \in \mathbb{Z}$ et $n \in \mathbb{N}^*$. Alors on a:\\
-$ \overline{a}$ est inversible dans $\mathbb{Z}/n \mathbb{Z}$ $ \Longleftrightarrow $ $PGCD(a,n)=1$.
-\end{prop}
-}
+
 
 \begin{nota}
 $(\mathbb{Z}/n\mathbb{Z})^{\times}$ désigne l'ensemble des éléments inversibles de $\mathbb{Z}/n\mathbb{Z}$.
 \end{nota}
+
+On rappelle que par le corollaire~\ref{corInversibles_de_ZnZ}, $(\Z/n\Z)^{\times}=\{\overline{a}\in \Z/n\Z|a\wedge n=1\}$.
 
 \begin{thm}
 Soit $n \in \mathbb{N}^*$. Alors:\par 
@@ -1189,7 +1185,7 @@ Soit $p\in \mathbb{P}$. Alors l'ensemble des solutions de l'équation $\overline
 \end{Cor}
 
 \begin{proof}
-Soit $x\in \Z$. Alors $\overline{x}^2 =\overline{1}$ si et seulement si $\overline{x}^2-1= (\overline{x}+\overline{1})(\overline{x}-\overline{1})=\overline{0}$ si et seulement si $\overline{x}\in \{\overline{1},\overline{-1}\}$.
+Soit $x\in \Z$. Alors $\overline{x}^2 =\overline{1}$ si et seulement si $\overline{x}^2-\overline{1}= (\overline{x}+\overline{1})(\overline{x}-\overline{1})=\overline{0}$ si et seulement si $\overline{x}\in \{\overline{1},\overline{-1}\}$.
 \end{proof}
 
 \begin{rem}
@@ -1202,7 +1198,7 @@ Le corollaire \ref{Cor} fournit un test de non-primalité: si on peut trouver un
 
 \begin{thm}
  \begin{enumerate}
-\item Soit $n\in \N^*$. Alors  $(\mathbb{Z}/n \mathbb{Z})^{\times}$ est un groupe abélien. Son cardinal, noté $\varphi(n)$, est appelé indicatrice d'Euler. On a $\varphi(n)=|\{j\in \llbracket 0,n-1\rrbracket|j\wedge n=1\}$. \par 
+\item Soit $n\in \N^*$. Alors  $(\mathbb{Z}/n \mathbb{Z})^{\times}$ est un groupe abélien. Son cardinal, noté $\varphi(n)$, est appelé indicatrice d'Euler. On a $\varphi(n)=|\{j\in \llbracket 0,n-1\rrbracket|j\wedge n=1\}|$. \par 
 
 \item Si $n=n_1n_2$, avec $n_1,n_2$ premiers entre eux, alors $\varphi(n)=\varphi(n_1)\varphi(n_2)$.
 
@@ -1216,7 +1212,7 @@ Le corollaire \ref{Cor} fournit un test de non-primalité: si on peut trouver un
 \item[(1)]  exercice.
 
 
-\item[(2)] Par le théorème des restes chinois, il existe un isomorphisme de  $\phi:\Z/n\Z\overset{\sim}{\rightarrow}\Z/n_1\Z\times \Z/n_2 \Z$. Alors $\phi$ envoie tout élément inversible sur un élément inversible (car si $xy=1$, $\phi(xy)=\phi(1)=1$) et de même pour $\phi^{-1}$, donc $\phi\big((\Z/n\Z)^\times\big)=(Z/n_1\Z\times \Z/n_2\Z)^\times$. Soit $(\overline{x},\overline{y})\in \Z/n_1\Z\times \Z/n_2\Z$. Alors $(x,y)$ est inversible si et seulement si il existe $(x',y')\in  \Z/n_1\Z\times \Z/n_2\Z$ tel que $(xx',yy')=(1\mathrm{\ mod\ }n_1,1\mathrm{\ mod\ }n_2)$, si et seulement si $x$ et $y$ sont inversibles (et alors $(x,y)^{-1}=(x^{-1},y^{-1})$). On a donc   $(\Z/n_1\Z\times \Z/n_2 \Z)^{\times}=(\Z/n_1\Z)^\times \times (\Z/n_2\Z)^\times$ et en prenant les cardinaux, on en déduit que $\varphi(n_1n_2)=\varphi(n_1)\varphi(n_2)$. 
+\item[(2)] Par le théorème des restes chinois, il existe un isomorphisme de  $\phi:\Z/n\Z\overset{\sim}{\rightarrow}\Z/n_1\Z\times \Z/n_2 \Z$. Alors $\phi$ envoie tout élément inversible sur un élément inversible (car si $xy=1$, $\phi(xy)=\phi(1)=1$) et de même pour $\phi^{-1}$, donc $\phi\big((\Z/n\Z)^\times\big)=(\Z/n_1\Z\times \Z/n_2\Z)^\times$. Soit $(\overline{x},\overline{y})\in \Z/n_1\Z\times \Z/n_2\Z$. Alors $(x,y)$ est inversible si et seulement si il existe $(x',y')\in  \Z/n_1\Z\times \Z/n_2\Z$ tel que $(xx',yy')=(1\mathrm{\ mod\ }n_1,1\mathrm{\ mod\ }n_2)$, si et seulement si $x$ et $y$ sont inversibles (et alors $(x,y)^{-1}=(x^{-1},y^{-1})$). On a donc   $(\Z/n_1\Z\times \Z/n_2 \Z)^{\times}=(\Z/n_1\Z)^\times \times (\Z/n_2\Z)^\times$ et en prenant les cardinaux, on en déduit que $\varphi(n_1n_2)=\varphi(n_1)\varphi(n_2)$. 
 
 
 
@@ -1225,18 +1221,8 @@ Le corollaire \ref{Cor} fournit un test de non-primalité: si on peut trouver un
 \end{proof}
 
 
-\begin{thm}(admis)
-Si $p$ est un nombre premier, alors le groupe $(\mathbb{Z}/p \mathbb{Z})^{\times}$ est cyclique.
-\end{thm}
 
-\subsection{Exponentiation modulaire et test de primalité}
-
-\vrt{Nous commençons par donner le théorème d'Euler et le petit théorème de Fermat qui seront admis ici.}
-
-\begin{theoreme}\label{thmLagrange}(Théorème de Lagrange, admis)
-Soient $G$ un groupe fini et $H$ un de ses sous groupes. Alors $|H|$ divise $|G|$.
-\end{theoreme}
-
+\subsection{Test de non-primalité de Fermat}
 
 
 \begin{thm}[Théorème d'Euler]
@@ -1244,67 +1230,47 @@ Soient $n \in \mathbb{N}^*$ et $a\in \Z$. Si $a$ est un entier premier avec $n$,
 \end{thm}
 
 \begin{proof}
-Soit $H=\langle \overline{a}\rangle=\{\overline{1},\overline{a},\overline{a}^2,\ldots \} \subset (\Z/n\Z)^\times$.
+On a $\overline{a}\in (\Z/n\Z)^\times$. L'ordre de $\overline{a}$ divise $|\Z/n\Z|^\times=\varphi(n)$, donc $\overline{a}^{\varphi(n)}=\overline{1}$.
 \end{proof}
 
 \begin{corollaire}[Petit théorème de Fermat] Soit $p$ un nombre premier. Alors si $a$ est un entier non divisible par $p$, on a $a^{p-1}\equiv 1 [p]$.
 \end{corollaire}
 
-\vrt{Ce théorème fournit un autre test de non-primalité: si on peut trouver un entier $a$ tel que $a\wedge n=1$, et $a^{n-1}\not \equiv 1 [n]$, alors $n$ n'est pas premier.}
+Ce théorème fournit un autre test de non-primalité: si on peut trouver un entier $a$ tel que $a\wedge n=1$ et $a^{n-1}\not \equiv 1 [n]$, alors $n$ n'est pas premier. 
 
-\vrt{Afin de pouvoir utiliser le petit théorème de Fermat dans un test de primalité (ou afin de pouvoir faire les calculs nécessaires à la mise en œuvre d'un système de chiffrement comme  RSA), il nous faut une méthode rapide pour calculer les puissances d'un entier $a$ modulo $n$: c'est le but de l'algorithme suivant.\\}
+\begin{proposition}(voir TD)
+Soit $n\in \N_{\geq 2}$. Supposons qu'il existe $\overline{a}\in (\Z/n\Z)\setminus\{0\}$ tel que $\overline{a}^{n-1}\neq 1$. Alors $|\{\overline{a}\in \Z/n\Z|\overline{a}^{n-1}\neq  \overline{1}\}|\geq \frac{n}{2}$. 
+\end{proposition}
 
+On peut donc envisager le test de primalité suivant. On choisit $k\in \N$.
 
 \begin{tabular}{ll}
-\textbf{Algorithme 11.} & Exponentiation-modulaire($a,b,n$)\\
-           & $t \leftarrow 1 $ \\
-           & $ r \leftarrow a$ \\
-           &  tant que $b  \neq 1$   \\
-           & \ \ \ {\rm |} si $b$ mod $2=0$\\
-           & \ \ \ {\rm |} \ \ \ {\rm |} $r \leftarrow r \times r$ mod$n$ \\
-           & \ \ \ {\rm |} \ \ \ {\rm |} $ b\leftarrow b/2$ \\
-           & \ \ \ {\rm |} sinon  \\
-           & \ \ \ {\rm |} \ \ \ {\rm |} $t \leftarrow t \times r$ mod $n$\\
-           & \ \ \ {\rm |} \ \ \ {\rm |} $b \leftarrow b-1$\\         
-           & renvoyer $r \times t$ mod $n$  
+\textbf{Algorithme 12.} & Test-Fermat($n,k$)\\
+           & $i\leftarrow 1$ \\
+           & $p\leftarrow 1$\\
+           & tant que $i<k$ et $p=1$ :\\
+           &\ \ \ {\rm |} choisir $\overline{a}\in (\Z/n\Z)^\times$ au hasard,\\
+           & \ \ \ {\rm |} si $\overline{a}^{n-1}=\overline{1}$ : \\
+           &\ \ \  \ \ \ {\rm |} $i\leftarrow i+1$\\
+           & \ \ \ {\rm |} sinon $p=0$\\      
+           & si $p=1$ :\\
+           & \ \ \ {\rm |} renvoyer « $n$ est peut-être premier »\\
+           & sinon :\\
+           & \ \ \ {\rm |} renvoyer « $n$ est composé »\\
 \end{tabular}\\
 
-\begin{exo}
-Donner la version récursive de l'exponentiation modulaire.
-\end{exo}
+%Par la proposition précédente, si Test-Fermat($n,k$) renvoie    « $n$ est peut-être premier », alors la probabilité qu'il existe $\overline{a}\in (\Z/n\Z)^\times$ tel que $\overline{a}^{n-1}\neq \overline{1}$ est inférieure ou égale à $\frac{1}{2^k}$. Par exemple si $k=30$, cette probabilité est inférieure à $1$ sur $1$ milliard. Le problème de ce test est qu'il arrive qu'il renvoie $n$ est peut-être premier alors que $n$ ne l'est pas.
 
-Coût: $\beta$ opérations où $\beta$ est le nombre de bits de $b$.
-
-\section{Nombres pseudo-premiers (de Fermat)}
 
 \begin{Def}
-Soient $a,n \in \mathbb{N}^*$. On dit que $n$ est un nombre \textbf{pseudo-premier} de base $a$ si $n$ est composé et si 
-$$    a^{n-1} \equiv 1 [n]. \quad \rge{(*)}   $$ 
+Soient $a,n \in \mathbb{N}^*$.  On dit que $n$ est un nombre \textbf{pseudo-premier de Fermat  de base $a$} si $n$ est composé et si 
+$$    a^{n-1} \equiv 1 [n]. \quad \rge{(*)}   $$ pour tous $a\in \Z$ tel que $a\wedge n=1$.
+
+On dit que $n$ est un \textbf{nombre de Carmichael} (ou un nombre pseudo-premier de Fermat) si pour tous $a\in \Z$ tels que $a\wedge n=1$, on a $a^{n-1}\equiv 1[n]$.
 \end{Def}
 
-\begin{rem}
-Le petit théorème de Fermat nous permet d'affirmer que si $n$ est premier, alors \rge{$(*)$} est vérifié pour tout $a \in \mathbb{N}^*$. \par 
-Par contraposée, si on trouve un entier $1 \leq a \leq n-1$ tel que $a^{n-1} \not \equiv 1 [n]$, alors $n$ est composé.
-\end{rem}
+Il existe une infinité de nombre de Carmichael (c'est un théorème de Alford, Grandville et Pomerance de 1994). Le plus petit nombre de Carmichael est $561=3\times 11\times 17$. L'ensemble des nombres de Carmichael est assez mal compris. Empiriquement il y en a beaucoup moins que de nombre premiers. Il y a par exemple 22 nombres de Carmichael entre $1$ et $10\ 000$ alors qu'il y a $1\ 229$ nombres premiers entre $1$ et $10\ 000$.  Un nombre de $50$ bits (respectivement $100$) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test. Par rapport aux tests présentés précedemment, il est beaucoup plus rapide. Si on fixe $k$, alors en utilisant l'exponentiation rapide, on a un coût en $O(k\log(n)^3)$ opérations élémentaires, alors que les tests que l'on a vus précédemment ont un coût supérieur à $\sqrt{n}/\mathrm{ln}(n)$ opérations élémentaires. En revanche, lorsque le test renvoie que $n$ est composé, il ne fournit pas de diviseur de $n$. En pratique ce test n'est pas très utile, car il existe des tests à peine plus sophistiqués (les tests de Miller-Rabin et de Solovay-Strassen par exemple) pour lesquels il n'existe pas de nombre «~pseudo-premiers~». 
 
-\vrt{L'algorithme suivant prend en entrée un entier $n \geq 2$ et renvoie composé si $n$ l'est et premier? si $n$ est premier ou pseudo-premier de base 2.}
-
-\begin{tabular}{ll}
-\textbf{Algorithme 12.} & Pseudo-premier($n$)\\
-           & si Exponentiation-modulaire$(2,n-1,n)\neq 1$ \\
-           & \ \ \ {\rm |} renvoyer composé \\
-           & sinon  \\
-           & \ \ \ {\rm |}  renvoyer premier? 
-\end{tabular}\\
-
-\textbf{Fiabilité:}\begin{itemize}
-\item[•]Test quasi-parfait \vrt{car il se trompe rarement: 22 entiers $\leq 10000$ (341, 561, 645, 1105, $\ldots$). Un nombre de 50 bits (respectivement 100) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test.}
-\item[•] Néanmoins, même si on teste plusieurs bases, on n'éliminera pas pour autant toutes les erreurs possibles car il existe des entiers strictement positifs tels que $n$ soit composé et que $a^{n-1} \equiv 1 [n]$ $\forall 1 \leq a \leq n-1$. Un tel nombre est appelé un nombre de Carmichaël (par exemple 561,1105,1729). Même s'il y en a une infinité, ils sont plutôt rares (il y en a 255 qui sont $\leq 10^8$).
-\end{itemize}
-
-
-
-? parler de l'aspect probabiliste ?
 
 
 
@@ -1319,14 +1285,17 @@ L'algorithme se base sur la propriété suivante, dont la démonstration provien
 
 \begin{Prop}
 \begin{itemize}
-\item[•] Soit $p \geq 3$ premier. Soient $s \in \mathbb{N}$ et $d$ impair tels que $p-1=2^s d$. Alors pour tout $1 \leq a \leq p-1$, $a^d \equiv 1 [p]$ ou $\exists 0 \leq r \leq s-1:$ $a^{2^r d}\equiv -1 [p]$.
+\item[•] Soit $p \geq 3$ premier. Soient $s \in \mathbb{N}^*$ et $d$ impair tels que $p-1=2^s d$. Alors pour tout $1 \leq a \leq p-1$, $a^d \equiv 1 [p]$ ou $\exists 0 \leq r \leq s-1:$ $a^{2^r d}\equiv -1 [p]$.
 \item[•] Si $a^d \not \equiv 1 [n]$ et pour tout $0 \leq r \leq s-1$, $a^{2^r d} \not \equiv -1 [n]$, alors $n$ est composé. 
 \end{itemize}
 \end{Prop}
 
 \subsection*{Test témoin}
 
-\vrt{Le test suivant renvoie vrai si $a$ est un témoin de la nature composée de $n$, à savoir $a^{n-1} \not \equiv 1 [n]$.}\\
+\begin{definition}
+Soit $n\in \N^*$ impair. Écrivons $n-1=2^s d$, avec $s\in\N^*$ et $d$ impair. Un \textbf{témoin de Miller} pour $n$ est un nombre $a\in\llbracket 1,n-1\rrbracket$
+
+\end{definition}\vrt{Le test suivant renvoie vrai si $a$ est un témoin de la nature composée de $n$, à savoir $a^{n-1} \not \equiv 1 [n]$.}\\
 
 \begin{tabular}{ll}
 \textbf{Algorithme 13.} & Témoin($a,n$)\\

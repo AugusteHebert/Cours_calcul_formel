@@ -80,7 +80,7 @@
 \
 
 \begin{ex}\label{inverse_modulaire}\
-A partir de l'algorithme d'Euclide étendu, calculer $\big(\moa{8}{27}\big)^{-1}$.
+A partir de l'algorithme d'Euclide étendu, calculer $(8\mathrm{\ mod\ }27)^{-1}$.
 \end{ex}
 
 
@@ -89,7 +89,7 @@ A partir de l'algorithme d'Euclide étendu, calculer $\big(\moa{8}{27}\big)^{-1}
 \
 
 \begin{ex}\label{equation_lineaire_modulaire}\
-Trouver les solutions entières de l'équation:
+Trouver les solutions de l'équation suivante d'inconnue $x\in \Z$ :
 $$  {45x}\equiv {10}\  [{50}].    $$
 \end{ex}
 
@@ -244,6 +244,17 @@ En revanche, on ne connait aucun nombre parfait impair et l'existence de tels no
 \end{rem}
 
 
+\paragraph{Correction exercice 8 TD 1}
+
+
+(1) Soit $d=(2n+1)\wedge n^2+n$. Alors $d$ divise $2(n^2+n)-n(2n+1)=n$, donc $d | (2n+1)\wedge n=1$, donc $d=1$.
+
+(2) Soit $d=(15n^2+8n+6)\wedge (30 n^2+21n+13)$. Alors $d$ divise  $30 n^2+21n+13-2.(15 n^2+8n+6)=5n+1$ donc $d$ divise $(15 n^2+8n+6)\wedge 5n+1$ donc $d$ divise $15 n^2+8n+6-3n(5n+1)=15 n^2+8n+6-15n^2-3n=5n+6$ donc $d$ divise $(5n+6)\wedge(5n+1)$ donc $d$ divise $5=(5n+6)-(5n+1)$.
+
+Supposons que $5$ divise $15n^2+8n+6$ et $30 n^2+21n+13$. Alors $5$ divise $8n+6$ donc $3n+1=8n+6-5(n+1)$ et  $n+3=30n^2+21+13-5(6n^2+4n+2)$. Ainsi, $5$ divise $3n+1-3(n+3)=-8$ : c'est absurde donc $d=1$. 
+
+\begin{comment}
+
 \paragraph{Correction}
 
 Exercice~\ref{inverse_modulaire}. On a  :\[\begin{aligned} 27&=&3\times 8+3\\ 8&=&3\times 2+2\\ 3&=&2\times 1+1,\end{aligned}\] et donc \[1=3-2=3-(8-3\times 2)=-8+3\times 3=-8+3\times (27-3\times 8)=-10\times 8+3\times 27.\]
@@ -298,5 +309,7 @@ Exercice~\ref{reciproque_euclide}
 3) On a $\sigma(n)=(2^k-1)\sigma(m)=2n=2^km=2^k(2^k-1)d$. On a donc $\sigma(m)=2^kd=m+d$. 
 
 4) Si $d\geq 2$, $\{1,d,m\}$ est un ensemble de diviseurs de $m$ de cardinal $3$, donc $\sigma(m)\geq 1+d+m$. On en déduit que $d=1$ et donc que $m$ est premier, ce qui démontre le théorème d'Euler.
+
+\end{comment}
 
 \end{document}
