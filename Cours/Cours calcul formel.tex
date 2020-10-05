@@ -1180,7 +1180,7 @@ $n$ est premier $\Longleftrightarrow$ $\mathbb{Z} / n \mathbb{Z}$ est intègre $
 \end{remarques}
 
 
-\begin{Cor}\label{Cor}
+\begin{Cor}\label{corRacines_carrées_moins_un}
 Soit $p\in \mathbb{P}$. Alors l'ensemble des solutions de l'équation $\overline{x}^2 =\overline{1}$ d'inconnue $\overline{x}\in \Z/p\Z$ est $\{-\overline{1},\overline{1}\}$. Cet ensemble a $2$ éléments, sauf si $p=2$.
 \end{Cor}
 
@@ -1192,9 +1192,7 @@ Soit $x\in \Z$. Alors $\overline{x}^2 =\overline{1}$ si et seulement si $\overli
 Dans $\mathbb{Z}/35 \mathbb{Z}$, $\overline{6}$ est solution de l'équation $\overline{x}^2\equiv 1[35]$ donc le corolaire est faux dans le cas général.
 \end{rem}
 
-\begin{rem}
-Le corollaire \ref{Cor} fournit un test de non-primalité: si on peut trouver un entier $a\in \Z\setminus (1+n\Z \cup -1+n\Z)$ tel que $a\wedge n=1$ et $a^2 \equiv 1 [n]$, alors $n$ n'est pas premier. 
-\end{rem}
+
 
 \begin{thm}
  \begin{enumerate}
@@ -1244,13 +1242,15 @@ Soit $n\in \N_{\geq 2}$. Supposons qu'il existe $\overline{a}\in (\Z/n\Z)\setmin
 
 On peut donc envisager le test de primalité suivant. On choisit $k\in \N$.
 
+Si $a,b\in \N$, on note Hasard($a,b$) une fonction renvoyant un entier choisi aléatoirement entre $a$ et $b$.
+
 \begin{tabular}{ll}
 \textbf{Algorithme 12.} & Test-Fermat($n,k$)\\
            & $i\leftarrow 1$ \\
            & $p\leftarrow 1$\\
            & tant que $i<k$ et $p=1$ :\\
-           &\ \ \ {\rm |} choisir $\overline{a}\in (\Z/n\Z)^\times$ au hasard,\\
-           & \ \ \ {\rm |} si $\overline{a}^{n-1}=\overline{1}$ : \\
+           &\ \ \ {\rm |} $a\leftarrow \mathrm{Hasard}(1,n-1)$ \\
+           & \ \ \ {\rm |} si $(a\ \mathrm{mod}\ n)^{n-1}=1\mathrm{\ mod\ }n$ : \\
            &\ \ \  \ \ \ {\rm |} $i\leftarrow i+1$\\
            & \ \ \ {\rm |} sinon $p=0$\\      
            & si $p=1$ :\\
@@ -1259,43 +1259,48 @@ On peut donc envisager le test de primalité suivant. On choisit $k\in \N$.
            & \ \ \ {\rm |} renvoyer « $n$ est composé »\\
 \end{tabular}\\
 
-%Par la proposition précédente, si Test-Fermat($n,k$) renvoie    « $n$ est peut-être premier », alors la probabilité qu'il existe $\overline{a}\in (\Z/n\Z)^\times$ tel que $\overline{a}^{n-1}\neq \overline{1}$ est inférieure ou égale à $\frac{1}{2^k}$. Par exemple si $k=30$, cette probabilité est inférieure à $1$ sur $1$ milliard. Le problème de ce test est qu'il arrive qu'il renvoie $n$ est peut-être premier alors que $n$ ne l'est pas.
+
+
+Par la proposition précédente, si Test-Fermat($n,k$) renvoie    « $n$ est peut-être premier », alors la probabilité qu'il existe $\overline{a}\in (\Z/n\Z)^\times$ tel que $\overline{a}^{n-1}\neq \overline{1}$ est inférieure ou égale à $\frac{1}{2^k}$. Par exemple si $k=30$, cette probabilité est inférieure à $1$ sur $1$ milliard. Le problème de ce test est qu'il existe des nombres dits de Carmichael.
 
 
 \begin{Def}
 Soient $a,n \in \mathbb{N}^*$.  On dit que $n$ est un nombre \textbf{pseudo-premier de Fermat  de base $a$} si $n$ est composé et si 
-$$    a^{n-1} \equiv 1 [n]. \quad \rge{(*)}   $$ pour tous $a\in \Z$ tel que $a\wedge n=1$.
+$$    a^{n-1} \equiv 1 [n]. \quad \rge{(*)}   $$
 
-On dit que $n$ est un \textbf{nombre de Carmichael} (ou un nombre pseudo-premier de Fermat) si pour tous $a\in \Z$ tels que $a\wedge n=1$, on a $a^{n-1}\equiv 1[n]$.
+On dit que $n$ est un \textbf{nombre de Carmichael} (ou un nombre pseudo-premier de Fermat) si $n$ est composé et pour tous $a\in \Z$ tels que $a\wedge n=1$, on a $a^{n-1}\equiv 1[n]$.
 \end{Def}
 
-Il existe une infinité de nombre de Carmichael (c'est un théorème de Alford, Grandville et Pomerance de 1994). Le plus petit nombre de Carmichael est $561=3\times 11\times 17$. L'ensemble des nombres de Carmichael est assez mal compris. Empiriquement il y en a beaucoup moins que de nombre premiers. Il y a par exemple 22 nombres de Carmichael entre $1$ et $10\ 000$ alors qu'il y a $1\ 229$ nombres premiers entre $1$ et $10\ 000$.  Un nombre de $50$ bits (respectivement $100$) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test. Par rapport aux tests présentés précedemment, il est beaucoup plus rapide. Si on fixe $k$, alors en utilisant l'exponentiation rapide, on a un coût en $O(k\log(n)^3)$ opérations élémentaires, alors que les tests que l'on a vus précédemment ont un coût supérieur à $\sqrt{n}/\mathrm{ln}(n)$ opérations élémentaires. En revanche, lorsque le test renvoie que $n$ est composé, il ne fournit pas de diviseur de $n$. En pratique ce test n'est pas très utile, car il existe des tests à peine plus sophistiqués (les tests de Miller-Rabin et de Solovay-Strassen par exemple) pour lesquels il n'existe pas de nombre «~pseudo-premiers~». 
+Il existe une infinité de nombre de Carmichael (c'est un théorème de Alford, Grandville et Pomerance de 1994). Le plus petit nombre de Carmichael est $561=3\times 11\times 17$. L'ensemble des nombres de Carmichael est assez mal compris. Empiriquement il y en a beaucoup moins que de nombre premiers. Il y a par exemple 22 nombres de Carmichael entre $1$ et $10\ 000$ alors qu'il y a $1\ 229$ nombres premiers entre $1$ et $10\ 000$.  Un nombre de $50$ bits (respectivement $100$) choisi aléatoirement a moins d'une chance   sur $10^6$ (respectivement $10^{13}$) de faire échouer le test. Par rapport aux tests présentés précedemment, il est beaucoup plus rapide. Si on fixe $k$ (par exemple $k=30$), alors en utilisant l'exponentiation rapide, on a un coût en $O(k\log(n)^3)$ opérations élémentaires, alors que les tests que l'on a vus précédemment ont un coût supérieur à $\sqrt{n}/\mathrm{ln}(n)$ opérations élémentaires. En revanche, lorsque le test renvoie que $n$ est composé, il ne fournit pas de diviseur de $n$. En pratique ce test n'est pas très utile, car il existe des tests à peine plus sophistiqués (les tests de Miller-Rabin et de Solovay-Strassen par exemple) pour lesquels il n'existe pas de nombre «~pseudo-premiers~». 
 
 
 
 
 \section{Test de Miller-Rabin}
 
-\begin{but}Améliorer le test de primalité avec les nombres pseudo-premiers.
-\end{but}
 
-La principale modification qui est faite au test précédent est l'essai de plusieurs valeurs de base $a$ et non plus une seule.
-
-L'algorithme se base sur la propriété suivante, dont la démonstration provient directement du petit théorème de Fermat.:
+L'algorithme se base sur la propriété suivante :
 
 \begin{Prop}
-\begin{itemize}
-\item[•] Soit $p \geq 3$ premier. Soient $s \in \mathbb{N}^*$ et $d$ impair tels que $p-1=2^s d$. Alors pour tout $1 \leq a \leq p-1$, $a^d \equiv 1 [p]$ ou $\exists 0 \leq r \leq s-1:$ $a^{2^r d}\equiv -1 [p]$.
-\item[•] Si $a^d \not \equiv 1 [n]$ et pour tout $0 \leq r \leq s-1$, $a^{2^r d} \not \equiv -1 [n]$, alors $n$ est composé. 
-\end{itemize}
+ Soit $p \geq 3$ premier. Soient $s \in \mathbb{N}^*$ et $d$ impair tels que $p-1=2^s d$. Alors pour tout $a\in \llbracket 1,p-1\rrbracket$, on a : \begin{itemize}
+ \item[•] soit $a^d \equiv 1 [p]$,
+ 
+ \item[•] soit il existe $r\in \llbracket 0,s-1\rrbracket$ tel que  $a^{2^r d}\equiv -1 [p]$.
+ \end{itemize} 
 \end{Prop}
+
+\begin{proof}
+On se place dans $\Z/p\Z$. Supposons que $\overline{a}^d\neq \overline{1}$. Par le théorème de Fermat, $\overline{a}^{2^sd}=\overline{1}$. Soit $r=\min\{r'\in\llbracket 1,s\rrbracket|\ \overline{a}^{2^{r'}d}=\overline{1}\}-1$. Alors $\overline{a}^{2^{r}d}\neq 1$ et $(\overline{a}^{2^{r}d})^2=(\overline{a})^{2^{r+1}d}=\overline{1}$, par définition de $r$. Par le corollaire~\ref{corRacines_carrées_moins_un}, on en déduit que $\overline{a}^{2^{r}d}=\overline{-1}$.
+\end{proof}
 
 \subsection*{Test témoin}
 
 \begin{definition}
-Soit $n\in \N^*$ impair. Écrivons $n-1=2^s d$, avec $s\in\N^*$ et $d$ impair. Un \textbf{témoin de Miller} pour $n$ est un nombre $a\in\llbracket 1,n-1\rrbracket$
+Soit $n\in \N^*$ impair. Écrivons $n-1=2^s d$, avec $s\in\N^*$ et $d$ impair. Un \textbf{témoin de Miller} pour $n$ est un nombre $a\in\llbracket 1,n-1\rrbracket$ tel que $a^d\not\equiv 1[n]$ et pour tout $r\in \llbracket 0,s-1\rrbracket$, $a^{2^rd}\not \equiv -1[n]$.
 
 \end{definition}\vrt{Le test suivant renvoie vrai si $a$ est un témoin de la nature composée de $n$, à savoir $a^{n-1} \not \equiv 1 [n]$.}\\
+
+
 
 \begin{tabular}{ll}
 \textbf{Algorithme 13.} & Témoin($a,n$)\\
@@ -1307,8 +1312,8 @@ Soit $n\in \N^*$ impair. Écrivons $n-1=2^s d$, avec $s\in\N^*$ et $d$ impair. U
            &  \ \ \ {\rm |} tant que $d$ mod $2=0$   \\
            & \ \ \ {\rm |} \ \ \ {\rm |} $s \leftarrow s+1 $\\
            & \ \ \ {\rm |} \ \ \ {\rm |} $d \leftarrow d/2$ \\
-           & \ \ \ {\rm |} $x\leftarrow$ Exponentiation-modulaire($a,d,n$) \\           
-           &  \ \ \ {\rm |} si $x=1$ ou $x=n-1$ \\
+           & \ \ \ {\rm |} $x\leftarrow a^d\mathrm{\ mod\ }n$) \\           
+           &  \ \ \ {\rm |} si $x=1\mathrm{\ mod\ }$ ou $x=-1\mathrm{\ mod\ }n$ \\
            & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer faux \\
            & \ \ \ {\rm |} tant que $s \neq 1$ \\
            & \ \ \ {\rm |} \ \ \ {\rm |} $ x\leftarrow x \times x$ mod $n$ \\
@@ -1319,30 +1324,33 @@ Soit $n\in \N^*$ impair. Écrivons $n-1=2^s d$, avec $s\in\N^*$ et $d$ impair. U
 \end{tabular}\\
 
 \begin{rem}
-L'algorithme Témoin est une "amélioration" de celui dérivant du Corollaire \ref{Cor}, car si à partir d'une étape, $x$ vérifie $x^2 \equiv 1 [n]$ et $x \neq 1,-1$, Témoin$(a,n)$ renvoie bien vrai.\par 
-Il est évident que si Témoin$(a,n)$ renvoie vrai, cela signifie que $n$ est composé. Sinon, on ne sait pas, et dans ce cas, $n$ est soit premier soit pseudo-premier de base $a$.
+Si Témoin$(a,n)$ renvoie vrai, cela signifie que $n$ est composé. Sinon, on ne sait pas, et dans ce cas, $n$ est soit premier soit pseudo-premier de base $a$.
 \end{rem}
 
-\subsection*{Test de Miller-Rabin}
+\begin{thm}(Rabin)
+Soit $n\in \N_{\geq 9}$. Si $n$ est composé, alors au moins les trois quarts des $a\in \llbracket 2,n-2\rrbracket$ sont des témoins de Miller.
+\end{thm}
 
-\vrt{Le test de Miller-Rabin est basé sur l'utilisation de Témoin($a,n$). En effet, pour ce test, on utilisera Témoin($a,n$) avec $s$ entiers $a$ choisis aléatoirement antre 1 et $n-1$.}
 
-On note Hasard($a,b$) une fonction renvoyant un entier choisi aléatoirement entre $a$ et $b$.
+On en déduit le test probabiliste suivant qui prend en entrée un entier $n\geq 9$ et un entier $k$ (tel que $1/4^k$ soit « petit »). 
 
 \begin{tabular}{ll}
-\textbf{Algorithme 14.} & Miller-Rabin($n,s$)\\
-           & pour $j$ de 1 à $s$ \\
+\textbf{Algorithme 14.} & Miller-Rabin($n,k$)\\
+           & pour $j$ de 1 à $k$ \\
            & \ \ \ {\rm |} $a \leftarrow$ Hasard($1,n-1$) \\      
            & \ \ \ {\rm |} si Témoin($a,n$) \\
            & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer composé \\
            & renvoyer premier ?
 \end{tabular}\\
 
-\vrt{Il est certain que si le test de Miller-Rabin renvoie composé, alors $n$ est vraiment composé, mais s'il renvoie premier?, cela signifie qu'on n'a pas trouvé de témoin de la nature composé de $n$, mais cela ne veut pas dire pour autant que $n$ est forcément premier. On peut faire les mêmes remarques que le test pseudo-premier pour la fiabilité de l'algorithme.}
-
 \begin{rem}
-Le test peut fonctionner pour un nombre de Carmichael. Par exemple, pour $n=561$, on peut remarquer que Témoin$(7,561)$ renvoie vrai car $n-1=35 \times 2^4$ et :$7^{35}\equiv 241 [561]$, $7^{70}\equiv 298 [561]$, $7^{140}\equiv 166 [561]$ et $7^{280}\equiv 67 [561]$. Donc si 7 est choisi pour tester la primalité de 561, le test de Miller-Rabin fonctionne.
+Le test peut fonctionner pour un nombre de Carmichael. Par exemple, pour $n=561$, on peut remarquer que Témoin$(7,561)$ renvoie vrai car $n-1=35 \times 2^4$ et : $7^{35}\equiv 241 [561]$, $7^{70}\equiv 298 [561]$, $7^{140}\equiv 166 [561]$ et $7^{280}\equiv 67 [561]$. Donc si 7 est choisi pour tester la primalité de 561, le test de Miller-Rabin fonctionne.
 \end{rem}
+
+
+Il est certain que si le test de Miller-Rabin renvoie composé, alors $n$ est vraiment composé, mais s'il renvoie « premier ? », cela signifie qu'on n'a pas trouvé de témoin de la nature composé de $n$, mais cela ne veut pas dire pour autant que $n$ est forcément premier. Cependant, si $n$ est composé, la probabilité que le test renvoie « premier ? » est inférieure à $\frac{1}{4^k}$.
+
+
 
 \section{Test de Solovay-Strassen}
 
@@ -1353,7 +1361,7 @@ Soient $p$ un nombre premier impair et $a \in \mathbb{Z}$. On définit alors $(\
 \begin{equation*}
 \Big( \frac{a}{p} \Big)= \left \{  \begin{array}{cl}
 0 & \text{si }p\mid a \\
-1 & \text{si }p \nmid a \text{ si }\exists x \in \mathbb{Z}: x^2 \equiv a [p]\\
+1 & \text{si }p \nmid a \text{ et  si }\exists x \in \mathbb{Z}: x^2 \equiv a [p]\\
 -1 & \text{sinon}
 \end{array}\right.
 \end{equation*}
@@ -1362,6 +1370,10 @@ Soient $p$ un nombre premier impair et $a \in \mathbb{Z}$. On définit alors $(\
 \begin{rem}
 $(\tfrac{a}{p})$ ne dépend que de la classe de $a$ modulo $p$.
 \end{rem}
+
+\begin{thm}\label{thmStructure_Z_pZ_times}(admis)
+Soit $p\in \mathbb{P}$. Alors $(\Z/p\Z)^\times$ est cyclique. Autrement dit, $(\Z/p\Z)^\times \simeq \Z/(p-1)\Z$.
+\end{thm}
 
 \begin{Prop}
 Soient $p$ un nombre premier impair et $a \in \mathbb{Z}$. Alors
@@ -1372,10 +1384,14 @@ Soient $p$ un nombre premier impair et $a \in \mathbb{Z}$. Alors
 
 \begin{proof}\
 \begin{itemize}
-\item[•]$p \mid a$: OK.
-\item[•] si $p \nmid a$, alors $a$ mod $p \in (\mathbb{Z}/p\mathbb{Z})^{\times}$ qui est cyclique d'ordre $p-1$ soit $g$ un générateur. Alors $(\mathbb{Z}/p\mathbb{Z})^{\times}= \{ g^i, 0 \leq i \leq p-2 \}$. $(g^{\tfrac{p-1}{2}})^2=g^{p-1}=1$ et $g^{\tfrac{p-1}{2}}\neq 1$ donc $g^{\tfrac{p-1}{2}}=-1$. Donc si $a=g^k$, alors $a^{\tfrac{p-1}{2}}=(-1)^k$. On sait que $g^k$ est un carré dans $(\mathbb{Z}/p\mathbb{Z})^{\times} \Longleftrightarrow k$ est pair. D'où le résultat.
+\item[•]$p \mid a$ : c'est clair.
+\item[•] Si $p \nmid a$, alors $a$ mod $p \in (\mathbb{Z}/p\mathbb{Z})^{\times}$. Soit $g$ un générateur de $(\Z/p\Z)^\times$ (ce qui existe par le théorème~\ref{thmStructure_Z_pZ_times}). Alors $(\mathbb{Z}/p\mathbb{Z})^{\times}= \{ g^i, 0 \leq i \leq p-2 \}$. Alors  $(g^{\tfrac{p-1}{2}})^2=g^{p-1}=\overline{1}$ et $g^{\tfrac{p-1}{2}}\neq \overline{1}$ donc $g^{\tfrac{p-1}{2}}=\overline{-1}$ (par le corollaire~\ref{corRacines_carrées_moins_un}). Donc si $a=g^k$, alors $a^{\tfrac{p-1}{2}}=(\overline{-1})^{k}$. De plus, $g^k$ est un carré dans $(\mathbb{Z}/p\mathbb{Z})^{\times}$ si et seulement si $k$ est pair. D'où le résultat.
 \end{itemize}
 \end{proof}
+
+\begin{rem}
+Voici une autre démonstration de cette proposition, plus élémentaire. Si $x\in (\Z/p\Z)^\times$ est un carré, écrivons $x=y^2$, où $y\in \Z/p\Z$. Alors par le théorème de Fermat, $x^{(p-1)/2}=y^{p-1}=\overline{1}$. Ainsi, tout carré non nul est racine du polynôme $X^{(p-1)/2}-1\in \Z/p\Z[X]$. De plus, il y a exactement $(p-1)/2$ carrés dans $(\Z/p\Z)^\times$ (exercice, le démontrer). Comme $\Z/p\Z$ est intègre, $X^{(p-1)/2}-1$ admet au plus $(p-1)/2$ racines donc il admet exactement $(p-1)/2$ racines, qui sont les carrés de $(\Z/p\Z)^\times$.
+\end{rem}
 
 \begin{Cor}
 Soient $p$ un nombre premier impair et $(a,b) \in \mathbb{Z}^2$. Alors 
@@ -1391,7 +1407,7 @@ $$    \Big(  \frac{p}{q}\Big)=(-1)^{\tfrac{p-1}{2}\cdot \tfrac{q-1}{2}}\Big(  \f
 
 \begin{Def}[Symbole de Jacobi]
 Soit $n$ un entier naturel impair. On écrit $n=\prod_{1 \leq j \leq k}p_j^{\alpha_j}$ où les $p_j$ sont des nombres premiers (impairs). Pour $a \in \mathbb{Z}$, on définit le symbole de Jacobi $\big(  \tfrac{a}{n}\big)$ par
-$$ \Big(  \frac{a}{n}\Big) =\prod_{j=1}^k \Big(  \frac{a}{p_j}\Big)^{\alpha_j}  .  $$
+$$ \Big(  \frac{a}{n}\Big) =\prod_{j=1}^k \Big(  \frac{a}{p_j}\Big)^{\alpha_j} \in \{-1,0,1\} .  $$
 \end{Def}
 
 \begin{rem}
@@ -1404,7 +1420,7 @@ Si $n$ est premier, les symboles de Legendre et de Jacobi se confondent.
 \item[$2)$] Soient $m \in \mathbb{Z}$ et $n_1,n_2$ impairs. Alors 
 $$    \Big(  \frac{m}{n_1 n_2}\Big)= \Big(  \frac{m}{n_1}\Big)\Big(  \frac{m}{n_2}\Big) .  $$
 \item[$3)$] On a
-$$     \Big(  \frac{m}{n}\Big)=0 \Longleftrightarrow PGCD(m,n) \neq 1    $$
+$$     \Big(  \frac{m}{n}\Big)=0 \Longleftrightarrow m\wedge n \neq 1    .$$
 \item[$4)$] Pour tout $m,n \in \mathbb{N}$ impairs, 
 $$   \Big(  \frac{m}{n}\Big)= (-1)^{\tfrac{n-1}{2}\cdot \tfrac{m-1}{2} } \Big(  \frac{n}{m}\Big) .   $$
 \end{itemize}
@@ -1451,6 +1467,20 @@ Pour vérifier que le résultat renvoyé par Jacobi$(a,n)$ est le bon, on utilis
 
 L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de Jacobi. On utilise à nouveau la fonction Hasard$(a,b)$. Il prend en entrée un entier naturel impair $\geq 3$.\\
 
+\begin{thm}
+Soit  $n$ un entier impair $\geq 3$. Alors :\begin{enumerate}
+\item $n$ est premier si et seulement si pour tous $a\in \Z$ tel que $a\wedge n=1$, $ \big( \tfrac{a}{n} \big)\equiv a^{(n-1)/2} [n]$,
+
+\item si $n$ est composé, $\{a\in \llbracket 2,n-1\rrbracket|\ a^{(n-1)/2}\equiv a^{(n-1)/2} [n\}$ a au plus $\varphi(n)/2$ éléments.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+La preuve de (1) qui peut-être faite en utilisant les propriétés des nombres de Carmichael est admise.
+
+(2) On se place dans $(\Z/n\Z)^\times$. Soit $G= \{\overline{a}\in (\Z/n\Z)^\times |\overline{a}^{(n-1)/2}=\overline{\tfrac{a}{n}}\}$ est un sous-groupe de $(Z/n\Z)^\times$.   Par (1), on sait que $G$ est un sous groupe stricte de $(\Z/n\Z)^\times$. Par le théorème de Lagrange, $|G|$ divise $|(\Z/n\Z)^\times|=\varphi(n)$, d'où le résultat.
+\end{proof}
+
 
 
 \begin{tabular}{ll}
@@ -1473,15 +1503,17 @@ L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de
 Si $n$ est premier, l'algorithme 16 renvoie nécessairement premier?. Sinon, il renvoie soit composé (ce qui est vrai), soit premier?. 
 \end{rem}
 
+
+\begin{Prop}[admis]
+Soit $n \geq 3$ composé. Pour au moins la moitié de $a$ compris entre 1 et $n-1$, le test de Solovay-Strassen détecte le caractère composé de $n$.
+\end{Prop}
+
+
 \begin{rem}
 Si $n$ est composé, la probabilité de tomber sur un $a$ montrant la nature composée e $n$ est $\geq 1/2$. \\
 Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de déterminer la nature composée de $n$ est $\geq 1-1/2^k$.
 \end{rem}
 
-
-\begin{Prop}[admis]
-Soit $n \geq 3$ composé. Pour au moins la moitié de $a$ compris entre 1 et $n-1$, le test de Solovay-Strassen détecte le caractère composé de $n$.
-\end{Prop}
 
 \chapter{Un peu de cryptographie}
 
