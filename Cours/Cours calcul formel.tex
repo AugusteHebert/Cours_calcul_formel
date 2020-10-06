@@ -1398,7 +1398,7 @@ Soient $p$ un nombre premier impair et $(a,b) \in \mathbb{Z}^2$. Alors
 $$  \Big( \frac{ab}{p} \Big)=  \Big( \frac{a}{p} \Big)\Big(  \frac{b}{p}\Big)  .  $$
 \end{Cor}
 
-\begin{thm}[Loi de réciprocité quadratique] Soient $p$ et $q$ deux nombres premiers impairs distincts. Alors
+\begin{thm}[Loi de réciprocité quadratique, admis] Soient $p$ et $q$ deux nombres premiers impairs distincts. Alors
 $$    \Big(  \frac{p}{q}\Big)=(-1)^{\tfrac{p-1}{2}\cdot \tfrac{q-1}{2}}\Big(  \frac{q}{p}\Big).   $$
 \end{thm}
 
@@ -1423,6 +1423,8 @@ $$    \Big(  \frac{m}{n_1 n_2}\Big)= \Big(  \frac{m}{n_1}\Big)\Big(  \frac{m}{n_
 $$     \Big(  \frac{m}{n}\Big)=0 \Longleftrightarrow m\wedge n \neq 1    .$$
 \item[$4)$] Pour tout $m,n \in \mathbb{N}$ impairs, 
 $$   \Big(  \frac{m}{n}\Big)= (-1)^{\tfrac{n-1}{2}\cdot \tfrac{m-1}{2} } \Big(  \frac{n}{m}\Big) .   $$
+
+\item Soient $m,n\in \Z$ et  $r$ est le reste dans la division euclidienne de $m$ par $n$. Alors $\big(\frac{m}{n}\big)=\big(\frac{r}{n}\big)$. 
 \end{itemize}
 En outre, si $n$ est impair, alors 
 $$   \Big(  \frac{-1}{n}\Big)= (-1)^{\tfrac{n-1}{2}} ; \qquad  \Big(  \frac{2}{n}\Big)= (-1)^{\tfrac{n^2-1}{8}}  $$    
@@ -1467,18 +1469,18 @@ Pour vérifier que le résultat renvoyé par Jacobi$(a,n)$ est le bon, on utilis
 
 L'algorithme suivant est un nouveau test de primalité, fondé sur le symbole de Jacobi. On utilise à nouveau la fonction Hasard$(a,b)$. Il prend en entrée un entier naturel impair $\geq 3$.\\
 
-\begin{thm}
+\begin{thm} 
 Soit  $n$ un entier impair $\geq 3$. Alors :\begin{enumerate}
 \item $n$ est premier si et seulement si pour tous $a\in \Z$ tel que $a\wedge n=1$, $ \big( \tfrac{a}{n} \big)\equiv a^{(n-1)/2} [n]$,
 
-\item si $n$ est composé, $\{a\in \llbracket 2,n-1\rrbracket|\ a^{(n-1)/2}\equiv a^{(n-1)/2} [n\}$ a au plus $\varphi(n)/2$ éléments.
+\item si $n$ est composé, $\{a\in \llbracket 2,n-1\rrbracket|\ a^{(n-1)/2}\equiv a^{(n-1)/2} [n]\}$ a au plus $\varphi(n)/2$ éléments.
 \end{enumerate}
 \end{thm}
 
 \begin{proof}
 La preuve de (1) qui peut-être faite en utilisant les propriétés des nombres de Carmichael est admise.
 
-(2) On se place dans $(\Z/n\Z)^\times$. Soit $G= \{\overline{a}\in (\Z/n\Z)^\times |\overline{a}^{(n-1)/2}=\overline{\tfrac{a}{n}}\}$ est un sous-groupe de $(Z/n\Z)^\times$.   Par (1), on sait que $G$ est un sous groupe stricte de $(\Z/n\Z)^\times$. Par le théorème de Lagrange, $|G|$ divise $|(\Z/n\Z)^\times|=\varphi(n)$, d'où le résultat.
+(2) On se place dans $(\Z/n\Z)^\times$. Alors $G:= \{\overline{a}\in (\Z/n\Z)^\times |\overline{a}^{(n-1)/2}=\overline{\tfrac{a}{n}}\}$ est un sous-groupe de $(\Z/n\Z)^\times$.   Par (1), on sait que $G$ est un sous groupe strict de $(\Z/n\Z)^\times$. Par le théorème de Lagrange, $|G|$ divise $|(\Z/n\Z)^\times|=\varphi(n)$, d'où le résultat.
 \end{proof}
 
 
@@ -1490,7 +1492,7 @@ La preuve de (1) qui peut-être faite en utilisant les propriétés des nombres 
            &  si $j=0$  \\
            & \ \ \ {\rm |} renvoyer composé \\
            &  sinon  \\
-           & \ \ \ {\rm |}  $b \leftarrow $ Exponentiation-modulaire$(a,\tfrac{n-1}{2},n)$ \\
+           & \ \ \ {\rm |}  $b \leftarrow a^{\tfrac{n-1}{2}}\mathrm{\ mod\ }n$ \\
            & \ \ \ {\rm |} si $b=n-1$ \\
            & \ \ \ {\rm |} \ \ \ {\rm |} $b \leftarrow -1$ \\
            & \ \ \ {\rm |} si $b\neq j$\\
@@ -1499,19 +1501,10 @@ La preuve de (1) qui peut-être faite en utilisant les propriétés des nombres 
            & \ \ \ {\rm |} \ \ \ {\rm |} renvoyer premier ?
 \end{tabular}\\
 
-\begin{rem}
-Si $n$ est premier, l'algorithme 16 renvoie nécessairement premier?. Sinon, il renvoie soit composé (ce qui est vrai), soit premier?. 
-\end{rem}
-
-
-\begin{Prop}[admis]
-Soit $n \geq 3$ composé. Pour au moins la moitié de $a$ compris entre 1 et $n-1$, le test de Solovay-Strassen détecte le caractère composé de $n$.
-\end{Prop}
-
 
 \begin{rem}
-Si $n$ est composé, la probabilité de tomber sur un $a$ montrant la nature composée e $n$ est $\geq 1/2$. \\
-Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de déterminer la nature composée de $n$ est $\geq 1-1/2^k$.
+Si $n$ est composé, la probabilité de tomber sur un $a$ montrant que $n$ est composé est  $\geq 1/2$. \\
+Supposons que $n$ est composé. Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de prouver que $n$ est composé est $\geq 1-1/2^k$.
 \end{rem}
 
 
