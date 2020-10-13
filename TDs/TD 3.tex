@@ -1,0 +1,361 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+\usepackage{comment}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{remarque}{Remarque}
+\newtheorem*{remarques}{Remarques}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{   Université de Lorraine \\ }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Feuille de TD n$^{\boldsymbol{\circ}}$3
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+
+
+\
+
+
+\begin{ex}\label{Critere_divisibilite}
+Soit $x\in \N$. On écrit $x=n_k\ldots n_0$ en base $10$, c'est à dire que $x=\sum_{i=0}^k 10^i n_i$ et $n_i\in \llbracket 0,9\rrbracket$ pour tous $i$. Montrer que $x\equiv \sum_{i=0}^k n_i[3]$.
+
+\end{ex}
+
+
+
+
+
+\
+
+
+\begin{ex}\label{ppcm}(PPCM de deux entiers)
+\begin{enumerate}
+
+\item Soient $m,n\in \Z$. Montrer qu'il existe un unique $m\vee n\in \N$ tel que $m\Z\cap n\Z=m\vee n \Z$.
+
+\item Soit $x\in \Z$ un multiple de $m$ et de $n$. Montrer que $m\vee n$ divise $x$.
+
+\item On écrit $m=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$ et $n=p_1^{\beta_1}\ldots p_k^{\beta_k}$,  où $k\in \N$, $\alpha_1,\ldots,\alpha_k,\beta_1,\ldots,\beta_k\in \N$ et les $p_i$ sont des nombres premiers distincts. Montrer que $m\vee n=p_1^{\gamma_1}\ldots p_k^{\gamma_k}$, où $\gamma_i=\max(\alpha_i,\beta_i)$, pour tout $i\in \llbracket 1,k\rrbracket$. En déduire que $m\vee n=\frac{mn}{m\wedge n}$.
+
+\end{enumerate}
+\end{ex}
+
+
+
+
+\
+
+\
+
+
+\begin{ex}\label{Calcul_puissance}
+\begin{enumerate}
+
+\item Déterminer $\varphi(9)$.
+
+
+\item On se place dans $\Z/9\Z$. Déterminer $\overline{2}^{3601}$.
+
+\item Soient $G$ et $H$ des groupes et $x_1\in G$, $x_2\in H$ des éléments d'ordre fini.  Soit $x=(x_1,x_2)\in G\times H$. Déterminer l'ordre de 
+$x$ en fonction de ceux de $x_1$ et de $x_2$.
+
+\item Quel est l'ordre de $\overline{2}$ dans $\Z/63\Z$ ?
+\end{enumerate}
+\end{ex}
+
+
+
+\
+
+
+
+\begin{ex}\label{cuisinier_pirates}(Le cuisinier des pirates)\
+
+Un bateau de pirates s'empare d'un butin en pièces d'or. Les $17$ pirates décident de se répartir également les pièces et de donner le reste au cuisinier; celui-ci reçoit $6$ pièces. Une bagarre éclate  l'issue de laquelle $6$ pirates sont tués; les survivants refont la répartition et le cuisinier se retrouve avec $10$ pièces. Une tempête tue ensuite $7$ autres pirates, le cuisinier voit sa part réduite à $3$ pièces. Il décide alors d'empoisonner les survivants et de s'emparer du trésor. Combien de pièces possèdera-t-il au minimum ?
+
+
+\end{ex}
+
+
+\
+
+
+
+\begin{ex}\label{non_isomorphisme}
+Soit $p\in \mathbb{P}$. Montrer que $\Z/p^2\Z$ n'est pas isomorphe à $\Z/p\Z\times \Z/p\Z$ en tant qu'anneau (on pourra par exemple considérer l'ensemble des éléments nilpotents de ces deux anneaux). 
+\end{ex}
+
+\
+
+\begin{ex}\label{exemple_Dirichlet} \
+\begin{itemize}
+\item[$1.$] Soient $ a \geqslant 2 $ un entier pair  et soit $p$ un facteur premier de $(a^2+1)$.
+\begin{itemize}
+\item[$a)$] Montrer que $p \geqslant 3$ et que $p$ ne divise pas $a$.
+\item[$b)$] En déduire à l'aide du petit théorème de Fermat que ${p}\equiv {1}[{4}] $.
+\end{itemize} 
+\item[$2.$] Soit $q\in \N_{\geq 2}$. Déduire de la question précédente que si $p$ est un facteur premier de l'entier $\big( (q!)^2+1  \big) $, alors $p>q$ et $p \equiv 1 [4]$.
+\item[$3.$] En déduire qu'il existe une infinité de nombres premiers $p$ de la forme $p \equiv 1 [4]$.
+\end{itemize}
+\end{ex}
+
+
+
+\
+
+\begin{ex}\
+Soit $x\in \Z$. Montrer que si $\overline{x}\neq \pm\overline{1}$ et si $\overline{x}^2=\overline{1}$, alors $(x-1)\wedge n$ et $(x+1)\wedge n$ sont des diviseurs non triviaux de $n$.
+\end{ex}
+%\
+
+
+
+
+\
+
+
+
+\begin{ex}\
+Montrer comment calculer $(a\mathrm{\ mod\ n})^{-1}$ pour tout $ a \in ( \mathbb{Z}/n \mathbb{Z})^{\times}$ à l'aide de l'algorithme d'exponentiation rapide en supposant qu'on connait $\varphi(n)$.
+\end{ex}
+
+
+
+
+
+\begin{ex} \
+\begin{itemize}
+\item[$1.$] Soit $ a \geqslant 2 $ un entier pair, et soit $p$ un facteur premier de $(a^2+1)$.
+\begin{itemize}
+\item[$a)$] Montrer que $p \geqslant 3$ et que $p \nmid a$.
+\item[$b)$] En déduire à l'aide du petit théorème de Fermat que ${p}\equiv {1}[{4}] $.
+\end{itemize} 
+\item[$2.$] Soit $q \geqslant 2$ un entier pair. Déduire de la question précédente que si $p$ est un facteur premier de l'entier $\big( (q!)^2+1  \big) $, alors $p>q$ et $p \equiv 1 [4]$.
+\item[$3.$] En déduire qu'il existe une infinité de nombres premiers $p$ de la forme $p \equiv 1 [4]$.
+\end{itemize}
+\end{ex}
+
+
+
+\
+
+
+
+
+\begin{ex}\label{nombre_mersenne}(Nombres de Mersenne) \
+
+L'objectif de cet exercice est de démontrer qu'il n'existe pas d'entier $n \geqslant 2$ tel que $n$ divise le nombre de Mersenne $(2^n-1) $.\\
+On raisonne par l'absurde en supposant l'existence d'un tel entier $n \geqslant 2$, et l'on désigne par $p$ le plus petit diviseur premier de $n$. 
+\begin{itemize}
+\item[$1.$] Montrer que $p \geqslant 3  $.
+\item[$2.$] Soit $\delta$ l'ordre de la classe de $2$ dans $( \mathbb{Z}/p \mathbb{Z} )^{\times} $
+\begin{itemize}
+\item[$a)$] Montrer que $\delta \mid (p-1)$.
+\item[$b)$] Montrer que $ \delta \mid n$.
+\item[$c)$] Conclure.
+\end{itemize}
+\end{itemize}
+
+
+\end{ex}
+
+\
+\begin{ex}\label{cyclicite_Z_pkZ}
+Soient $p$ un nombre premier impair et $k\in \N^*$. 
+\begin{enumerate}
+\item Quel est le cardinal de $(\Z/p^{k\Z})^\times$ ?
+
+\item Montrer que si $n\in \N$, alors $(1+p)^{p^n}=1+\ell p^{n+1}$, où $\ell$ est un entier premier avec $n$ (on pourra faire une récurrence, en utilisant la formule du binôme de Newton).
+
+\item Quel est l'ordre de $\overline{1+p}$ dans $\Z/p^{k}\Z$.
+
+\item Soit $x\in \Z$ tel que $x$ est premier avec $p$ et $x\not\equiv 1[p]$. Montrer que $x^{p-1}\equiv 1[p]$. 
+
+\item En déduire que si $n\in \N$ est tel que $x^n\equiv 1[ p^k]$, alors $(p-1)$ divise $n$. En déduire que l'ordre de $\overline{x}$ dans $\Z/p^{k}\Z$ s'écrit $m(p-1)$, pour un certain $m\in  \N^*$.
+
+\item Montrer que l'ordre de $\overline{x^m(1+p)}\in (\Z/p^k\Z)^\times$ est $(p-1)p^{k-1}$. En déduire que $\Z/p^k\Z$ est cyclique.
+\end{enumerate}
+\end{ex}
+
+
+\begin{ex}\label{ordre_Z_2KZ}\
+\begin{itemize}
+\item[$1.$] Montrer par récurrence que pour tout entier $k \geq  3$ et tout entier impair $a$, on a:
+$$  a^{2^{k-2}}\equiv 1 [2^k] .  $$
+\item[$2.$] En déduire que si $k \geq  3$, le groupe $(\mathbb{Z}/2^k \mathbb{Z})^{\times}$ n'est pas cyclique.
+
+
+\item[$3.$] Montrer que $5^{2^{k-3}}\equiv 1+2^{k-1}[2^k]$.
+
+\item[$4.$] Soit $\phi:\Z/2\Z\times \Z/2^{k-2}\Z\rightarrow (\Z/2^k\Z)^\times$ définie par $\phi\big((\overline{m},\overline{n})\big)=(-1)^{\overline{m}} 5^{\overline{n}}$, pour $(\overline{m},\overline{n})\in \Z/2\Z\times \Z/2^{k-2}\Z$. Montrer que $\phi$ est bien définie et est un isomorphisme de groupes.
+
+\end{itemize}
+\end{ex}
+
+
+\
+
+\begin{ex}\label{Somme_chiffres}
+Soient $A$ la somme des chiffres de $4444^{4444}$ (écrit dans le système décimal) et $B$ la somme des chiffres de $A$. Que vaut $C$ qui est la somme des chiffres de $B$?\\
+\textit{Indication: On pourra d'abord démontrer le fait suivant: tout entier naturel  est congru à la somme de ses chiffres (en base $10$) modulo $9$.}
+
+\end{ex}
+
+\
+
+\paragraph{Correction}
+
+
+Exercice~\ref{Critere_divisibilite}
+
+On a $10\equiv 1[3]$ donc pour tout $k\in \N$, $10^k\equiv 1[3]$, d'où le résultat.
+
+
+
+Exercice~\ref{ppcm}
+
+L'ensemble $m\Z\cap n\Z$ est un idéal de $\Z$ qui est principal. L'ensemble des multiples de $m$ est $m\Z$ et l'ensemble des multiples de $n$ est $n\Z$, d'où (2).
+
+Par (2), $m\vee n$ divise $p_1^{\gamma_1}\ldots p_k^{\gamma_k}$. Soit $a\in m\Z\cap n\Z$. Alors  pour tout $i\in^\llbracket 1,k\rrbracket$, $p_i^{\gamma_i}$ divise $a$. Par le lemme de Gauss, on en déduit que $p_1^{\gamma_1} \ldots p_k^{\gamma_k}$ divise $a$. Comme $m\vee n\in m\Z\cap n\Z$, on en déduit que $p_1^{\gamma_1} \ldots p_k^{\gamma_k}$ divise $m\vee n$.  Par conséquent $m\vee n=p_1^{\gamma_1}\ldots p_k^{\gamma_k}$. Si $i\in \llbracket 1,k\rrbracket$, on a $\alpha_i+\beta_i-\min(\alpha_i,\beta_i)=\max(\alpha_i,\beta_i)$, d'où le résultat.
+
+
+Exercice~\ref{Calcul_puissance}
+(1) $\varphi(9)=9(1-1/3)=6$.
+
+(2) On en déduit que $\overline{2}^{3601}=\overline{2}$.
+
+(3) Soit $n\in \N$. Supposons que $(x_1,x_2)^n=1=(1_G,1_H)$. Alors $(x_1^n,x_2^n)=1_{G\times H}=(1_G,1_H)$, donc $\omega(x_1)| n$ et $\omega(x_2)$ divise $n$. On en déduit que $\omega(x_1)\vee \omega(x_2)$ divise $n$. Réciproquement, $(x_1,x_2)^{\omega(x_1)\vee \omega(x_2)}=1$, donc $\omega(x)=\omega(x_1)\vee \omega(x_2)$. 
+
+On a $2^2=4\not \equiv 1[9]$ et $2^3=8\equiv -1[9]$ donc $2\mathrm{\ mod\ }9\in \Z/9\Z$ est d'ordre $6$. On a $2^3\equiv 1$ donc $2\mathrm{\ mod\ }7$ est d'ordre $3$. En utilisant l'isomorphisme chinois, on en déduit que $2$ est d'ordre $6$ dans $\Z/63\Z\simeq \Z/7\Z\times \Z/9\Z$. 
+
+
+Exercice~\ref{cuisinier_pirates}
+
+Soit $n$ le nombre de pièces. On a $n\equiv 3[4]$, $n\equiv 10[11]$ et $n\equiv 6[17]$. Cherchons le reste $r$ de $n$ dans la division euclidienne par $748=4\times 11\times 17$. On cherche $r$ sous la forme $r=\nu_1+17\nu_2+17\times 11 \nu_3$, où $\nu_1\in \llbracket 0,16\rrbracket$, $\nu_2\in \llbracket 0,10\rrbracket$ et $\nu_3\in \llbracket 0,3\rrbracket$. On a $\nu_1=6$. On a $\nu_1+17\nu_2=6+17\nu_2\equiv 10[11]$, donc $17\nu_2\equiv 6\nu_2\equiv 4[11]$. On a donc $ \nu_2\equiv 6^{-1} .4[11]$. De plus $2\times 6\equiv 1[11]$, donc $\nu_2\equiv 8[11]$ donc $\nu_2=8$. On a $\nu_1+17\nu_2+17.11.\nu_3=142.187\nu_3\equiv 3[4]$, donc $2-\nu_3\equiv 3[4]$, donc $\nu_3\equiv 3[4]$ donc $\nu_3=3$. Ainsi $r=703$. On a donc $n\geq 703$. 
+
+
+Exercice~\ref{exemple_Dirichlet}
+
+(1) Comme $a^2+1$ est impair, $p$ est impair donc $p\geq 3$. Comme $a^2+1$ et $a$ sont premiers entre eux, $p$ ne divise pas $a$.
+
+(2) On se place dans $\Z/p\Z$. Alors $\overline{a}^2=\overline{1}$. Par le théorème de Fermat, $\overline{a}^{p-1}=\overline{1}$. On a donc $\overline{a}^{p-1}=(\overline{a^2})^{(p-1)/2}=\overline{-1}^{(p-1)/2}$, donc $\frac{p-1}{2}$ est pair. On en déduit que $p\equiv 1[4]$.
+
+Soit $b\in \llbracket 1,q\rrbracket$. Alors $(q!)^2+1-b \frac{q!^2}{b}=1$, donc $b$ et $(q!)^2+1$ sont premiers entre eux. Ainsi, $p>q$, ce qui montre le résultat.
+
+Exercice~\ref{nombre_mersenne}
+
+Comme $n$ est impair, $p\geq 3$. Par le petit théorème de Fermat, $\delta$ divise $p-1$ et par définition de $n$, $\delta$ divise $n$. On en déduit que $\delta| (p-1)\wedge n$. Par définition de $p$, $(p-1)\wedge n=1$, donc $\delta=1$, ce qui est absurde.
+
+
+
+
+Exercice~\ref{cyclicite_Z_pkZ}
+
+(1) D'après le cours, $\varphi(p^k)=p^{k-1}(p-1)$.
+
+(2) Si $n=0$, c'est vrai. Soit $n\in \N$ tel que $(1+p)^{p^n}=1+\ell p^{n+1}$, où $\ell$ est un entier premier avec $n$. Alors \[\begin{aligned} (1+p)^{p^{n+1}}&=&(1+\ell p^{n+1})^{p}\\ &=&\sum_{m=0}^p \binom{p}{m}1^{p-m}(\ell p^{n+1})^m
+\\ &=& 1+\binom{p}{1}(\ell p^{n+1})+\sum_{m=2}^p\binom{p}{m}(\ell p^{n+1})^m\\ &=& 1+p^{n+2}\big(\ell +p^{-n-2}\sum_{m=2}^p\binom{p}{m} (\ell p^{n+1})^m\big)\\ 
+&=& 1+p^{n+2}\big(\ell +\sum_{m=2}^p\binom{p}{m} \ell^m p^{(m-1)(n+1)-1}\big).\end{aligned}\] Si $m\geq 2$, $(m-1)(n+1)-1\geq 0$, donc $\sum_{m=2}^p\binom{p}{m} \ell^m p^{(m-1)(n+1)-1}\in \N$. Soit $\ell'=\ell +\sum_{m=2}^p\binom{p}{m} \ell^m p^{(m-1)(n+1)-1}$. Alors $\ell'\equiv \ell[p]$ donc tout diviseur de $\ell'$ et de $p$ est un diviseur de $\ell$ et de $p$. On en déduit que $\ell'\wedge p=1$, d'où le résultat.
+
+(3) Par la question (2), l'ordre de $\overline{1+p}$ dans $\Z/p^k\Z$ est $p^{k-1}$. 
+
+(4) C'est une conséquence du théorème de Fermat.
+
+(5) Si $x^n\equiv 1[p^k]$, alors $x^n\equiv 1[p]$, donc $p-1$ divise $n$. On en déduit que l'ordre de $\overline{x}$ dans $\Z/p^k\Z$ est un multiple de $p-1$. 
+
+(6) L'ordre de $\overline{x}^m$ est $p-1$ et l'ordre de $\overline{1+p}$ est $p^{k-1}$. Soit $n$ tel que $(\overline{x^m(1+p)})^n=\overline{1}$. Alors $(\overline{x^m(1+p)})^n)^{p^{k-1}}=\overline{1}=(\overline{x^m})^{np^{k-1}}$ donc $p-1$ divise  $p^{k-1}n$ donc (comme $p^{k-1}\wedge p-1=1$), $p-1$ divise $n$. De même $(\overline{x^m(1+p)})^n)^{p-1}=\overline{1}=\overline{1+p}^{(p-1)n}$ donc $p^{k-1}$ divise $(p-1)n$ donc $p^{k-1}$ divise $n$. Ainsi, $p-1$ et $p^{k-1}$ divisent $n$ donc $(p-1)p^{k-1}$ divise $n$ (car $(p-1)\wedge p^{k-1}=1)$. On en déduit que $\overline{x^m(1+p)}$ est d'ordre $(p-1)p^{k-1}=|(\Z/p^k\Z)^\times|$, donc $(\Z/p^k\Z)^\times$ est cyclique.
+
+
+\
+
+
+Exercice~\ref{ordre_Z_2KZ}
+
+(1) Supposons que $k=3$. Soit $a\in \Z$ un nombre impair. On a  $a^2-1=(a-1)(a+1)$. Si $a-1$ n'est pas divisible par $4$, alors $a+1$ l'est, donc $a^2-1=(a-1)(a+1)\equiv 0[8]$. Soit $k\in \N_{\geq 3}$. Supposons que $a^{2^{k-3}}\equiv 1[2^k]$. Écrivons $a^{2^{k-3}}=1+2^k m$, avec $m\in \Z$. Alors $a^{2^{k-2}}=(a^{2^{k-3}})^2=1+2^{k+1}m+2^{2k}m^2\equiv 1[2^{k+1}]$, d'où le résultat.
+
+(2) Comme $|(\Z/2^k\Z)^\times|=2^{k-1}$, on en déduit que $(\Z/2^k\Z)^\times$ n'est pas cyclique (sinon il existerait un élément d'ordre $2^{k-1}$ alors qu'on vient de montrer que tout élément est d'ordre inférieur ou égal à $2^{k-2}$). 
+
+
+(3) On a bien $5\equiv 1+4[8]$. Soit $k\in \N_{\geq 3}$. Supposons que $5^{2^{k-3}}\equiv 1+2^{k-2} [2^k]$. Écrivons $5^{2^{k-3}}=1+2^{k-1}+2^km=1+2^{k-1}(1+2m)$, où $m\in \Z$. Alors $5^{2^{k-2}}=1+2.2^{k-1}(1+2m)+2^{2k}m=1+2^k+2^{k+1}(m+2^{k-1}m^2)\equiv 1+2^k[2^{k+1}]$. On en déduit le résultat par récurrence.
+
+(4) $\phi$ est bien définie car  $\overline{(-1)}$ est d'ordre $2$ et $\overline{5}$ est d'ordre $k-2$ (par les questions 1 et 3) dans $\Z/2^{k}\Z$. Soit $(\overline{m},\overline{n})\in \Z/2\Z\times \Z/2^{k-2}\Z$ tel que $\phi\big((\overline{m},\overline{n})\big)=\overline{1}$. Alors $\phi\big(2(\overline{m},\overline{n})\big)=\overline{1}^2=\overline{1}$, donc $\overline{5}^{2n}=\overline{1}$. On a donc $2^{k}-2$ divise $2n$ et donc $2^{k-3}$ divise $n$. Supposons que $n\in \llbracket 0,2^{k-2}-1\rrbracket$. On a donc $n=0$ ou $n=2^{k-3}$. Si $n=2^{k-3}$, on a $\overline{5^n}=\overline{1+2^{n-1}}$ et donc $\overline{\pm 5^{n}}=\overline{\pm 1+2^{n-1}}\neq \overline{1}$ (car $\overline{-2^{n-1}}=\overline{2^{n-1}}$). C'est donc absurde, donc $n=0$. On a donc $(-1)^{\overline{m}}=\overline{0}$, donc $\overline{m}=\overline{0}$. On en déduit que $\phi$ est injective donc $\phi$ est un isomorphisme.
+
+
+
+
+
+Exercice~\ref{Somme_chiffres}. Soit $x=4444^{4444}$. Alors $\log_{10}(x)=4444\log_{10}(4444)\leq 4444\log_{10}(10^4)\leq 20 000-1$. Donc $x$ a au plus $20000$ chiffres. On en déduit que $A\leq 180000$. Donc $A$ a au plus $6$ chiffres et si $A$ a $6$ chiffres, son premier chiffre est un $1$. On en déduit que $B\leq 1+5\times 9=46$. On a donc $C\leq 4+9=13$. 
+
+Dans $\Z/9\Z$, $\overline{4444}=\overline{7}$. On a $\overline{7}^2=\overline{4}$ donc $\overline{7}^3=\overline{7}^2.\overline{7}=\overline{4}.\overline{7}=\overline{28}=\overline{1}$. On en déduit que $\overline{7}$ est d'ordre $3$ dans $\Z/9\Z$. Comme $4444\equiv 1[3]$, on en déduit que $\overline{4444}^{4444}=\overline{7}^{4444}=\overline{7}$. Donc $\overline{C}=\overline{x}=\overline{7}$. Comme $C\leq 13$, $C=7$.
+
+
+
+\end{document}
