@@ -722,7 +722,7 @@ x & \equiv &  1000 [1891] \\
 x & \equiv & 2000 [2499]
 \end{array}   \right.
 \end{equation}
-Après calcul, on obtient Euclide-étendu$(1891,2499)=(1,-1007,762)$, et on obtient alors comme solution particulière $x = 2499 \times 1000 \times v + 1881 \times 2000 \times u= -1884096000$, qui comporte dix chiffres, alors que $1891 \times 2499= 4725609 $ qui n'en a que sept.
+Après calcul, on obtient Euclide-étendu$(2499,1891)=(1,-1007,762)=(1,u,v)$, et on obtient alors comme solution particulière $x = 2499 \times 1000 \times u + 1881 \times 2000 \times v= -1\ 904\ 236\ 000$, qui comporte dix  chiffres, alors que $1891 \times 2499= 4725609 $  n'en a que sept.
 \end{ex}
 
 
@@ -1507,7 +1507,6 @@ Si $n$ est composé, la probabilité de tomber sur un $a$ montrant que $n$ est c
 Supposons que $n$ est composé. Si on fait le test $k$ fois, où les $k$ entiers sont choisis indépendamment entre 1 et $n-1$, la probabilité de prouver que $n$ est composé est $\geq 1-1/2^k$.
 \end{rem}
 
-
 \chapter{Un peu de cryptographie}
 
 
@@ -1525,7 +1524,7 @@ Le code de Jules César: il s'agit d'écrire un message en remplaçant chaque le
 \item[•] Le destinataire a la \textbf{clé} du chiffrement, i.e. l'information lui permettant d'effectuer le \textbf{déchiffrement}.
 \end{itemize}
 
-\vrt{Ne pas confondre chiffrement et chiffrage!!}
+ 
 
 \begin{exo}
 Déchiffrer YHQLYLGLYLFL, chiffré par le biais du code de César.
@@ -1616,7 +1615,7 @@ Ce système a été mis en place par Rivest, Schamir et Adleman; il s'agit d'un 
 \begin{itemize}
 \item[•] Bob choisit deux nombres premiers distincts $p$ et $q$ de taille comparable.
 \item[•] Bob calcule $n=pq$ et $\varphi=(p-1)(q-1)$.
-\item[•] Bob choisit un entier $e$ qui vérifie $1<e< \varphi$ et $PGCD(e,\varphi)=1$.
+\item[•] Bob choisit un entier $e$ qui vérifie $1<e< \varphi$ et $e \wedge \varphi=1$.
 \item[•] Bob cherche l'unique entier $2 \leq d \leq \varphi -1$ tel que $de \equiv 1 [\varphi]$.
 \item[•] On obtient les clés publique et privée souhaités:
 \begin{itemize}
@@ -1667,29 +1666,38 @@ Bob utilise la clé privée $(d,\varphi)$ pour retrouver $m=C^d \text{ mod } n$.
 
 \subsection{RSA et la décomposition}
 
-Montrons qe trouver la clé secrète $d$ uniquement à l'aide de la clé publique $(n,e)$ est calculatoirement équivalent à factoriser $n$.
+Cette partie utilise des résultats du texte public 2018 C2 sur la page agreg.org.
+
+Montrons que trouver la clé secrète $d$ uniquement à l'aide de la clé publique $(n,e)$ est calculatoirement équivalent à factoriser $n$.
 
 \begin{itemize}
 \item[•] Si on sait factoriser $n=pq$, on peut alors calculer $\varphi=(p-1)(q-1)$; puis $d$ tel que $1<d<\varphi$ et $ed \equiv 1 [\varphi]$.
 \item[•] Si on connait $n,e$ et $d$, alors comme $ed \equiv 1 [\varphi]$, il existe $k \in \mathbb{Z}$ tel que $1=ed + k \varphi$, donc si on choisit $a \in (\mathbb{Z}/n\mathbb{Z})^{\times}  $, on a $a^{ed-1}\equiv 1 [n]$. Décomposons à présent $ed-1$ sous la forme $ed-1=2^s t$ où $s \in \mathbb{Z}$ et $t$ impair.\\
-Utilisons à présent la proposition suivante. 
+
+
+
 \end{itemize}
 
-\begin{Prop}\label{p31}
-Pour au moins la moitié des éléments $a \in (\mathbb{Z}/n\mathbb{Z})^{\times}$, il existe $1 \leq i \leq s  $ tel que
-$$   a^{2^{i-1}t}\not \equiv \pm 1 [n] \qquad \text{et} \qquad a^{2^i t}\equiv 1 [n] .       $$
-\end{Prop}
+
+\begin{lemme}\label{lemProba}
+Soit $a\in (\Z/n\Z)^\times$. Alors la probabilité que $a^t\neq 1$ et qu'il existe $j\in \llbracket 1,s\rrbracket$ tel que $a^{2^{j-1}s}\neq \pm\overline{1}$ et $a^{2^js}=\overline{1}$ est supérieure ou égale à $\frac{3}{8}$.
+\end{lemme}
+
+
+\begin{proof}
+Soit $X=\{a\in \Z/n\Z|\ a^t=\overline{1}\}$. Soient $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois et $X'=\phi(X)$. Soit $(a_1,a_2)\in X'$. Alors $O(a):=\{a,(a_1,-a_2),(-a_1,a_2),-a\}$ vérifie $O(a)\cap X=\{a\}$. De plus, comme $X'\subset (\Z/p\Z\times \Z/q\Z)^\times =\Z/(p-1)\Z\times \Z/(q-1)\Z$, $\{a,-a,\pm(a_1,-a_2)\}=4$. Soit maintenant $b=(b_1,b_2)\in X$. Supposons que $O(a)\cap O(b)\neq \emptyset$. Alors il existe $\epsilon_1,\epsilon_2,\epsilon_1',\epsilon_2'\in \{-1,1\}$ tel que $(\epsilon_1a_1,\epsilon_2 a_2)=(\epsilon'_1 b_1,\epsilon'_2 b_2)$.  On a donc $a=(\epsilon_1\epsilon_1' b_1,\epsilon_2\epsilon_2' b_2)$. Comme $a^t=b^t=(\overline{1},\overline{1})$ et que $t$ est impair, on en déduit que $\epsilon_1\epsilon_1'=1$ et $\epsilon_2\epsilon_2'=1$ et donc $\epsilon_1=\epsilon_1'$ et $\epsilon_2=\epsilon_2'$. Donc $a=b$. On a donc $\bigsqcup_{a\in X'}O(a)\subset \phi\big((\Z/n\Z)^\times\big)$. En prenant les cardinaux, on obtient que $4|X|\leq |\phi\big((\Z/n\Z)^\times\big)=|(\Z/n\Z)^\times|$. Soit maintenant $Y=(\Z/n\Z)^\times \setminus X$. On verra en TD que $|\{a\in Y|\exists j\in \llbracket 1,s\rrbracket|a^{2^{j-1}}\neq \pm\overline{1}\text{ et }a^{2^j}=\overline{1}\}|\geq \frac{|Y|}{2}$. 
+\end{proof}
 
 \begin{exo}
-Si $x$ est une racine carrée non triviale de 1 modulo $n$, alors PGCD$(x-1,n)$ et PGCD$(x+1,n)$ sont des diviseurs non triviaux de $n$.
+Si $x$ est une racine carrée non triviale de 1 modulo $n$, alors $(x-1)\wedge n$ et $(x+1)\wedge n$ sont des diviseurs non triviaux de $n$.
 \end{exo}
 
 
-Soient $a$ et $i$ deux entiers comme dans la Proposition \ref{p31}. Alors PGCD$(a^{2^{i-1}t}-1,n)$ est un facteur non trivial de $n$. En effet, $ a^{2^i t}-1 =(a^{2^{i-1}t}-1)(a^{2^{i-1}t}+1) \equiv 0 [n]  $ et ces deux facteurs ne sont pas triviaux modulo $n$.\\
-Il suffit alors de choisir aléatoirement des entiers $a$ jusqu'à ce qu'on obtienne un facteur non trivial de $n$ pour factoriser $n$.
+Soient $x$ et $j$ deux entiers tels que $a=\overline{x}$ et $j$ soient comme dans le lemme~\ref{lemProba}. Alors $(x^{2^{i-1}t}-1)\wedge n$ est un facteur non trivial de $n$. En effet, $ x^{2^i t}-1 =(x^{2^{i-1}t}-1)(x^{2^{i-1}t}+1) \equiv 0 [n]  $ et ces deux facteurs ne sont pas triviaux modulo $n$.\\
+Il suffit alors de choisir aléatoirement des entiers $x$ jusqu'à ce qu'on obtienne un facteur non trivial de $n$ pour factoriser $n$.
 
 \bigskip
-
+\begin{comment}
 \begin{tabular}{p{6cm}|p{6cm}}
 {Choix de $n$, $p$ et $q$}  & Attaques à contrer \\
 \hline 
@@ -1723,6 +1731,9 @@ $r-1$ a un grand facteur premier
  \\
 
 \end{tabular}
+\end{comment}
+
+
 
 \begin{ex}
 On fait ici un exemple de codage RSA simple. On pose $p=11$ et $q=5$.
@@ -1897,8 +1908,6 @@ La solution de ce système est $X^2 -3X+7$ mod $42$ dont on vérifie immédiatem
 \begin{rem}
 Les essais de division de $U$ et $V$ nous dispensent d'effectuer des calculs jusqu'à atteindre la borne fixée par le théorème de Landau-Mignotte.
 \end{rem}
-
-
 
 \bibliography{/home/auguste_pro/Documents/Enseignement/bibliographie.bib}
 
