@@ -39,12 +39,14 @@
 \newtheorem{Def/prop}[thm]{Définition/Proposition}
 \newtheorem{Lem}[thm]{Lemme}
 \newtheorem{lemme}[thm]{Lemme}
+\newtheorem{exemple}[thm]{exemple}
 \newtheorem{Prop}[thm]{Proposition}
 \newtheorem{proposition}[thm]{Proposition}
 \newtheorem*{prop}{Proposition}
 \newtheorem*{prin}{Principe}
 \newtheorem*{nota}{Notation}
 \newtheorem*{notas}{Notations}
+
 
 \newtheorem{Cor}[thm]{Corollaire}
 \newtheorem{corollaire}[thm]{Corollaire}
@@ -58,10 +60,11 @@
 
 
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\PCC}{\mathscr{P}}
-
+\newcommand{\cont}{\mathrm{cont}}
 
 \begin{document}
 
@@ -1659,8 +1662,18 @@ Plusieurs questions se posent alors:
 \subsection{Déchiffrement}
 
 \begin{prin}
-Bob utilise la clé privée $(d,\varphi)$ pour retrouver $m=C^d \text{ mod } n$.
+Bob utilise la clé privée $(d,\varphi)$ pour retrouver $m=C^d \text{ mod } n$. Ceci se base sur le résultat suivant : 
+
 \end{prin}
+
+
+\begin{lemme}
+Soit $m\in \Z/n\Z$. Alors $m^{ed}=m$. 
+\end{lemme}
+
+\begin{proof}
+Soit $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois. Écrivons $\phi(\overline{m})=(m_p,m_q)$. Soit $i\in\{p,q\}$. Si $m_i=\overline{0}$, alors $m_i^{ed}=0=m_i$. Si $m_i\neq \overline{0}$, alors $m_i^{i-1}=\overline{1}$, par le théorème de Fermat. Comme $i-1$ divise $\varphi$, qui divise $ed-1$, on en déduit que $m_i^{ed-1}=\overline{1}$ et donc $m_i^{ed}=m_i$. On a $m_i^{ed}=m_i$, dans les deux cas. On en déduit que $m^{ed}=(m_p^{ed},m_q^{ed})=(m_p,m_q)$, d'où le résultat.
+\end{proof}
 
 \section{Sécurité de RSA}
 
@@ -1685,12 +1698,11 @@ Soit $a\in (\Z/n\Z)^\times$. Alors la probabilité que $a^t\neq 1$ et qu'il exis
 
 
 \begin{proof}
-Soit $X=\{a\in \Z/n\Z|\ a^t=\overline{1}\}$. Soient $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois et $X'=\phi(X)$. Soit $(a_1,a_2)\in X'$. Alors $O(a):=\{a,(a_1,-a_2),(-a_1,a_2),-a\}$ vérifie $O(a)\cap X=\{a\}$. De plus, comme $X'\subset (\Z/p\Z\times \Z/q\Z)^\times =\Z/(p-1)\Z\times \Z/(q-1)\Z$, $\{a,-a,\pm(a_1,-a_2)\}=4$. Soit maintenant $b=(b_1,b_2)\in X$. Supposons que $O(a)\cap O(b)\neq \emptyset$. Alors il existe $\epsilon_1,\epsilon_2,\epsilon_1',\epsilon_2'\in \{-1,1\}$ tel que $(\epsilon_1a_1,\epsilon_2 a_2)=(\epsilon'_1 b_1,\epsilon'_2 b_2)$.  On a donc $a=(\epsilon_1\epsilon_1' b_1,\epsilon_2\epsilon_2' b_2)$. Comme $a^t=b^t=(\overline{1},\overline{1})$ et que $t$ est impair, on en déduit que $\epsilon_1\epsilon_1'=1$ et $\epsilon_2\epsilon_2'=1$ et donc $\epsilon_1=\epsilon_1'$ et $\epsilon_2=\epsilon_2'$. Donc $a=b$. On a donc $\bigsqcup_{a\in X'}O(a)\subset \phi\big((\Z/n\Z)^\times\big)$. En prenant les cardinaux, on obtient que $4|X|\leq |\phi\big((\Z/n\Z)^\times\big)=|(\Z/n\Z)^\times|$. Soit maintenant $Y=(\Z/n\Z)^\times \setminus X$. On verra en TD que $|\{a\in Y|\exists j\in \llbracket 1,s\rrbracket|a^{2^{j-1}}\neq \pm\overline{1}\text{ et }a^{2^j}=\overline{1}\}|\geq \frac{|Y|}{2}$. 
-\end{proof}
+Soit $X=\{a\in (\Z/n\Z)^\times|\ a^t=\overline{1}\}$. Soient $\phi:\Z/n\Z\rightarrow \Z/p\Z\times \Z/q\Z$ l'isomorphisme chinois et $X'=\phi(X)=\{(x_1,x_2)\in \Z/p\Z\times \Z/q\Z|(x_1^t,x_2^t)=(\overline{1},\overline{1})\}$. Soit $a=(a_1,a_2)\in X'$. Alors $O(a):=\{a,(a_1,-a_2),(-a_1,a_2),-a\}$ vérifie $O(a)\cap X=\{a\}$. En effet soit $\epsilon_1,\epsilon_2\in \{-1,1\}$.  Alors $(\epsilon_1 a_1,\epsilon_2  a_2)^t=(\epsilon_1 a_1^t,\epsilon_2 a_2^t)=(\overline{\epsilon_1},\overline{\epsilon_2})$, par hypothèse sur $a$. Le seul choix permettant d'obtenir $(\epsilon_1 a_1,\epsilon_2 a_2)\in X'$ est donc $\epsilon_1=\epsilon_2=1$. 
 
-\begin{exo}
-Si $x$ est une racine carrée non triviale de 1 modulo $n$, alors $(x-1)\wedge n$ et $(x+1)\wedge n$ sont des diviseurs non triviaux de $n$.
-\end{exo}
+De plus, comme $X'\subset (\Z/p\Z\times \Z/q\Z)^\times =\Z/(p-1)\Z\times \Z/(q-1)\Z$, $\{a,-a,\pm(a_1,-a_2)\}=4$. Soit maintenant $b=(b_1,b_2)\in X$. Supposons que $O(a)\cap O(b)\neq \emptyset$. Alors il existe $\epsilon_1,\epsilon_2,\epsilon_1',\epsilon_2'\in \{-1,1\}$ tel que $(\epsilon_1a_1,\epsilon_2 a_2)=(\epsilon'_1 b_1,\epsilon'_2 b_2)$.  On a donc $a=(\epsilon_1\epsilon_1' b_1,\epsilon_2\epsilon_2' b_2)$. Comme $a^t=b^t=(\overline{1},\overline{1})$ et que $t$ est impair, on en déduit que $\epsilon_1\epsilon_1'=1$ et $\epsilon_2\epsilon_2'=1$ et donc $\epsilon_1=\epsilon_1'$ et $\epsilon_2=\epsilon_2'$. Donc $a=b$. On a donc $\bigsqcup_{a\in X'}O(a)\subset \phi\big((\Z/n\Z)^\times\big)$. En prenant les cardinaux, on obtient que $4|X'|=4|X|\leq |\phi\big((\Z/n\Z)^\times\big)|=|(\Z/n\Z)^\times|$. Soit maintenant $Y=(\Z/n\Z)^\times \setminus X$.  Soit $Z=\{a\in Y|\exists j\in \llbracket 1,s\rrbracket|a^{2^{j-1}}\neq \pm\overline{1}\text{ et }a^{2^j}=\overline{1}\}$. On verra en TD que $|Z|\geq \frac{|Y|}{2}$. On a donc $|Z|\geq \frac{|Y|}{2}=\frac{\varphi(n)-|X|}{2}\geq \frac{\varphi(n)-1/4\varphi(n)}{2}=\frac{3\varphi(n)}{8}$. 
+\end{proof}
+ 
 
 
 Soient $x$ et $j$ deux entiers tels que $a=\overline{x}$ et $j$ soient comme dans le lemme~\ref{lemProba}. Alors $(x^{2^{i-1}t}-1)\wedge n$ est un facteur non trivial de $n$. En effet, $ x^{2^i t}-1 =(x^{2^{i-1}t}-1)(x^{2^{i-1}t}+1) \equiv 0 [n]  $ et ces deux facteurs ne sont pas triviaux modulo $n$.\\
@@ -1750,38 +1762,104 @@ Pour vérifier si $27^{27} \equiv m [n]$, on fait le calcul par exponentiation m
 \end{ex}
 
 
+Les recommandations pour la taille de $p$ et $q$ sont de les choisir avec $1024$ bits (ce qui fait une clé de $2048$ bits). On a donc $p,q\sim 2^{1024}> 10^{300}$. Pour ce faire, on peut prendre des nombres impairs «~aléatoires~» et tester s'ils sont premiers, ce qui nécessite d'avoir un test de primalité rapide. Par le théorème des nombres, la probabilité qu'un nombre impair de l'ordre $2^{1024}$ soit premier est de l'ordre de $2/\mathrm{ln}(2^{1024})> 1/500$. 
+
+Dans la pratique, on utilise souvent le système RSA pour échanger une clé secrète puis on utilise un système de chiffrement symétrique (par exemple le chiffrement AES, basé sur des calculs dans le corps à 256 éléments).
 
 
-\chapter{Calcul modulaire du PGCD de polynômes}
+
+\chapter{Introduction au calcul   du PGCD de deux polynômes à coefficients entiers ou rationnels}
+
+
+L'objectif de cette partie est de donner une introduction au calcul du PGCD de deux polynômes de $\Z[X]$ ou de $\Q[X]$. Beaucoup de résultats seront admis et nous renvoyons à \cite{vonzurgathen2013modern} pour  plus de détails sur ce sujet.
 
 \vrt{\begin{rap} Définition d'un anneau euclidien
 \end{rap}
 }  
 
-Si $\mathbb{K}$ est un corps, alors $\mathbb{K}[X]$ est un anneau euclidien en le munissant de la valuation du degré: $v(P)=deg(P)$. Par exemple, $\mathbb{Q}[X]$ est euclidien.
+Si $\mathbb{K}$ est un corps, alors $\mathbb{K}[X]$ est un anneau euclidien en le munissant de la valuation du degré: $v(P)=deg(P)$. Par exemple, $\mathbb{Q}[X]$ est euclidien. Pour tous polynômes $(A, Q)\in \Q[X]\times \Q[X]\setminus\{0\}$, il existe $B,R\in \Q[X]$ tels que $A=BQ+R$ avec $\deg(R)<\deg(Q)$.  
 
+Par exemple, si $A=X^2+2$ et $Q=2X+1$, on a $A-\frac{1}{2}X Q=-\frac{1}{2}X+2$, $-\frac{1}{2}X+2+\frac{1}{4}(2X+1)=\frac{9}{4}$. On a donc $X^2+2=(2X+1)(\frac{1}{2}X-\frac{1}{4})+\frac{9}{4}$. 
+
+Par contre dans $\Z[X]$, il est impossible d'effectuer la division euclidienne de $X^2+2$ par $2X+1$. On peut montrer (exercice) que pour tout $B\in \Z[X]$, $\deg(A-BQ)\geq 2$. 
+
+
+\begin{comment}
 \begin{Prop}
 Soit $A$ un anneau intègre. Alors $A[X]$ est un anneau euclidien pour la valuation du degré si et seulement si $A$ est un corps.
 \end{Prop}
 
 \begin{proof}
-Supposons que $A[X]$ soit un anneau euclidien, et soit $b \in A \smallsetminus \{  0 \}$. $b$ est alors un polynôme de degré 0 de $A [X]$. Il existe alors $Q,R \in A[X]$ tels que $1=bQ+R$. Dans ce cas, soit $R=0$, soit $deg(R)<deg(b)=0$. La seule possibilité est que $R=0$. Pour des raisons de degré on a aussi $Q\in A$. On a ainsi montré que $b$ est inversible, d'où le résultat.
+Supposons que $A[X]$ soit un anneau euclidien, et soit $b \in A \smallsetminus \{  0 \}$. Alors $b$ est  un polynôme de degré 0 de $A [X]$. Il existe alors $Q,R \in A[X]$ tels que $1=bQ+R$. Dans ce cas, soit $R=0$, soit $deg(R)<deg(b)=0$. La seule possibilité est que $R=0$. Pour des raisons de degré on a aussi $Q\in A$. On a ainsi montré que $b$ est inversible, d'où le résultat.
+\end{proof}
+\end{comment}
+
+
+\begin{proposition}
+L'anneau $\Z[X]$ n'est pas principal.
+\end{proposition}
+
+
+\begin{proof}
+Posons $I=(2,X)=2\Z[X]+X\Z[X]$. Montrons que $I$ est un idéal de $\Z[X]$ (exercice le démontrer). Supposons que $I$ est principal : il existe $U\in \Z[X]$ tel que $I=(U)=U\Z[X]$. Alors $2\in U\Z[X]$, donc il existe $V\in \Z[X]$ tel que $UV=2$. On a nécessairement $U,V\in \Z$. En effet, $\deg(UV)=\deg(U)+\deg(V)$ (car $\Z$ est intègre). On  a donc $\deg(U)+\deg(V)=0$ donc $\deg(U)=\deg(V)=0$ et donc $U\in \Z$.
+
+De plus, $X\in I$, donc $X=UA$, pour un certain $A\in \Z[X]$. Écrivons $A=\sum_{i=0}^d a_i X^i$, où $d\in \N$ et $(a_i)\in \Z^{d+1}$. Alors $UA=\sum{i=0}^d a_i U X^i=X$. En identifiant les coefficients, on obtient que $Ua_1=1$, donc $U$ est inversible dans $\Z$, donc $u\in \{-1,1\}$. Mairs alors $U\Z[X]=\Z[X]$ : c'est absurde, donc $I$ n'est pas principal.
 \end{proof}
 
 
-La notion de PGCD suit la même structure que pour $\mathbb{Z}$. La suite de cette partie sera de donner le PGCD de deux polynômes à partir de calculs modulaires.\\
+\begin{definition}
+Soit $P=\sum_{i=0}^d a_i X^i\in \Z[X]\setminus\{0\}$. On définit le \textbf{contenu} de $P$ par $\cont(P)=\wedge_{i=0}^d a_i$. On dit qu'un polynôme $P$ est \textbf{primitif} si son contenu vaut $1$.
+\end{definition}
 
-Soient $U$ un polynôme de $\mathbb{Z}[X]$et $n$ un entier positif. On notera $U_n$ le reste modulo $n$ de $U$. $U_n$ est alors simplement le polynôme $U$ dans lequel on a remplacé les coefficients par leur reste modulo $n$.
+\begin{lemme}
+Soit $A$ un anneau intègre. Alors $A[X]$ est intègre.
+\end{lemme}
+
+\begin{proof}
+Le fait que $A[X]$ est commutatif est déjà connu. Soient $P,Q\in A[X]\setminus \{0\}$. Écrivons $P=\sum_{i=0}^d a_i X^i$ et $Q=\sum_{i=0}^{d'} b_i X^i$, avec $d,d'\in\N$, $(a_i)\in A^{d+1}$,  $(b_i)\in A^{d+1}$ et $a_d,b_{d'}\neq 0$. Alors $PQ=a_db_{d'} X^{d+d'}+ S$, pour un certain $S\in A[X]$ de degré strictement inférieur à $d+d'$. Comme $A$ est intègre, on en déduit que $a_db_{d'}\neq 0$ et donc $PQ\neq 0$, ce qui prouve que $A[X]$ est intègre.
+\end{proof}
+
+\begin{lemme}(lemme de Gauss)
+Soient $U,V\in \Z[X]$ et $p\in \mathbb{P}$.  Supposons que $p$ divise $UV$. Alors $p$ divise $U$ ou $p$ divise $V$. 
+\end{lemme}
+
+\begin{proof}
+Soient $\overline{U}$ et $\overline{V}$ les images de $U$ et de $V$ dans $\Z/p\Z[X]$ (si $U=\sum_{i\in \N} a_i X^i$, $\overline{U}=\sum_{i\in \N} \overline{a_i}X^i$). Alors $\overline{U}\overline{V}=\overline{0}$. On a donc $\overline{U}=\overline{0}$ ou $\overline{V}=\overline{0}$. 
+\end{proof}
+
+\begin{corollaire}
+Soient $U,V\in \Z[X]$ des polynômes primitifs. Alors $UV$ est primitif.
+\end{corollaire}
+
+\begin{corollaire}
+Soient $U,V\in \Z[X]\setminus\{0\}$. Alors $\cont(UV)=\cont(U)\cont(V)$. 
+\end{corollaire}
+
+\begin{proof}
+Posons $\tilde{U}=\frac{U}{\cont(U)}$ et $\tilde{V}=\frac{V}{\cont(V)}$. Alors $\tilde{U}$ et $\tilde{V}$ sont primitifs. On en déduit que $\cont(\tilde{U}\tilde{V})=1$ et donc $\frac{1}{\cont(U)\cont(V)}\cont(UV)=1$.
+\end{proof}
+
+
+Comme $\Q[X]$ est principal, on peut définir le PGCD de deux polynômes similairement à ce qu'on a défini à la définition/proposition~\ref{def_prop_PGCD}. Si $U,V\in \Q[X]\setminus\{0\}$, on définit $(U\wedge V)_\Q$ comme étant l'unique polynôme unitaire tel que $U \Q[X]+V\Q[X]=(U\wedge V)_\Q\Q[X]$ (comme l'ensemble des inversibles de $\Q[X]$ est $\Q^*$, on a $\lambda (U\wedge V)_\Q\Q[X]=(U\wedge V)_\Q\Q[X]$, pour tout $\lambda\in \Q^*$). L'algorithme d'Euclide permet alors de calculer le PGCD de deux éléments de $\Q[X]$. 
+
+On admet le résultat suivant (voir \cite{vonzurgathen2013modern}). Soient $U$, $V\in \Z[X]\setminus\{0\}$. Alors   l'ensemble des diviseurs de $U$ et $V$ admet un plus grand élément $D$ : tout diviseur de $U$ et de $V$ divise $D$ et $D$ divise $U$ et $V$. Cet élément est unique à multiplication par $\pm 1$ près. On définit $(U\wedge V)_\Z$  comme étant l'élément de $\{D,-D\}$ dont le coefficient dominant est positif.  On a alors $(U\wedge V)_\Z\in \Q^* (U\wedge V)_\Q$ (en fait on peut montrer que si $U,V$ sont primitifs, et $b$ est le produit des coefficients dominants de $U$ et $V$, alors $(U\wedge V)_\Z= \frac{b(U\wedge V)_\Q}{\cont\big(b(U\wedge V)_\Q\big)}$). On peut retenir qu'à un calcul de contenu près (et donc à un calcul de PGCD dans $\Z$ près, déterminer $(U\wedge V)_\Q$ et $(U\wedge V)_\Z$ est équivalent. Une première technique pour calculer $(U\wedge V)_\Q$ est d'utiliser l'algorithme d'Euclide dans $\Q[X]$. Il s'avère que cette méthode est coûteuse en temps de calcul car les coefficients des polynômes intermédiaires on tendance à exploser.  Les méthodes que nous allons développer ici est en fait beaucoup plus efficace. L'idée est d'utiliser l'algorithme d'Euclide dans $\Z/p\Z[X]$ pour une ou plusieurs valeurs de $p\in \mathbb{P}$ bien choisies puis d'en déduire le PGCD dans $\Z[X]$. 
+
+
+\medskip
+
+
+
+Soient $U$ un polynôme de $\mathbb{Z}[X]$ et $n$ un entier positif. On notera $U_n$ le reste modulo $n$ de $U$. $U_n$ est alors simplement le polynôme $U$ dans lequel on a remplacé les coefficients par leur reste modulo $n$.
 
 \begin{ex}
 Si $U=10X^3-8X^2+6X-5$, on a $U_3= X^3+ X^2 +1$ et $U_2=1$.
 \end{ex}
 
-On s'aperçoit que pour certain moduli, des monômes disparaissent, mais, et ce qui est plus grave, le degré de $U_n$ peut être strictement inférieur à celui de $U$, ce qui sera la cas lorsque $n$ divise le coefficient dominant de $U$.\\
+On s'aperçoit que pour certain moduli, des monômes disparaissent, mais, et ce qui est plus grave, le degré de $U_n$ peut être strictement inférieur à celui de $U$, ce qui sera le cas lorsque $n$ divise le coefficient dominant de $U$.\\
 
 La méthode qui sera mise en œuvre ici consiste donc, si $U,V\in \mathbb{Z}[X] $, à calculer $PGCD(U_p,V_p)$ dans $\mathbb{Z}/p\mathbb{Z}[X]$ pour différents $p$ puis à reconstruire les coefficients de $PGCD(U,V)$ à l'aide de l'algorithme de Garner appliqué aux divers coefficients des $PGCD(U_p,V_p)$. \\
 
-Une condition pour que nous y parvenions serait que les degrés de ces polynômes $PGCD(U_p,V_p)$ soient tous identiques à celui de $PGCD(U,V)$. Il est en effet facile de construire des cas où les degrés ne correspondent pas.
+Une condition pour que nous y parvenions serait que les degrés de ces polynômes $PGCD(U_p,V_p)$ soient tous identiques à celui de $PGCD(U,V)$. Il est par contre facile de construire des cas où les degrés ne correspondent pas.
 
 \begin{ex}
 On a $PGCD(X+5,X+2)=1$ dans $\mathbb{Z}[X]$, mais, modulo $3$, on a $PGCD((X+5)_3,(X+2)_3)=X+2\neq 1$
@@ -1815,8 +1893,7 @@ On admet que le nombre de moduli malheureux est fini. \\
 
 Lorsque $p$ n'est pas un choix malheureux, on voit bien que $PGCD(U_p,V_p)$ et $(PGCD(U,V))_p$ sont de même degré et sont des polynômes associés dans $\mathbb{Z}/p\mathbb{Z}[X]$, c'est-à-dire égaux à un facteur multiplicatif près de $\mathbb{Z}/p\mathbb{Z}$. \\
 
-Une conséquence directe de ce lemme est la suivante: si $U_p$ et $V_p$ sont premiers entre eux dans un certain $\mathbb{Z}/p\mathbb{Z}[X]$, alors $U$ et $V$ sont premiers entre eux dans $\mathbb{Z}/p\mathbb{Z}[X]$. Il s'agit d'un test assez simple pour vérifier si deux polynômes sont premiers entre eux; il est moins coûteux que si on calculait 
-directement leur PGCD dans $\mathbb{Z}[X]$.
+Une conséquence directe de ce lemme est la suivante: si $U_p$ et $V_p$ sont premiers entre eux dans un certain $\mathbb{Z}/p\mathbb{Z}[X]$, alors $U$ et $V$ sont premiers entre eux dans $\mathbb{Z}[X]$. Il s'agit d'un test assez simple pour vérifier si deux polynômes sont premiers entre eux.
 
 \begin{ex}
 Trouver le PGCD dans $\mathbb{Z}[X]$ de $A=10X^5-16X^4 +14 X^3 -2X +18$ et $B=X^4+2X^3-5X^2-9X+7$. \\

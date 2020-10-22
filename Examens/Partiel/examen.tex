@@ -1,0 +1,192 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{layout}
+\usepackage{fancyhdr}
+
+\newtheorem*{thm}{Théorème}
+\newtheorem{ex}{Exercice}
+\newtheorem*{nota}{Notation}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{rem2}{Remarques}
+\newtheorem{de2}{Définition}
+\newtheorem{pro2}[de2]{Propriété}
+\newtheorem{thm2}[de2]{Théorème}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage{comment}
+
+\title{}
+
+\date{}
+\begin{document}
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+ \fancyfoot{}
+
+ \lhead{ 2020/2021 \\  L3 Mathématiques
+}
+\chead{\textbf{ Calcul formel}\\} 
+ \rhead{ Université de Lorraine \\  }
+
+\newcommand{\lb}{\llbracket}
+\newcommand{\rb}{\rrbracket}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+
+
+\newcommand{\md}[3]{#1\ \equiv \ #2 \! \! \! \! \! \pmod {#3} }
+\newcommand{\nmd}[3]{#1 \not \equiv #2 \! \! \! \! \!  \pmod {#3} }
+\newcommand{\mda}[3]{#1 \equiv #2 \! \!  \pmod {#3} }
+\newcommand{\nmda}[3]{#1 \not \equiv #2 \! \! \pmod {#3} }
+\newcommand{\mo}[2]{#1 \! \! \! \! \! \pmod #2 }
+\newcommand{\moa}[2]{#1 \! \!  \pmod {#2} }
+
+\thispagestyle{fancy}
+
+\begin{center}
+%    \HRule \\[0.6cm]
+    { \huge \bfseries
+    Contrôle continu
+     \\ [0cm] }
+    \HRule \\[0.5cm]
+\end{center}
+
+
+
+
+
+
+\begin{center}
+\textbf{durée : 1 heure}
+\end{center}
+
+
+\begin{ex}(Question de cours)
+Soit $n\in \N$. Montrer qu'on a les équivalences suivantes : 
+\begin{enumerate}
+\item $n$ est premier,
+
+\item $\Z/n\Z$ est intègre,
+
+\item $\Z/n\Z$ est un corps.
+\end{enumerate}
+\end{ex}
+
+\begin{ex}\label{eq_modulaire}
+Résoudre le système (S) \[\left\{\begin{aligned}x &\equiv 1[5]\\ 
+x &\equiv  2 [29],\end{aligned}\right.\] d'inconnue $x\in \Z$. 
+\end{ex}
+
+\begin{ex}\label{eq_2_variables}
+\begin{enumerate}
+\item Résoudre l'équation $(E_0)$ $29x+21y=0$, d'inconnue $(x,y)\in \Z^2$.
+
+\item Résoudre l'équation $(E)$ $29x+21y=2$, d'inconnue $(x,y)\in \Z^2$.
+\end{enumerate}
+
+\end{ex}
+
+
+\begin{ex}\label{ordre}
+\begin{itemize}
+\item Quel est l'ordre de $\overline{4}$ dans $((\Z/17\Z)^\times,.)$ ?
+
+
+\end{itemize}
+\end{ex}
+
+
+
+
+
+%\begin{ex}\label{ideal}
+%Soient $a,b\in \Z$. Montrer que $a\Z+b\Z$ est un idéal de $\Z$.
+%\end{ex}
+
+
+
+\begin{ex}\label{nombres_parfaits}(Nombres parfaits. Un théorème d'Euclide)\
+
+Un entier $n$ est dit \textbf{parfait} si $n \geqslant 2$ et si $n$ est égal à la somme de ses diviseurs positifs autres que lui-même. Par exemple, $6$ est parfait car $6=1+2+3$. \\
+ \\
+Soit $n\geqslant 2$ un entier. Notons $\sigma(n)$ la somme de tous les diviseurs positifs de $n$, de sorte que $n$ est parfait si et seulement si $\sigma(n)=2n$.
+\begin{itemize}
+\item[$1.$]\begin{itemize}
+\item[$a)$] Montrer que $n$ est premier si et seulement si $\sigma(n)=n+1$.
+\item[$b)$] Montrer que pour tout $r \in \mathbb{N}^*$, $\sigma(2^r)=2^{r+1}-1$.
+
+\item[$c)$] Pour $a\in \N$, on note $D(a)$ l'ensemble de ses diviseurs positifs.  Soient $m,n\in \N$. On suppose que $m$ et $n$ sont premiers entre eux. Montrer que $D(mn)=D(m)D(n)$ (:=$\{xy|x\in D(m),y\in D(n)\})$.
+
+\item[$d)$] Montrer que   $\sigma(mn)=\sigma(m)\sigma(n)$.
+\end{itemize}
+\item[$2.$] Soit $p\in \N^*$. On admet que  si $2^p-1$ est premier, alors $p$ est premier. Montrer le résultat suivant, appelé théorème d'Euclide: si le nombre $q=2^p-1$ est premier, le nombre
+$$ n=2^{p-1}(2^p-1) $$
+est parfait.
+\end{itemize}
+\end{ex}
+
+
+\paragraph{Correction}
+
+Exercice~\ref{eq_modulaire}
+
+Comme $5$ et $29$ sont premiers entre eux, $\phi:\Z/145\Z\rightarrow \Z/5\Z\times \Z/29\Z$ définie par $\phi(x\mathrm{\ mod\ }145)=(x\mathrm{\ mod\ }5, x\mathrm{\ mod\ }29)$, pour $x\in \Z$ est bien définie et est un isomorphisme. Soit $x\in\Z$. Alors $x$ est solution de $(S)$ si et seulement si $\phi(x\mathrm{\ mod\ }145)=(1\mathrm{\ mod\ }5, 2\mathrm{\ mod\ }29)$. On en déduit que $(S)$ admet une unique solution modulo $145$. De plus, on a $5.6-29=1=30-29$ donc $\phi(30\mathrm{\ mod\ }145)=(0\mathrm{\ mod\ }5,1\mathrm{\ mod\ }29)$ et  $\phi(-29\mathrm{\ mod\ }145)=(1\mathrm{\ mod\ }5,0\mathrm{\ mod\ }29)$. On a donc $\phi^{-1}(1\mathrm{\ mod\ }5,2\mathrm{\ mod\ }29)=\phi^{-1}\big((1\mathrm{\ mod\ }5,0\mathrm{\ mod\ }29)\big)+2\phi^{-1}\big((0\mathrm{\ mod\ }5,1\mathrm{\ mod\ }29)\big)=-29+2.30\mathrm{\ mod\ 145}=31\mathrm{\ mod\ }145$. L'ensemble des solutions de $(S)$ est donc $\{31+145k|k\in \Z\}$.
+
+
+Exercice~\ref{eq_2_variables}
+
+Soit $(x,y)\in \Z^2$. Supposons que $(x,y)$ est solution de $(E_0)$. Alors $29x+21y=0$ donc $29x=-21y$. On en déduit que $29$ divise $21y$. Comme $29\wedge 21=1$, on en déduit (par l'algorithme de Gauss) que $29$ divise $y$. On a donc $y=29k$, pour un certain $k\in \Z$. On a alors $29x=-21.29 k$ donc $x=-21k$. Réciproquement, si $k\in \Z$, $(-21k,29k)$ est solution de $(E_0)$. On en déduit que l'ensemble des solutions de $(E_0)$ est \[\{(-21k,29k)|\ k\in \Z\}.\]
+
+Commençons par trouver $x_0,y_0\in \Z$ tels que $29x_0+21y_0=1$. On utilise l'algorithme d'Euclide étendu. On a $29=21+8$, $21=8.2+5$, $8=5+3$, $5=3+2$, $3=2+1$. On a donc \[ \begin{aligned} 1 &=& 3-2=3-(5-3)=2.3-5\\
+&=& 2.(8-5)-5= 2.8-3.5\\ &=& 2.8-3.(21-2.8)\\ 
+&=& 8.8-3.21=8.(29-21)-3.21=8.29-11.21.\end{aligned}\] On a donc $(2.8).29-(2.11).21=16.29-22.21=2.1=2$ (en fait dans l'algorithme d'Euclide on aurait pu s'arêter à $5-3=2$ puis remonter pour obtenir une solution, sans avoir à multiplier par $2$).
+
+On pose $x_0=16$ et $y_0=-22$. Soit $(x,y)\in \Z^2$. Alors $(x,y)$ est solution de E si et seulement si $29(x-x_0)+21(y-y_0)=0$, si et seulement si $(x-x_0,y-y_0)$ est solution de $(E_0)$ si et seulement si il existe $k\in \Z$ tel que $x=x_0-21k$ et $y=y_0+29k$. L'ensemble des solutions de $(E)$ est donc \[(16-21k,-22+29 k)| k\in \Z\}.\] 
+
+
+
+Exercice~\ref{ordre}
+
+On a $\overline{4}^2=\overline{-1}$ donc $\overline{4}^4=\overline{1}$. On en déduit que l'ordre de $\overline{4}$ divise $4$. Comme $\overline{4}^2\neq \overline{1}$, on en déduit que l'ordre de $\overline{4}$ est $4$.
+
+\begin{comment}
+Exercice~\ref{ideal}
+
+Soit $I=\Z a+\Z b$. Alors $0\in I$ car $0=0 a+0b$. 
+
+Soient $x,y\in I$. Écrivons $x=ma+nb$ et $y=m'a+n'b$, où $m,m',n,n'\in \Z$. Alors $x+y=(m+m')a+(n+n')b\in I$ car $m+m',n+n'\in \Z$. De plus, $-x=(-m)a+(-n)b\in I$, donc $I$ est un sous-groupe de $\Z$.  Soit $k\in \Z$. Alors $kx=(km)a+(kn)b$, et $km,kn\in \Z$, donc $kx\in I$, donc $I$ est un idéal de $\Z$.
+\end{comment}
+
+
+
+Exercice~\ref{nombres_parfaits}
+
+(a) Si $n$ est premier, ses diviseurs positifs sont $1$ et $n$ donc $\sigma(n)=n+1$.
+
+(b) Les diviseurs positifs de $2^r$ sont les $2^k$ tels que $k\in \llbracket 0,r\rrbracket$. On a donc $\sigma(2^r)=\sum_{k=0}^r 2^k=2^{r+1}-1$.
+
+(c,d) Si $x\in \N$, on note $D(x)$ l'ensemble de ses diviseurs positifs. Écrivons les décompositions en facteurs premiers de $m$ et de $n$ : $m=p_1^{\alpha_1}\ldots p_k^{\alpha_k}$, $n=q_1^{\beta_1}\ldots q_\ell^{\beta_\ell}$ où $k,\ell$ sont des entiers positifs, les $p_i,q_i$ sont des nombres premiers distincts (ce qui est possible car $m$ et $n$ sont premiers entre eux) et les $\alpha_i,\beta_i$ sont des entiers strictement positifs. Alors \[D(mn)=\{p_1^{\alpha_1'}\ldots p_k^{\alpha_k'} q_1^{\beta_1}\ldots q_\ell^{\beta_\ell'}| 0\leq \alpha_i'\leq \alpha_i, 0\leq \beta_j\leq \beta_j',\forall (i,j)\in \llbracket 1,k\rrbracket\times \llbracket 1,\ell\rrbracket\}.\] On en déduit que $D(mn)=D(m).D(n)$. On a donc $\sigma(mn)=\sum_{d\in D(m),d'\in D(n)} dd'=\sum_{d\in D(m)} d\sum_{d'\in D(n)} d'=\sigma(m)\sigma(n)$, ce qu'il fallait démontrer.
+
+2) $2^p-1$ est impair donc $2^{p-1}$ et $2^p-1$ sont premiers entre eux. On a donc $\sigma(n)=\sigma(2^{p-1})\sigma(2^p-1)=(2^p-1).2^p=2.2^{p-1}(2^p-1)=2n$ d'après les questions précédentes donc $n$ est parfait.
+
+
+\end{document}

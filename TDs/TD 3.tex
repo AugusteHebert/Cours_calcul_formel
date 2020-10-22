@@ -149,6 +149,23 @@ Un bateau de pirates s'empare d'un butin en pièces d'or. Les $17$ pirates déci
 
 
 
+
+\begin{ex}\label{test_Fermat}(test de Fermat)\
+Soit $n \in \N_{\geq 2}$. Montrer que l'on a les deux possibilités suivantes : \begin{itemize}
+\item pour tout $a\in (\Z/n\Z)^\times$,  $a^{n-1}=\overline{1}$,
+
+\item $|\{a\in \Z/n\Z|a^{n-1}\neq 1\}|\geq \frac{n}{2}$. (on pourra utiliser le théorème de Lagrange à un sous-groupe bien choisi de $(\Z/n\Z)^\times$).
+\end{itemize}
+
+\end{ex}
+
+
+\
+
+
+
+
+
 \begin{ex}\label{non_isomorphisme}
 Soit $p\in \mathbb{P}$. Montrer que $\Z/p^2\Z$ n'est pas isomorphe à $\Z/p\Z\times \Z/p\Z$ en tant qu'anneau (on pourra par exemple considérer l'ensemble des éléments nilpotents de ces deux anneaux). 
 \end{ex}
@@ -167,7 +184,9 @@ Soit $p\in \mathbb{P}$. Montrer que $\Z/p^2\Z$ n'est pas isomorphe à $\Z/p\Z\ti
 \end{itemize}
 \end{ex}
 
-
+\begin{rem}
+Le résultat ci-dessus est un cas particulier du théorème de Dirichlet : pour tout $a,b\in \N^*$ tels que $a\wedge b=1$, l'ensemble des nombres premiers de la forme $an+b$ est infini, avec $n\in \N$. La preuve donnée par Dirichlet en 1838 utilise de l'analyse complexe.
+\end{rem}
 
 \
 
@@ -271,12 +290,21 @@ Soient $A$ la somme des chiffres de $4444^{4444}$ (écrit dans le système déci
 
 \
 
+
 \paragraph{Correction}
+
+
+
+
 
 
 Exercice~\ref{Critere_divisibilite}
 
 On a $10\equiv 1[3]$ donc pour tout $k\in \N$, $10^k\equiv 1[3]$, d'où le résultat.
+
+
+
+
 
 
 
@@ -300,6 +328,11 @@ On a $2^2=4\not \equiv 1[9]$ et $2^3=8\equiv -1[9]$ donc $2\mathrm{\ mod\ }9\in 
 Exercice~\ref{cuisinier_pirates}
 
 Soit $n$ le nombre de pièces. On a $n\equiv 3[4]$, $n\equiv 10[11]$ et $n\equiv 6[17]$. Cherchons le reste $r$ de $n$ dans la division euclidienne par $748=4\times 11\times 17$. On cherche $r$ sous la forme $r=\nu_1+17\nu_2+17\times 11 \nu_3$, où $\nu_1\in \llbracket 0,16\rrbracket$, $\nu_2\in \llbracket 0,10\rrbracket$ et $\nu_3\in \llbracket 0,3\rrbracket$. On a $\nu_1=6$. On a $\nu_1+17\nu_2=6+17\nu_2\equiv 10[11]$, donc $17\nu_2\equiv 6\nu_2\equiv 4[11]$. On a donc $ \nu_2\equiv 6^{-1} .4[11]$. De plus $2\times 6\equiv 1[11]$, donc $\nu_2\equiv 8[11]$ donc $\nu_2=8$. On a $\nu_1+17\nu_2+17.11.\nu_3=142.187\nu_3\equiv 3[4]$, donc $2-\nu_3\equiv 3[4]$, donc $\nu_3\equiv 3[4]$ donc $\nu_3=3$. Ainsi $r=703$. On a donc $n\geq 703$. 
+
+
+Exercice~\ref{test_Fermat}
+
+Supposons que $G:=\{a\in (\Z/n\Z)^\times\ |a^{n-1}=\overline{1}\}\neq (\Z/n\Z)^\times$. Alors $G$ est un sous-groupe strict de $(\Z/n\Z)^\times$. Par le théorème de Lagrange, $|G|\leq \frac{1}{2}|(\Z/n\Z)^\times|\leq \frac{n}{2}$, d'où le résultat.
 
 
 Exercice~\ref{exemple_Dirichlet}
@@ -356,6 +389,47 @@ Exercice~\ref{Somme_chiffres}. Soit $x=4444^{4444}$. Alors $\log_{10}(x)=4444\lo
 
 Dans $\Z/9\Z$, $\overline{4444}=\overline{7}$. On a $\overline{7}^2=\overline{4}$ donc $\overline{7}^3=\overline{7}^2.\overline{7}=\overline{4}.\overline{7}=\overline{28}=\overline{1}$. On en déduit que $\overline{7}$ est d'ordre $3$ dans $\Z/9\Z$. Comme $4444\equiv 1[3]$, on en déduit que $\overline{4444}^{4444}=\overline{7}^{4444}=\overline{7}$. Donc $\overline{C}=\overline{x}=\overline{7}$. Comme $C\leq 13$, $C=7$.
 
+\begin{comment}
+
+
+
+\paragraph{Correction DM}
+
+
+\eqref{phiMoinsUn_Un} On a $\phi\big((1\mathrm{\ mod\ }115)\big)=(1\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23)$ donc $\phi^{-1}\big((1\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23)\big)=1\mathrm{\ mod\ }115$. Comme $\phi^{-1}$ est un morphisme d'anneaux, on a \[\phi^{-1}\big(-(1\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23)\big)=-\phi^{-1}\big((1\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23)\big)=-1\mathrm{\ mod\ }115.\]
+
+\eqref{phiMoinsUn_Un_moinUn} On a $23\times 2-9\times 5=1$, donc $\phi(46\mathrm{\ mod\ }115)=(1\mathrm{\ mod\ } 5,0\mathrm{\ mod\ })$ et $\phi(-45\mathrm{\ mod\ }115)=(0\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23)$. Ainsi $\phi^{-1}\big((1\mathrm{\ mod\ }5,0 \mathrm{\ mod \ }23)\big)=46\mathrm{\ mod\ }115$ et $\phi^{-1}\big((0\mathrm{\ mod\ }5,1 \mathrm{\ mod \ }23)\big)=-45\mathrm{\ mod\ }115=70\mathrm{\ mod\ }115$. On a donc $\phi^{-1}\big((1\mathrm{\ mod\ }5,-1\mathrm{\ mod\ }23)\big)=46-(-45)\mathrm{\ mod\ }115=91\mathrm{\ mod\ }115$.
+
+Cherchons maintenant $\phi^{-1}\big((1\mathrm{\ mod\ }5,-1\mathrm{\ mod\ }23)\big)$ à l'aide de l'algorithme de Garner. Soit $x\in \llbracket 0,114\rrbracket$ tel que $\phi(x\mathrm{\ mod\ }115)=(1\mathrm{\ mod\ }5,-1\mathrm{\ mod\ }23)$. On cherche $x$ sous la forme $n_1+23 n_2$, où $n_1\in \llbracket 0,22\rrbracket$ et $n_2\in \llbracket 0,4\rrbracket$. On a alors $x\equiv -1\equiv 22[23]$, donc $n_1=22$. On a $x\equiv 1[5]$, donc $22+23n_1\equiv 1[5]$, d'où $23n_1\equiv 4[5]$ et donc $3 n_1\equiv 4[5]$. De plus dans $\Z/5\Z$, $\overline{3}\times \overline{2}=\overline{1}$, donc $\overline{n_1}=\overline{4}(\overline{3})^{-1}=\overline{8}$, donc $n_2=3$. On a donc $x=22+3\times 23=91$.  On retrouve que $\phi^{-1}\big((1\mathrm{\ mod\ }5,-1\mathrm{\ mod\ }23)\big)=91\mathrm{\ mod\ }115$. (On aurait aussi pu chercher $x$ sous la forme $n_1+5n_2$, avec $n_2\in  \llbracket 0,22\rrbracket$, mais les calculs auraient été légèrement plus compliqués, car il aurait fallu inverser un élément de $\Z/23\Z$ et non un élément de $\Z/5\Z$.) 
+
+On a $(-1\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23)=-(1\mathrm{\ mod\ }5,-1\mathrm{\ mod\ }23)$ donc $\phi^{-1}\big((-1\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23)\big)=-91 \mathrm{\ mod\ }115=24\mathrm{\ mod\ }115$.
+
+\eqref{Racine_carrées_phiMoinsUn}  Soit $\overline{x}\in \Z/115\Z$.  Comme $\phi$ est un isomorphisme, $\phi$ est bijectif et  $\overline{x}^2=\overline{1}$ si et seulement $\phi(\overline{x}^2)=\phi(\overline{1})$. Donc $\overline{x}^2=\overline{1}$ si et seulement si $(x^2\mathrm{\ mod\ }5,x^2\mathrm{\ mod\ }23)$ si et seulement si $\phi(\overline{x})\in \{y\in \Z/5\Z| y^2=\overline{1}\}\times  \{y\in \Z/23\Z|y^2=\overline{1}\}$.
+
+\eqref{Carré_Fp} Soit $x\in \Z/p\Z$ tel que $x^2=\overline{1}$. Alors $(x^2-\overline{1})=0=(x-\overline{1})(x+\overline{1})=0$, donc $x\in \{\overline{1},\overline{-1})$. On en déduit que \[\begin{aligned}\{x\in \Z/115\Z|x^2=\overline{1}\} &=\phi^{-1}\big(\{1\mathrm{\ mod\ }5,-1\mathrm{\ mod\ }5\}\times\{1\mathrm{\ mod\ }23,-1\mathrm{\ mod\ }23\}\big)\\ &=\phi^{-1}(\{\pm(1\mathrm{\ mod\ }5,1\mathrm{\ mod\ }23),\pm(1\mathrm{\ mod\ }5,-1\mathrm{\ mod\ }23)\}\big)\\
+&= \{\pm 1\mathrm{\ mod\ }115,\pm 91\mathrm{\ mod\ }115\}\end{aligned}.\]
+
+\eqref{Question_integrité} Si $k\geq 2$, $\overline{p}\overline{p}^{k-1}=\overline{0}$ donc $\Z/p^k\Z$ n'est pas intègre. Si $k=1$, on  a vu en cours que $\Z/p\Z$ est intègre.
+
+\eqref{itPGCD} Soit $d=(x+1)\wedge (x-1)$. Alors $d$ divise $x+1-(x-1)=2$.
+
+\eqref{Determination_Pgcd} Soit $x\in \Z$. Alors $(x+1)\wedge (x-1)=2$ si et seulement si $x+1$ et $x-1$ sont divisibles par $2$, si et seulement si $x$ est impair. Donc $\{x\in \Z|\ (x+1)\wedge (x-1)=2\}$ est l'ensemble des nombres impairs et $\{x\in \Z|\ (x+1)\wedge (x-1)=1\}$ est l'ensemble des nombres pairs.
+
+
+\eqref{Racine_carrée_pk} Écrivons les décompositions de $x+1$ et de $x-1$ en produits de facteurs premiers. On a $x+1=\epsilon p_1^{\alpha_1}\ldots p_\ell^{\alpha_\ell}$ et $x-1=\epsilon' p_1^{\alpha_1'}\ldots p_\ell^{\alpha_\ell'}$ où $\epsilon,\epsilon'\in \{-1,1\}$, $p_1,\ldots,p_\ell$ sont des nombres premiers distincts, $\alpha_1,\ldots,\alpha_\ell,\alpha_1',\ldots,\alpha_\ell'\in \N$ et $p_1=p$. Alors on a vu en cours que $(x+1)\wedge (x-1)=p_1^{\beta_1}\ldots p_\ell^{\beta_\ell}$, où $\beta_i=\min (\alpha_i,\alpha'_i)$, pour tout $i\in \llbracket 1,\ell\rrbracket$. Par la question~\ref{itPGCD}, on en déduit que $\beta_1=0$, donc $\alpha_1$ ou $\alpha_1'$ est nul. De plus, $p^k$ divise $(x-1)(x+1)$, donc $\alpha_1+\alpha_1'\geq k$. On en déduit que $\alpha_1\geq k$ ou que $\alpha_1'\geq k$, c'est à dire que $p^k$ divise $x+1$ ou $p^k$ divise $x-1$.  
+
+Soit maintenant $\overline{x}\in \Z/p^k\Z$ tel que $\overline{x}^2=\overline{1}$. Alors $p^k$ divise $x^2-1$ donc $p^k$ divise $x-1$ ou $p^k$ divise $x+1$, donc $\overline{x+1}=\overline{0}$ ou $\overline{x-1}=\overline{0}$. Comme $\overline{1}^2=\overline{1}$ et $\overline{-1}^2=\overline{1}$, on en déduit que $\{\overline{x}\in \Z/p^k\Z|\overline{x}^2=\overline{1}\}=\{\overline{1},\overline{-1}\}$. 
+
+\eqref{Division_2k} On suppose que $2^k$ divise $x^2-1=(x-1)(x+1)$. Écrivons $x+1$ et $x-1$ comme dans la question précédente, avec $p_1=2$. Alors comme $(x+1)\wedge (x-1)|2$, on a $\beta_1\leq 1$. On en déduit que $\alpha_1$ ou $\alpha_1'\leq 1$. Comme $2^k$ divise $(x-1)(x+1)$, $\alpha_1+\alpha_1'\geq k$ et donc $\alpha_1\geq k-1$ ou $\alpha_1'\geq k-1$ ou de manière équivalente $2^{k-1}$ divise $x-1$ ou $x+1$.
+
+
+
+\eqref{Racine_Carrée_2k} Soit  $\overline{x}\in \Z/2^k\Z$ tel que $\overline{x}^2=\overline{1}$. On peut supposer que $x\in \llbracket 0,2^k-1\rrbracket$.  D'après la question précédente, $2^{k-1}$ divise $x-1$ ou $x+1$. Supposons   que $2^{k-1}$ divise $x+1$. Alors on peut écrire $x+1=2^{k-1} a$, où $a\in \N^*$. Supposons que $a\geq 3$. Alors $x+1\geq 3\times 2^{k-1}=2^k+2^{k-1}$, donc $x\geq 2^k+2^{k-1}-1\geq 2^k$ : c'est absurde, donc $a\in \{1,2\}$, donc $x\in \{2^{k-1}-1,2^k-1\}$. Supposons que $2^{k-1}$ divise $x-1$. Alors on peut écrire $x-1=2^{k-1}a$, où $a\in \N$. De même que précédemment, on montre que $a\leq 1$. On en déduit que $x\in \{ \Z/2^k\Z|\ x^2=1\}=\{\overline{1}, \overline{2^{k-1}-1}, \overline{2^{k-1}+1},\overline{2^k-1}=\overline{1}\}$. Cet ensemble a $4$ éléments.
+
+\eqref{Racine_carrée_cas_général} Soit $\phi:\Z/n\Z\rightarrow \Z/2^\alpha\Z\times \ldots \Z/p_\ell^{\beta_\ell}\Z$ l'isomorphisme chinois. Alors \[E:=\{x\in \Z/n\Z|x^2=\overline{1}\}=\phi^{-1}(\{x\in \Z/2^\alpha\Z| x^2=\overline{1}\}\times\ldots \{x\in \Z/p_\ell^{\beta_\ell}\Z|x^2=1\}).\] Si $i\in \llbracket 1,\ell\rrbracket$, on a vu que $|\{x\in \Z/p_i^{\beta_i}\Z|x^2=1\}|=2$ et $|\{x\in \Z/2^\alpha\Z| x^2=\overline{1}\}\}|=a_\alpha$ où $a_\alpha$ vaut $1$ si $\alpha\leq 1$, $4$ si $\alpha\geq 2$. On a donc $|E|=a_\alpha 2^\ell$. 
+
+
+\end{comment}
 
 
 \end{document}
